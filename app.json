@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "The Truth - Al Haq",
+    "name": "The Truth - Al Haq: Quran, Prayer, Azkar, Hadith",
     "slug": "the-truth-al-haq",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -22,7 +22,30 @@
         "UIAppFonts": [],
         "UIBackgroundModes": [
           "audio"
-        ]
+        ],
+        "CFBundleKeywords": [
+          "Quran",
+          "قرآن",
+          "Coran",
+          "Koran",
+          "prayer times",
+          "Salah",
+          "Namaz",
+          "Azkar",
+          "Dhikr",
+          "Hadith",
+          "Qibla",
+          "Ruqyah",
+          "Tasbih",
+          "Islamic",
+          "Muslim",
+          "Islam",
+          "Adhan",
+          "Dua",
+          "Sunnah",
+          "Hijri"
+        ],
+        "ITSAppUsesNonExemptEncryption": false
       }
     },
     "android": {
