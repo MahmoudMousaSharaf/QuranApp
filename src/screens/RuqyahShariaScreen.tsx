@@ -515,7 +515,13 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
   },
-  verseArabicBig: {\n    fontSize: 22,\n    lineHeight: 40,\n    textAlign: 'center',\n    fontFamily: Platform.OS === 'ios' ? 'GeezaPro' : 'sans-serif',\n  },\n  verseArabic: {
+  verseArabicBig: {
+    fontSize: 22,
+    lineHeight: 40,
+    textAlign: 'center',
+    fontFamily: Platform.OS === 'ios' ? 'GeezaPro' : 'sans-serif',
+  },
+  verseArabic: {
     fontSize: 14,
     lineHeight: 24,
     textAlign: 'center',

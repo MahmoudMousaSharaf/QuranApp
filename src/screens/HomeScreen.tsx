@@ -7,6 +7,8 @@ import {
   StyleSheet,
   StatusBar,
   Dimensions,
+  Share,
+  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LinearGradient } from 'expo-linear-gradient';
@@ -138,6 +140,22 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
               activeOpacity={0.8}
             >
               <Ionicons name={isDark ? 'sunny' : 'moon'} size={18} color="#fff" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                Share.share({
+                  message: appLanguage === 'ar'
+                    ? 'تطبيق القرآن الكريم - اقرأ واستمع وشارك الخير\n\nتحميل: https://github.com/MahmoudMousaSharaf/QuranApp'
+                    : appLanguage === 'ur'
+                    ? 'قرآن کریم ایپ - پڑھیں، سنیں اور خیر شیئر کریں\n\nڈاؤن لوڈ: https://github.com/MahmoudMousaSharaf/QuranApp'
+                    : 'Quran App - Read, Listen & Share the Goodness\n\nDownload: https://github.com/MahmoudMousaSharaf/QuranApp',
+                  title: 'Quran App',
+                });
+              }}
+              style={styles.themeBtn}
+              activeOpacity={0.8}
+            >
+              <Ionicons name="share-social" size={18} color="#fff" />
             </TouchableOpacity>
           </View>
         </View>
