@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import {
   View,
   Text,
@@ -12,14 +12,23 @@ import {
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
-import { Audio, AVPlaybackStatus } from 'expo-av';
 import { useTheme, colors } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useUITranslation } from '../hooks/useUITranslation';
+import { translateText } from '../services/contentTranslator';
+import { playAudio, stopAudio, setPlayStateCallback, isSoundPlaying } from '../services/ruqyahAudio';
 import ruqyahData from '../data/ruqyah_sharia.json';
 
 interface RuqyahShariaScreenProps {
   onBack: () => void;
+}
+
+interface VerseItem {
+  id: number;
+  text_ar: string;
+  text_en: string;
+  reference: string;
+  repetition: number;
 }
 
 const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
@@ -28,12 +37,15 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
   const c = colors[theme];
   const { ui, translateUI } = useUITranslation(appLanguage);
   const isArabicUI = appLanguage === 'ar';
+  const needsTranslation = appLanguage !== 'ar' && appLanguage !== 'en';
 
-  const soundRef = useRef<Audio.Sound | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedSheikh, setSelectedSheikh] = useState(0);
   const [activeTab, setActiveTab] = useState<'verses' | 'supplications'>('verses');
+  const [translatedVerses, setTranslatedVerses] = useState<Record<number, string>>({});
+  const [translatedSupplications, setTranslatedSupplications] = useState<Record<number, string>>({});
+  const translatingRef = useRef(false);
 
   useEffect(() => {
     translateUI([
@@ -50,51 +62,51 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
   }, [appLanguage]);
 
   useEffect(() => {
+    const callback = (playing: boolean) => {
+      setIsPlaying(playing);
+      if (!playing) setIsLoading(false);
+    };
+    setPlayStateCallback(callback);
+    setIsPlaying(isSoundPlaying());
     return () => {
-      if (soundRef.current) {
-        soundRef.current.unloadAsync();
-      }
+      setPlayStateCallback(() => {});
     };
   }, []);
 
-  const setupAudioMode = async () => {
-    try {
-      await Audio.setAudioModeAsync({
-        allowsRecordingIOS: false,
-        staysActiveInBackground: true,
-        playsInSilentModeIOS: true,
-        shouldDuckAndroid: true,
-        playThroughEarpieceAndroid: false,
-      });
-    } catch (e) {
-      console.log('Audio mode setup error:', e);
-    }
-  };
+  useEffect(() => {
+    if (!needsTranslation) return;
+    if (translatingRef.current) return;
+    translatingRef.current = true;
 
-  const handlePlay = async () => {
+    const items = activeTab === 'verses' ? ruqyahData.verses : ruqyahData.supplications;
+    const setFn = activeTab === 'verses' ? setTranslatedVerses : setTranslatedSupplications;
+    const existing = activeTab === 'verses' ? translatedVerses : translatedSupplications;
+
+    (async () => {
+      const newTranslations: Record<number, string> = {};
+      for (const item of items) {
+        if (existing[item.id]) {
+          newTranslations[item.id] = existing[item.id];
+        } else {
+          const translated = await translateText(item.text_en, appLanguage);
+          newTranslations[item.id] = translated;
+        }
+      }
+      setFn(newTranslations);
+      translatingRef.current = false;
+    })();
+  }, [appLanguage, activeTab, needsTranslation]);
+
+  const handlePlay = useCallback(async () => {
     if (isPlaying) {
-      await handleStop();
+      await stopAudio();
       return;
     }
 
     setIsLoading(true);
     try {
-      await setupAudioMode();
-
-      if (soundRef.current) {
-        await soundRef.current.unloadAsync();
-        soundRef.current = null;
-      }
-
       const sheikh = ruqyahData.audio_sources[selectedSheikh];
-      const { sound } = await Audio.Sound.createAsync(
-        { uri: sheikh.url },
-        { shouldPlay: true, isLooping: true },
-        onPlaybackStatusUpdate
-      );
-
-      soundRef.current = sound;
-      setIsPlaying(true);
+      await playAudio(sheikh.url);
     } catch (error) {
       Alert.alert(
         isArabicUI ? 'خطأ' : 'Error',
@@ -106,31 +118,46 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [isPlaying, selectedSheikh, isArabicUI]);
 
-  const handleStop = async () => {
-    if (soundRef.current) {
-      try {
-        await soundRef.current.stopAsync();
-        await soundRef.current.unloadAsync();
-        soundRef.current = null;
-      } catch (e) {
-        console.log('Stop error:', e);
-      }
-    }
-    setIsPlaying(false);
-  };
-
-  const onPlaybackStatusUpdate = (status: AVPlaybackStatus) => {
-    if (!status.isLoaded) {
-      if (status.error) {
-        console.log('Playback error:', status.error);
-        setIsPlaying(false);
-      }
-    }
-  };
+  const handleStop = useCallback(async () => {
+    await stopAudio();
+  }, []);
 
   const sheikh = ruqyahData.audio_sources[selectedSheikh];
+
+  const renderItem = (item: VerseItem, isVerse: boolean) => {
+    const translatedText = isVerse ? translatedVerses[item.id] : translatedSupplications[item.id];
+    const showTranslation = !isArabicUI;
+    const translationText = needsTranslation
+      ? (translatedText || item.text_en)
+      : item.text_en;
+
+    return (
+      <View key={item.id} style={[styles.verseCard, { backgroundColor: c.surface }]}>
+        <View style={styles.verseHeader}>
+          <View style={styles.verseRefBadge}>
+            <Text style={styles.verseRefText}>{item.reference}</Text>
+          </View>
+          {item.repetition > 1 && (
+            <View style={[styles.repBadge, { backgroundColor: c.ayahBg }]}>
+              <Text style={[styles.repText, { color: c.textSecondary }]}>
+                x{item.repetition}
+              </Text>
+            </View>
+          )}
+        </View>
+        <Text style={[styles.verseArabic, { color: c.text }]}>
+          {item.text_ar}
+        </Text>
+        {showTranslation && (
+          <Text style={[styles.verseTranslation, { color: c.textSecondary }]}>
+            {translationText}
+          </Text>
+        )}
+      </View>
+    );
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: c.background }]}>
@@ -299,54 +326,8 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
 
         {/* Content list */}
         {activeTab === 'verses'
-          ? ruqyahData.verses.map((verse) => (
-              <View key={verse.id} style={[styles.verseCard, { backgroundColor: c.surface }]}>
-                <View style={styles.verseHeader}>
-                  <View style={styles.verseRefBadge}>
-                    <Text style={styles.verseRefText}>{verse.reference}</Text>
-                  </View>
-                  {verse.repetition > 1 && (
-                    <View style={[styles.repBadge, { backgroundColor: c.ayahBg }]}>
-                      <Text style={[styles.repText, { color: c.textSecondary }]}>
-                        x{verse.repetition}
-                      </Text>
-                    </View>
-                  )}
-                </View>
-                <Text style={[styles.verseArabic, { color: c.text }]}>
-                  {verse.text_ar}
-                </Text>
-                {!isArabicUI && (
-                  <Text style={[styles.verseTranslation, { color: c.textSecondary }]}>
-                    {verse.text_en}
-                  </Text>
-                )}
-              </View>
-            ))
-          : ruqyahData.supplications.map((dua) => (
-              <View key={dua.id} style={[styles.verseCard, { backgroundColor: c.surface }]}>
-                <View style={styles.verseHeader}>
-                  <View style={styles.verseRefBadge}>
-                    <Text style={styles.verseRefText}>{dua.reference}</Text>
-                  </View>
-                  {dua.repetition > 1 && (
-                    <View style={[styles.repBadge, { backgroundColor: c.ayahBg }]}>
-                      <Text style={[styles.repText, { color: c.textSecondary }]}>
-                        x{dua.repetition}
-                      </Text>
-                    </View>
-                  )}
-                </View>
-                <Text style={[styles.verseArabic, { color: c.text }]}>
-                  {dua.text_ar}
-                </Text>
-                {!isArabicUI && (
-                  <Text style={[styles.verseTranslation, { color: c.textSecondary }]}>
-                    {dua.text_en}
-                  </Text>
-                )}
-              </View>
-            ))}
+          ? ruqyahData.verses.map((verse) => renderItem(verse, true))
+          : ruqyahData.supplications.map((dua) => renderItem(dua, false))}
       </ScrollView>
     </View>
   );
@@ -530,8 +511,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   verseArabic: {
-    fontSize: 20,
-    lineHeight: 36,
+    fontSize: 22,
+    lineHeight: 40,
     textAlign: 'center',
     fontFamily: Platform.OS === 'ios' ? 'GeezaPro' : 'sans-serif',
     marginBottom: 8,

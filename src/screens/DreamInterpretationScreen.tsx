@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme, colors } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useUITranslation } from '../hooks/useUITranslation';
+import { translateText } from '../services/contentTranslator';
 
 interface DreamInterpretationScreenProps {
   onBack: () => void;
@@ -27,6 +28,9 @@ const DreamInterpretationScreen: React.FC<DreamInterpretationScreenProps> = ({ o
   const { t, appLanguage } = useLanguage();
   const c = colors[theme];
   const { ui, translateUI } = useUITranslation(appLanguage);
+  const [translatedHadith, setTranslatedHadith] = useState<string>('');
+
+  const HADITH_EN = 'The Prophet (peace be upon him) said: "When the time draws near, the dream of a believer will hardly be false, and the truest of you in speech are the truest in dreams." (Sahih Bukhari)';
 
   useEffect(() => {
     translateUI([
@@ -36,6 +40,19 @@ const DreamInterpretationScreen: React.FC<DreamInterpretationScreenProps> = ({ o
       t('dreamButton'),
       t('dreamNote'),
     ]);
+  }, [appLanguage]);
+
+  useEffect(() => {
+    if (appLanguage === 'ar' || appLanguage === 'ur' || appLanguage === 'en') {
+      setTranslatedHadith('');
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      const translated = await translateText(HADITH_EN, appLanguage);
+      if (!cancelled) setTranslatedHadith(translated);
+    })();
+    return () => { cancelled = true; };
   }, [appLanguage]);
 
   const openTelegram = async () => {
@@ -152,7 +169,7 @@ const DreamInterpretationScreen: React.FC<DreamInterpretationScreenProps> = ({ o
               ? 'عَنْ أَبِي هُرَيْرَةَ رَضِيَ اللَّهُ عَنْهُ قَالَ: قَالَ رَسُولُ اللَّهِ ﷺ: «إِذَا اقْتَرَبَ الزَّمَانُ لَمْ تَكَدْ تَكْذِبْ رُؤْيَا الْمُؤْمِنِ، وَأَصْدَقُكُمْ رُؤْيَا أَصْدَقُكُمْ حَدِيثًا»'
               : appLanguage === 'ur'
               ? 'حضرت ابو ہریرہ رضی اللہ عنہ سے روایت ہے کہ رسول اللہ ﷺ نے فرمایا: «جب قیامت قریب ہوگا تو مومن کا خواب جھوٹا نہ ہوگا، اور سب سے سچی خواب وہ ہے جو سب سے سچا بولنے والا ہے»'
-              : 'The Prophet ﷺ said: "When the time draws near, the dream of a believer will hardly be false, and the truest of you in speech are the truest in dreams." (Sahih Bukhari)'}
+              : translatedHadith || HADITH_EN}
           </Text>
         </View>
       </ScrollView>

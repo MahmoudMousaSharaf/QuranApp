@@ -171,11 +171,15 @@
 - **Repo:** https://github.com/MahmoudMousaSharaf/QuranApp
 - **Secrets set:**
   - `UPDATE_CODE_SIGNING_PRIVATE_KEY` — OTA update signing key (encrypted via libsodium)
-- **Still needed:**
-  - `EXPO_TOKEN` — User needs to create Expo access token and add as GitHub Secret
-  - Run `eas init` to get project ID for app.json updates URL
+  - `EXPO_TOKEN` — Expo access token for GitHub Actions OTA updates
+- **Expo Project ID:** `2dbd2e64-7e69-44c1-923c-36c25a11a44d`
+- **OTA Updates:** Fully configured with code signing, GitHub Actions workflow, and security docs
+
+### 14. Ruqyah Sharia Fixes ✅
+- **Audio fix:** Replaced non-working Shuraim URL with Maher Al-Muaiqly from archive.org
+- **Background audio:** Created global audio service (`src/services/ruqyahAudio.ts`) — audio persists when navigating back or app goes to background
+- **Translation:** Ruqyah verses and supplications now translate to all 16 languages (big Arabic text + small translation below)
+- **Dream hadith:** Translated to all languages (was only Arabic/Urdu/English before)
 
 ## Pending Tasks
-- Add `EXPO_TOKEN` to GitHub Secrets (from https://expo.dev/accounts/[user]/settings/access-tokens)
-- Run `eas init` to link project and get project ID for app.json
 - Test all changes on Expo server with physical devices
