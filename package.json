@@ -22,6 +22,7 @@
     "adhan": "^4.4.4",
     "expo": "~54.0.35",
     "expo-asset": "~12.0.13",
+    "expo-audio": "~1.1.1",
     "expo-av": "~16.0.8",
     "expo-clipboard": "~8.0.8",
     "expo-document-picker": "~14.0.8",

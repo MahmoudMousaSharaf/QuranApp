@@ -59,7 +59,8 @@
             "./assets/sounds/adhan_fajr.mp3"
           ]
         }
-      ]
+      ],
+      "expo-audio"
     ],
     "scheme": "alhaq",
     "updates": {

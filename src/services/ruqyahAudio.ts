@@ -1,24 +1,24 @@
-import { Audio, AVPlaybackStatus } from 'expo-av';
+import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync } from 'expo-audio';
 import { AppState, AppStateStatus } from 'react-native';
 
-let soundInstance: Audio.Sound | null = null;
-let isInitialized = false;
+type Player = ReturnType<typeof createAudioPlayer>;
+
+let player: Player | null = null;
 let currentUrl: string | null = null;
 let playStateCallback: ((isPlaying: boolean) => void) | null = null;
 let wasPlayingBeforeInterruption = false;
 
 async function ensureAudioMode() {
   try {
-    await Audio.setAudioModeAsync({
+    await setIsAudioActiveAsync(true);
+    await setAudioModeAsync({
       allowsRecordingIOS: false,
-      staysActiveInBackground: true,
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
       playThroughEarpieceAndroid: false,
       interruptionModeAndroid: 1,
       interruptionModeIOS: 1,
     });
-    isInitialized = true;
   } catch (e) {
     console.log('Audio mode setup error:', e);
   }
@@ -34,11 +34,10 @@ function setupAppStateListener() {
 async function handleAppStateChange(nextAppState: AppStateStatus) {
   if (nextAppState === 'active') {
     await ensureAudioMode();
-    if (wasPlayingBeforeInterruption && soundInstance) {
+    if (wasPlayingBeforeInterruption && player) {
       try {
-        const status = await soundInstance.getStatusAsync();
-        if (status.isLoaded && !status.isPlaying) {
-          await soundInstance.playAsync();
+        if (!player.playing) {
+          player.play();
         }
       } catch (e) {
         console.log('Resume after background error:', e);
@@ -46,15 +45,8 @@ async function handleAppStateChange(nextAppState: AppStateStatus) {
       wasPlayingBeforeInterruption = false;
     }
   } else if (nextAppState === 'background' || nextAppState === 'inactive') {
-    if (soundInstance) {
-      try {
-        const status = await soundInstance.getStatusAsync();
-        if (status.isLoaded && status.isPlaying) {
-          wasPlayingBeforeInterruption = true;
-        }
-      } catch (e) {
-        console.log('Background state check error:', e);
-      }
+    if (player) {
+      wasPlayingBeforeInterruption = player.playing;
     }
   }
 }
@@ -68,50 +60,42 @@ export function getCurrentUrl(): string | null {
 }
 
 export function isSoundPlaying(): boolean {
-  return soundInstance !== null;
+  return player !== null && player.playing;
 }
 
 export async function playAudio(url: string): Promise<void> {
   await ensureAudioMode();
   setupAppStateListener();
 
-  if (soundInstance) {
+  if (player) {
     if (currentUrl === url) {
-      await soundInstance.playAsync();
+      player.play();
       return;
     }
-    await soundInstance.stopAsync();
-    await soundInstance.unloadAsync();
-    soundInstance = null;
+    player.pause();
+    player.replace(url);
+    currentUrl = url;
+    player.play();
+    if (playStateCallback) playStateCallback(true);
+    return;
   }
 
-  const { sound } = await Audio.Sound.createAsync(
-    { uri: url },
-    { shouldPlay: true, isLooping: true },
-    (status: AVPlaybackStatus) => {
-      if (!status.isLoaded && status.error) {
-        console.log('Playback error:', status.error);
-        soundInstance = null;
-        currentUrl = null;
-        if (playStateCallback) playStateCallback(false);
-      }
-    }
-  );
-
-  soundInstance = sound;
+  player = createAudioPlayer(url, { keepAudioSessionActive: true });
+  player.loop = true;
   currentUrl = url;
+  player.play();
   if (playStateCallback) playStateCallback(true);
 }
 
 export async function stopAudio(): Promise<void> {
-  if (soundInstance) {
+  if (player) {
     try {
-      await soundInstance.stopAsync();
-      await soundInstance.unloadAsync();
+      player.pause();
+      player.remove();
     } catch (e) {
       console.log('Stop error:', e);
     }
-    soundInstance = null;
+    player = null;
     currentUrl = null;
   }
   wasPlayingBeforeInterruption = false;
@@ -119,13 +103,16 @@ export async function stopAudio(): Promise<void> {
     appStateSubscription.remove();
     appStateSubscription = null;
   }
+  try {
+    await setIsAudioActiveAsync(false);
+  } catch (e) {}
   if (playStateCallback) playStateCallback(false);
 }
 
 export async function pauseAudio(): Promise<void> {
-  if (soundInstance) {
+  if (player) {
     try {
-      await soundInstance.pauseAsync();
+      player.pause();
     } catch (e) {
       console.log('Pause error:', e);
     }

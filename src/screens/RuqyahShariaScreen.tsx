@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
   Text,
@@ -45,7 +45,7 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
   const [activeTab, setActiveTab] = useState<'verses' | 'supplications'>('verses');
   const [translatedVerses, setTranslatedVerses] = useState<Record<number, string>>({});
   const [translatedSupplications, setTranslatedSupplications] = useState<Record<number, string>>({});
-  const translatingRef = useRef(false);
+  const [translating, setTranslating] = useState(false);
 
   useEffect(() => {
     translateUI([
@@ -74,27 +74,39 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
   }, []);
 
   useEffect(() => {
-    if (!needsTranslation) return;
-    if (translatingRef.current) return;
-    translatingRef.current = true;
+    if (!needsTranslation) {
+      setTranslatedVerses({});
+      setTranslatedSupplications({});
+      return;
+    }
+
+    let cancelled = false;
+    setTranslating(true);
 
     const items = activeTab === 'verses' ? ruqyahData.verses : ruqyahData.supplications;
-    const setFn = activeTab === 'verses' ? setTranslatedVerses : setTranslatedSupplications;
-    const existing = activeTab === 'verses' ? translatedVerses : translatedSupplications;
 
     (async () => {
       const newTranslations: Record<number, string> = {};
       for (const item of items) {
-        if (existing[item.id]) {
-          newTranslations[item.id] = existing[item.id];
-        } else {
+        if (cancelled) return;
+        try {
           const translated = await translateText(item.text_en, appLanguage);
+          if (cancelled) return;
           newTranslations[item.id] = translated;
+        } catch (e) {
+          newTranslations[item.id] = item.text_en;
         }
       }
-      setFn(newTranslations);
-      translatingRef.current = false;
+      if (cancelled) return;
+      if (activeTab === 'verses') {
+        setTranslatedVerses(newTranslations);
+      } else {
+        setTranslatedSupplications(newTranslations);
+      }
+      setTranslating(false);
     })();
+
+    return () => { cancelled = true; };
   }, [appLanguage, activeTab, needsTranslation]);
 
   const handlePlay = useCallback(async () => {
