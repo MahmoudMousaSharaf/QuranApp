@@ -91,23 +91,6 @@
           "androidAppId": "ca-app-pub-7095033876130680~2642429023",
           "iosAppId": "ca-app-pub-7095033876130680~2642429023"
         }
-      ],
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 36,
-            "targetSdkVersion": 36,
-            "minSdkVersion": 24,
-            "gradleProperties": {
-              "android.useAndroidX": "true",
-              "android.enableJetifier": "true"
-            }
-          },
-          "ios": {
-            "deploymentTarget": "15.1"
-          }
-        }
       ]
     ],
     "scheme": "alhaq",

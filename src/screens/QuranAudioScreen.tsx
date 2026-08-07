@@ -19,12 +19,12 @@ import { fetchSurah } from '../services/api';
 import { translateText } from '../services/contentTranslator';
 import { getQuranTranslation } from '../services/quranTranslations';
 import {
-  playAudioWithStatus,
+  playAudio,
   stopAudio,
   pauseAudio,
   resumeAudio,
-  replaceAudio,
   setPlayStateCallback,
+  isSoundPlaying,
   getCurrentOwner,
 } from '../services/ruqyahAudio';
 
@@ -34,22 +34,20 @@ interface QuranAudioScreenProps {
   onSelectSurah: (number: number) => void;
 }
 
-// Free reciters from everyayah.com (no API key needed, free to use)
+// Full surah audio from Islamic Network CDN (free, no API key)
+// Format: https://cdn.islamic.network/quran/audio-surah/{reciter}/{surah_number}.mp3
 const RECITERS = [
-  { id: 'Alafasy_128kbps', name: 'Mishary Rashid Alafasy', ar: 'مشاري العفاسي' },
-  { id: 'Abdul_Basit_Murattal_192kbps', name: 'Abdul Basit (Murattal)', ar: 'عبد الباسط (مرتل)' },
-  { id: 'Husary_128kbps', name: 'Mahmoud Al-Hussary', ar: 'محمود الحصري' },
-  { id: 'Minshawy_Murattal_128kbps', name: 'Al-Minshawi (Murattal)', ar: 'المنشاوي (مرتل)' },
-  { id: 'Abdullah_Basfar_192kbps', name: 'Abdullah Basfar', ar: 'عبدالله بصفر' },
-  { id: 'Hani_Rifai_192kbps', name: 'Hani Ar-Rifai', ar: 'هاني الرفاعي' },
-  { id: 'Saood_ash-Shuraym_128kbps', name: 'Saud Ash-Shuraim', ar: 'سعود الشريم' },
+  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy', ar: 'مشاري العفاسي' },
+  { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit (Murattal)', ar: 'عبد الباسط (مرتل)' },
+  { id: 'ar.husary', name: 'Mahmoud Al-Hussary', ar: 'محمود الحصري' },
+  { id: 'ar.minshaimurattal', name: 'Al-Minshawi (Murattal)', ar: 'المنشاوي (مرتل)' },
+  { id: 'ar.abdullahbasfar', name: 'Abdullah Basfar', ar: 'عبدالله بصفر' },
+  { id: 'ar.hanirifai', name: 'Hani Ar-Rifai', ar: 'هاني الرفاعي' },
+  { id: 'ar.saoodshuraym', name: 'Saud Ash-Shuraim', ar: 'سعود الشريم' },
 ];
 
-// Format: https://everyayah.com/data/{reciter_id}/{surah padded 3}{ayah padded 3}.mp3
-function getAyahAudioUrl(reciterId: string, surahNumber: number, ayahNumber: number): string {
-  const s = String(surahNumber).padStart(3, '0');
-  const a = String(ayahNumber).padStart(3, '0');
-  return `https://everyayah.com/data/${reciterId}/${s}${a}.mp3`;
+function getSurahAudioUrl(reciterId: string, surahNumber: number): string {
+  return `https://cdn.islamic.network/quran/audio-surah/${reciterId}/${surahNumber}.mp3`;
 }
 
 const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) => {
@@ -113,19 +111,14 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
 
   const [selectedReciter, setSelectedReciter] = useState(0);
   const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
-  const [currentAyah, setCurrentAyah] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [ayahs, setAyahs] = useState<any[]>([]);
   const [englishAyahs, setEnglishAyahs] = useState<any[]>([]);
   const [translatedAyahs, setTranslatedAyahs] = useState<Record<number, string>>({});
   const [translatingAyahs, setTranslatingAyahs] = useState(false);
-  const ayahsRef = useRef<any[]>([]);
-  const surahRef = useRef<number | null>(null);
   const reciterRef = useRef(0);
-  const ayahIndexRef = useRef(0);
   const isMountedRef = useRef(true);
-  const playAyahRef = useRef<(surahNum: number, ayahIndex: number, ayahsList: any[]) => Promise<void>>(async () => {});
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -143,64 +136,44 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
       if (!playing) setIsLoading(false);
     };
     setPlayStateCallback(callback);
+    setIsPlaying(isSoundPlaying() && getCurrentOwner() === 'quran');
     return () => {
       setPlayStateCallback(() => {});
     };
   }, []);
 
-  const playAyah = useCallback(async (surahNum: number, ayahIndex: number, ayahsList: any[]) => {
-    if (ayahIndex >= ayahsList.length) {
-      if (isMountedRef.current) {
-        setIsPlaying(false);
-        setCurrentAyah(0);
-      }
-      await stopAudio();
-      return;
-    }
-
-    const reciter = RECITERS[reciterRef.current];
-    const ayah = ayahsList[ayahIndex];
-    const url = getAyahAudioUrl(reciter.id, surahNum, ayah.numberInSurah);
-
+  const handlePlaySurah = useCallback(async (surahNumber: number) => {
     try {
+      if (selectedSurah === surahNumber && isPlaying) {
+        await stopAudio();
+        if (isMountedRef.current) {
+          setIsPlaying(false);
+          setSelectedSurah(null);
+        }
+        return;
+      }
+
+      const reciter = RECITERS[reciterRef.current];
+      const url = getSurahAudioUrl(reciter.id, surahNumber);
+
       if (isMountedRef.current) {
         setIsLoading(true);
-        setCurrentAyah(ayahIndex);
+        setSelectedSurah(surahNumber);
       }
-      ayahIndexRef.current = ayahIndex;
 
-      const onStatus = (status: any) => {
-        if (status.isLoaded && status.didJustFinish) {
-          const nextIndex = ayahIndexRef.current + 1;
-          if (nextIndex < ayahsRef.current.length) {
-            playAyahRef.current(surahRef.current!, nextIndex, ayahsRef.current);
-          } else {
-            if (isMountedRef.current) {
-              setIsPlaying(false);
-              setCurrentAyah(0);
-            }
-            stopAudio();
-          }
-        }
-        if (!status.isLoaded) {
-          if (isMountedRef.current) {
-            setIsPlaying(false);
-            setIsLoading(false);
-          }
-        }
-      };
-
-      const owner = getCurrentOwner();
-      if (owner === 'quran') {
-        await replaceAudio(url, onStatus);
-      } else {
-        await playAudioWithStatus(url, 'quran', onStatus);
-      }
+      await playAudio(url, 'quran', false);
 
       if (isMountedRef.current) {
         setIsPlaying(true);
         setIsLoading(false);
       }
+
+      // Fetch ayahs for display (text only, audio is full surah)
+      fetchSurah(surahNumber).then((surahData) => {
+        if (!isMountedRef.current) return;
+        setAyahs(surahData.arabic);
+        setEnglishAyahs(surahData.english);
+      }).catch(() => {});
     } catch (error) {
       if (isMountedRef.current) {
         setIsLoading(false);
@@ -213,53 +186,29 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
         );
       }
     }
-  }, [isArabicUI]);
-
-  useEffect(() => {
-    playAyahRef.current = playAyah;
-  }, [playAyah]);
-
-  const handlePlaySurah = useCallback(async (surahNumber: number) => {
-    try {
-      setIsLoading(true);
-      const surahData = await fetchSurah(surahNumber);
-      const ayahsList = surahData.arabic;
-      const englishList = surahData.english;
-      setAyahs(ayahsList);
-      setEnglishAyahs(englishList);
-      ayahsRef.current = ayahsList;
-      setSelectedSurah(surahNumber);
-      surahRef.current = surahNumber;
-      setTranslatedAyahs({});
-      await playAyah(surahNumber, 0, ayahsList);
-    } catch (error) {
-      setIsLoading(false);
-      Alert.alert(
-        isArabicUI ? 'خطأ' : ui('Error'),
-        isArabicUI ? 'تعذر تحميل السورة' : ui('Could not load surah')
-      );
-    }
-  }, [playAyah, isArabicUI]);
+  }, [selectedSurah, isPlaying, isArabicUI, ui]);
 
   const handleStop = useCallback(async () => {
     await stopAudio();
-    setIsPlaying(false);
-    setCurrentAyah(0);
-    setSelectedSurah(null);
-    surahRef.current = null;
+    if (isMountedRef.current) {
+      setIsPlaying(false);
+      setSelectedSurah(null);
+    }
   }, []);
 
   const handleBackFromPlayer = useCallback(() => {
-    setSelectedSurah(null);
+    if (isMountedRef.current) {
+      setSelectedSurah(null);
+    }
   }, []);
 
   const handlePauseResume = useCallback(async () => {
     if (isPlaying) {
       await pauseAudio();
-      setIsPlaying(false);
+      if (isMountedRef.current) setIsPlaying(false);
     } else {
       await resumeAudio();
-      setIsPlaying(true);
+      if (isMountedRef.current) setIsPlaying(true);
     }
   }, [isPlaying]);
 
@@ -338,8 +287,8 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
             </Text>
             <Text style={[styles.playerAyah, { color: c.textSecondary }]}>
               {isArabicUI
-                ? `الآية ${currentAyah + 1} من ${ayahs.length}`
-                : ui(`Ayah ${currentAyah + 1} of ${ayahs.length}`)}
+                ? `${surahMeta?.numberOfAyahs || ''} آية`
+                : `${surahMeta?.numberOfAyahs || ''} ${ui('ayahs')}`}
             </Text>
           </View>
           <TouchableOpacity onPress={handleStop} style={styles.stopBtn}>
@@ -361,7 +310,7 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
               style={[
                 styles.ayahItem,
                 {
-                  backgroundColor: index === currentAyah ? c.ayahBg : c.surface,
+                  backgroundColor: c.surface,
                   borderBottomColor: c.border,
                 },
               ]}

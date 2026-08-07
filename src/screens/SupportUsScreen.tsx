@@ -8,6 +8,7 @@ import {
   Linking,
   ScrollView,
   Alert,
+  Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import * as Clipboard from 'expo-clipboard';
@@ -18,6 +19,19 @@ import { useUITranslation } from '../hooks/useUITranslation';
 // AdMob configuration with real ad unit IDs
 const ADMOB_BANNER_ID = 'ca-app-pub-7095033876130680/7610704737';
 const ADMOB_APP_ID = 'ca-app-pub-7095033876130680~2642429023';
+
+// Test ad unit IDs for development/internal builds (Google-provided)
+const ADMOB_TEST_BANNER_ANDROID = 'ca-app-pub-3940256099942544/6300978111';
+const ADMOB_TEST_BANNER_IOS = 'ca-app-pub-3940256099942544/2934735716';
+
+// Use test ads for internal/development distribution, real ads for production
+const isInternalBuild = __DEV__ || !process.env.EXPO_PUBLIC_ENV || process.env.EXPO_PUBLIC_ENV !== 'production';
+const getBannerAdUnitId = () => {
+  if (isInternalBuild) {
+    return Platform.OS === 'ios' ? ADMOB_TEST_BANNER_IOS : ADMOB_TEST_BANNER_ANDROID;
+  }
+  return ADMOB_BANNER_ID;
+};
 
 // Lazy-load AdMob module — check if native module is actually available
 // In Expo Go, the JS package loads but native code isn't linked, so BannerAd crashes at render
@@ -69,6 +83,7 @@ const SupportUsScreen: React.FC<SupportUsScreenProps> = ({ onBack }) => {
   const isArabicUI = appLanguage === 'ar';
   const { ui, translateUI, needsTranslation } = useUITranslation(appLanguage);
   const [copiedField, setCopiedField] = useState<string | null>(null);
+  const [adFailed, setAdFailed] = useState(false);
 
   useEffect(() => {
     if (!needsTranslation) return;
@@ -214,7 +229,7 @@ const SupportUsScreen: React.FC<SupportUsScreenProps> = ({ onBack }) => {
         </Text>
 
         <View style={[styles.adContainer, { backgroundColor: c.surface, borderColor: c.border }]}>
-          {admobAvailable && BannerAd && BannerAdSize ? (
+          {admobAvailable && BannerAd && BannerAdSize && !adFailed ? (
             <AdErrorBoundary
               fallback={
                 <View style={[styles.adPlaceholderBox, { backgroundColor: c.ayahBg }]}>
@@ -231,9 +246,12 @@ const SupportUsScreen: React.FC<SupportUsScreenProps> = ({ onBack }) => {
               }
             >
               <BannerAd
-                unitId={ADMOB_BANNER_ID}
+                unitId={getBannerAdUnitId()}
                 size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-                onAdFailedToLoad={() => {}}
+                onAdFailedToLoad={(error: any) => {
+                  console.warn('AdMob banner failed to load:', error);
+                  setAdFailed(true);
+                }}
               />
             </AdErrorBoundary>
           ) : (

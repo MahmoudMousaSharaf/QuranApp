@@ -14,13 +14,14 @@
 - [x] GitHub Actions workflow created for cloud builds
 
 ### In Progress
-- [ ] Android APK build #3 (build ID: 39db7844-1f73-4c99-adcc-d9577bf52bfb) — with AdMob 14.7.2 fix
-- [ ] iOS IPA build (needs Apple Developer account credentials — user has account)
+- [ ] Android APK build #4 (ID: 5c1f38d7-96a1-4864-85fc-cb427ff95f87) — with expo-build-properties + clear cache
+- [ ] iOS IPA build — user has Apple Developer account, will run interactive build
 
 ### Build History
 - Build #1 (22b75342): FAILED — Gradle error (before AdMob plugin)
-- Build #2 (eabfb53a): FAILED — Gradle error (AdMob 14.11.0 Kotlin incompatibility with SDK 54)
-- Build #3 (39db7844): IN PROGRESS — fixed by downgrading to react-native-google-mobile-ads 14.7.2
+- Build #2 (eabfb53a): FAILED — Gradle error (AdMob 14.11.0 Kotlin incompatibility)
+- Build #3 (39db7844): FAILED — Gradle error (same SDK 54 EAS build bug)
+- Build #4 (5c1f38d7): IN PROGRESS — added expo-build-properties, clear cache, downgraded AdMob to 14.7.2
 
 ### Pending
 - [ ] Get EXPO_TOKEN secret set in GitHub repo

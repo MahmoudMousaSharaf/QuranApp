@@ -90,7 +90,7 @@ export function getCurrentOwner(): AudioOwner | null {
   return currentOwner;
 }
 
-export async function playAudio(url: string, owner: AudioOwner = 'ruqyah'): Promise<void> {
+export async function playAudio(url: string, owner: AudioOwner = 'ruqyah', loop: boolean = true): Promise<void> {
   await ensureAudioMode();
   setupAppStateListener();
 
@@ -104,7 +104,7 @@ export async function playAudio(url: string, owner: AudioOwner = 'ruqyah'): Prom
   }
 
   player = createAudioPlayer(url, { keepAudioSessionActive: true });
-  player.loop = true;
+  player.loop = loop;
   currentUrl = url;
   currentOwner = owner;
   player.play();
