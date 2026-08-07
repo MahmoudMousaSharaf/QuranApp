@@ -118,7 +118,7 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
     setIsLoading(true);
     try {
       const sheikh = ruqyahData.audio_sources[selectedSheikh];
-      await playAudio(sheikh.url);
+      await playAudio(sheikh.url, 'ruqyah');
     } catch (error) {
       Alert.alert(
         isArabicUI ? 'خطأ' : 'Error',

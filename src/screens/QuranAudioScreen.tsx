@@ -11,13 +11,21 @@ import {
   ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Audio, AVPlaybackStatus } from 'expo-av';
 import { useTheme, colors } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useUITranslation } from '../hooks/useUITranslation';
 import { SurahMeta } from '../types';
 import { fetchSurah } from '../services/api';
 import { translateText } from '../services/contentTranslator';
+import {
+  playAudioWithStatus,
+  stopAudio,
+  pauseAudio,
+  resumeAudio,
+  replaceAudio,
+  setPlayStateCallback,
+  getCurrentOwner,
+} from '../services/ruqyahAudio';
 
 interface QuranAudioScreenProps {
   onBack: () => void;
@@ -87,24 +95,23 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [ayahs, setAyahs] = useState<any[]>([]);
-  const soundRef = useRef<Audio.Sound | null>(null);
+  const ayahsRef = useRef<any[]>([]);
+  const surahRef = useRef<number | null>(null);
+  const reciterRef = useRef(0);
+  const ayahIndexRef = useRef(0);
 
   useEffect(() => {
-    // Configure audio for background playback (screen off) but stop when app closes
-    Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      staysActiveInBackground: true,
-      interruptionModeIOS: 1,
-      playsInSilentModeIOS: true,
-      shouldDuckAndroid: true,
-      interruptionModeAndroid: 1,
-      playThroughEarpieceAndroid: false,
-    });
+    reciterRef.current = selectedReciter;
+  }, [selectedReciter]);
 
+  useEffect(() => {
+    const callback = (playing: boolean) => {
+      setIsPlaying(playing);
+      if (!playing) setIsLoading(false);
+    };
+    setPlayStateCallback(callback);
     return () => {
-      if (soundRef.current) {
-        soundRef.current.unloadAsync();
-      }
+      setPlayStateCallback(() => {});
     };
   }, []);
 
@@ -112,36 +119,43 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
     if (ayahIndex >= ayahsList.length) {
       setIsPlaying(false);
       setCurrentAyah(0);
+      await stopAudio();
       return;
     }
 
-    const reciter = RECITERS[selectedReciter];
+    const reciter = RECITERS[reciterRef.current];
     const ayah = ayahsList[ayahIndex];
     const url = getAyahAudioUrl(reciter.id, surahNum, ayah.numberInSurah);
 
     try {
       setIsLoading(true);
       setCurrentAyah(ayahIndex);
+      ayahIndexRef.current = ayahIndex;
 
-      if (soundRef.current) {
-        await soundRef.current.unloadAsync();
-      }
-
-      const { sound } = await Audio.Sound.createAsync(
-        { uri: url },
-        { shouldPlay: true },
-        (status: AVPlaybackStatus) => {
-          if (status.isLoaded && status.didJustFinish) {
-            playAyah(surahNum, ayahIndex + 1, ayahsList);
-          }
-          if (!status.isLoaded) {
+      const onStatus = (status: any) => {
+        if (status.isLoaded && status.didJustFinish) {
+          const nextIndex = ayahIndexRef.current + 1;
+          if (nextIndex < ayahsRef.current.length) {
+            playAyah(surahRef.current!, nextIndex, ayahsRef.current);
+          } else {
             setIsPlaying(false);
-            setIsLoading(false);
+            setCurrentAyah(0);
+            stopAudio();
           }
         }
-      );
+        if (!status.isLoaded) {
+          setIsPlaying(false);
+          setIsLoading(false);
+        }
+      };
 
-      soundRef.current = sound;
+      const owner = getCurrentOwner();
+      if (owner === 'quran') {
+        await replaceAudio(url, onStatus);
+      } else {
+        await playAudioWithStatus(url, 'quran', onStatus);
+      }
+
       setIsPlaying(true);
       setIsLoading(false);
     } catch (error) {
@@ -154,7 +168,7 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
           : ui('Could not play audio. Check your internet connection.')
       );
     }
-  }, [selectedReciter, isArabicUI]);
+  }, [isArabicUI]);
 
   const handlePlaySurah = useCallback(async (surahNumber: number) => {
     try {
@@ -162,7 +176,9 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
       const surahData = await fetchSurah(surahNumber);
       const ayahsList = surahData.arabic;
       setAyahs(ayahsList);
+      ayahsRef.current = ayahsList;
       setSelectedSurah(surahNumber);
+      surahRef.current = surahNumber;
       await playAyah(surahNumber, 0, ayahsList);
     } catch (error) {
       setIsLoading(false);
@@ -174,30 +190,22 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
   }, [playAyah, isArabicUI]);
 
   const handleStop = useCallback(async () => {
-    if (soundRef.current) {
-      await soundRef.current.stopAsync();
-      await soundRef.current.unloadAsync();
-      soundRef.current = null;
-    }
+    await stopAudio();
     setIsPlaying(false);
     setCurrentAyah(0);
     setSelectedSurah(null);
+    surahRef.current = null;
   }, []);
 
   const handlePauseResume = useCallback(async () => {
-    if (soundRef.current) {
-      const status = await soundRef.current.getStatusAsync();
-      if (status.isLoaded) {
-        if (status.isPlaying) {
-          await soundRef.current.pauseAsync();
-          setIsPlaying(false);
-        } else {
-          await soundRef.current.playAsync();
-          setIsPlaying(true);
-        }
-      }
+    if (isPlaying) {
+      await pauseAudio();
+      setIsPlaying(false);
+    } else {
+      await resumeAudio();
+      setIsPlaying(true);
     }
-  }, []);
+  }, [isPlaying]);
 
   if (selectedSurah !== null) {
     const surahMeta = surahs.find((s) => s.number === selectedSurah);

@@ -1,11 +1,16 @@
-import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync } from 'expo-audio';
+import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync, AudioPlayer, AudioStatus } from 'expo-audio';
 import { AppState, AppStateStatus } from 'react-native';
 
-type Player = ReturnType<typeof createAudioPlayer>;
+export type AudioOwner = 'ruqyah' | 'quran';
 
-let player: Player | null = null;
+type PlayStateCallback = (isPlaying: boolean) => void;
+type StatusCallback = (status: AudioStatus) => void;
+
+let player: AudioPlayer | null = null;
 let currentUrl: string | null = null;
-let playStateCallback: ((isPlaying: boolean) => void) | null = null;
+let currentOwner: AudioOwner | null = null;
+let playStateCallback: PlayStateCallback | null = null;
+let statusListener: { remove: () => void } | null = null;
 let wasPlayingBeforeInterruption = false;
 
 async function ensureAudioMode() {
@@ -51,7 +56,27 @@ async function handleAppStateChange(nextAppState: AppStateStatus) {
   }
 }
 
-export function setPlayStateCallback(cb: (isPlaying: boolean) => void) {
+function clearStatusListener() {
+  if (statusListener) {
+    statusListener.remove();
+    statusListener = null;
+  }
+}
+
+function destroyPlayer() {
+  if (player) {
+    try {
+      player.pause();
+      player.remove();
+    } catch (e) {
+      console.log('Destroy player error:', e);
+    }
+    player = null;
+  }
+  clearStatusListener();
+}
+
+export function setPlayStateCallback(cb: PlayStateCallback) {
   playStateCallback = cb;
 }
 
@@ -63,41 +88,56 @@ export function isSoundPlaying(): boolean {
   return player !== null && player.playing;
 }
 
-export async function playAudio(url: string): Promise<void> {
+export function getCurrentOwner(): AudioOwner | null {
+  return currentOwner;
+}
+
+export async function playAudio(url: string, owner: AudioOwner = 'ruqyah'): Promise<void> {
   await ensureAudioMode();
   setupAppStateListener();
 
   if (player) {
-    if (currentUrl === url) {
+    if (currentUrl === url && currentOwner === owner) {
       player.play();
+      if (playStateCallback) playStateCallback(true);
       return;
     }
-    player.pause();
-    player.replace(url);
-    currentUrl = url;
-    player.play();
-    if (playStateCallback) playStateCallback(true);
-    return;
+    destroyPlayer();
   }
 
   player = createAudioPlayer(url, { keepAudioSessionActive: true });
   player.loop = true;
   currentUrl = url;
+  currentOwner = owner;
+  player.play();
+  if (playStateCallback) playStateCallback(true);
+}
+
+export async function playAudioWithStatus(
+  url: string,
+  owner: AudioOwner,
+  onStatus: StatusCallback
+): Promise<void> {
+  await ensureAudioMode();
+  setupAppStateListener();
+
+  if (player) {
+    destroyPlayer();
+  }
+
+  player = createAudioPlayer(url, { keepAudioSessionActive: true });
+  player.loop = false;
+  currentUrl = url;
+  currentOwner = owner;
+  statusListener = player.addListener('playbackStatusUpdate', onStatus);
   player.play();
   if (playStateCallback) playStateCallback(true);
 }
 
 export async function stopAudio(): Promise<void> {
-  if (player) {
-    try {
-      player.pause();
-      player.remove();
-    } catch (e) {
-      console.log('Stop error:', e);
-    }
-    player = null;
-    currentUrl = null;
-  }
+  destroyPlayer();
+  currentUrl = null;
+  currentOwner = null;
   wasPlayingBeforeInterruption = false;
   if (appStateSubscription) {
     appStateSubscription.remove();
@@ -117,4 +157,25 @@ export async function pauseAudio(): Promise<void> {
       console.log('Pause error:', e);
     }
   }
+}
+
+export async function resumeAudio(): Promise<void> {
+  if (player) {
+    try {
+      player.play();
+    } catch (e) {
+      console.log('Resume error:', e);
+    }
+  }
+}
+
+export async function replaceAudio(url: string, onStatus?: StatusCallback): Promise<void> {
+  if (!player) return;
+  clearStatusListener();
+  player.replace(url);
+  currentUrl = url;
+  if (onStatus) {
+    statusListener = player.addListener('playbackStatusUpdate', onStatus);
+  }
+  player.play();
 }
