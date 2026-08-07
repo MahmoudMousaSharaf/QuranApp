@@ -1,12 +1,13 @@
 import { Audio, AVPlaybackStatus } from 'expo-av';
+import { AppState, AppStateStatus } from 'react-native';
 
 let soundInstance: Audio.Sound | null = null;
 let isInitialized = false;
 let currentUrl: string | null = null;
 let playStateCallback: ((isPlaying: boolean) => void) | null = null;
+let wasPlayingBeforeInterruption = false;
 
 async function ensureAudioMode() {
-  if (isInitialized) return;
   try {
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
@@ -14,10 +15,47 @@ async function ensureAudioMode() {
       playsInSilentModeIOS: true,
       shouldDuckAndroid: true,
       playThroughEarpieceAndroid: false,
+      interruptionModeAndroid: 1,
+      interruptionModeIOS: 1,
     });
     isInitialized = true;
   } catch (e) {
     console.log('Audio mode setup error:', e);
+  }
+}
+
+let appStateSubscription: { remove: () => void } | null = null;
+
+function setupAppStateListener() {
+  if (appStateSubscription) return;
+  appStateSubscription = AppState.addEventListener('change', handleAppStateChange);
+}
+
+async function handleAppStateChange(nextAppState: AppStateStatus) {
+  if (nextAppState === 'active') {
+    await ensureAudioMode();
+    if (wasPlayingBeforeInterruption && soundInstance) {
+      try {
+        const status = await soundInstance.getStatusAsync();
+        if (status.isLoaded && !status.isPlaying) {
+          await soundInstance.playAsync();
+        }
+      } catch (e) {
+        console.log('Resume after background error:', e);
+      }
+      wasPlayingBeforeInterruption = false;
+    }
+  } else if (nextAppState === 'background' || nextAppState === 'inactive') {
+    if (soundInstance) {
+      try {
+        const status = await soundInstance.getStatusAsync();
+        if (status.isLoaded && status.isPlaying) {
+          wasPlayingBeforeInterruption = true;
+        }
+      } catch (e) {
+        console.log('Background state check error:', e);
+      }
+    }
   }
 }
 
@@ -35,6 +73,7 @@ export function isSoundPlaying(): boolean {
 
 export async function playAudio(url: string): Promise<void> {
   await ensureAudioMode();
+  setupAppStateListener();
 
   if (soundInstance) {
     if (currentUrl === url) {
@@ -74,6 +113,11 @@ export async function stopAudio(): Promise<void> {
     }
     soundInstance = null;
     currentUrl = null;
+  }
+  wasPlayingBeforeInterruption = false;
+  if (appStateSubscription) {
+    appStateSubscription.remove();
+    appStateSubscription = null;
   }
   if (playStateCallback) playStateCallback(false);
 }

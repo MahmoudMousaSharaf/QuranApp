@@ -128,7 +128,6 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
 
   const renderItem = (item: VerseItem, isVerse: boolean) => {
     const translatedText = isVerse ? translatedVerses[item.id] : translatedSupplications[item.id];
-    const showTranslation = !isArabicUI;
     const translationText = needsTranslation
       ? (translatedText || item.text_en)
       : item.text_en;
@@ -147,13 +146,19 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
             </View>
           )}
         </View>
-        <Text style={[styles.verseArabic, { color: c.text }]}>
-          {item.text_ar}
-        </Text>
-        {showTranslation && (
-          <Text style={[styles.verseTranslation, { color: c.textSecondary }]}>
-            {translationText}
+        {isArabicUI ? (
+          <Text style={[styles.verseArabicBig, { color: c.text }]}>
+            {item.text_ar}
           </Text>
+        ) : (
+          <>
+            <Text style={[styles.verseTranslation, { color: c.text }]}>
+              {translationText}
+            </Text>
+            <Text style={[styles.verseArabic, { color: c.textSecondary }]}>
+              {item.text_ar}
+            </Text>
+          </>
         )}
       </View>
     );
@@ -510,17 +515,18 @@ const styles = StyleSheet.create({
     fontSize: 11,
     fontWeight: '600',
   },
-  verseArabic: {
-    fontSize: 22,
-    lineHeight: 40,
+  verseArabicBig: {\n    fontSize: 22,\n    lineHeight: 40,\n    textAlign: 'center',\n    fontFamily: Platform.OS === 'ios' ? 'GeezaPro' : 'sans-serif',\n  },\n  verseArabic: {
+    fontSize: 14,
+    lineHeight: 24,
     textAlign: 'center',
     fontFamily: Platform.OS === 'ios' ? 'GeezaPro' : 'sans-serif',
     marginBottom: 8,
+    opacity: 0.7,
   },
   verseTranslation: {
-    fontSize: 13,
-    lineHeight: 20,
-    fontStyle: 'italic',
+    fontSize: 20,
+    lineHeight: 32,
+    fontWeight: '500',
   },
 });
 
