@@ -12,22 +12,40 @@
 - [x] ASO: keyword-rich app name, iOS CFBundleKeywords, ITSAppUsesNonExemptEncryption
 - [x] AdMob plugin added to app.json with real ad unit IDs
 - [x] GitHub Actions workflow created for cloud builds
+- [x] Quran audio switched to full surah playback (Islamic Network CDN) — matches Ruqyah approach for background playback
+- [x] AdMob banner fixed: test ad IDs for internal builds, fallback on load failure
+- [x] Switched to bare workflow for Android (committed android/ folder) to fix EAS build
+- [x] iOS build succeeded (interactive mode with Apple credentials)
 
 ### In Progress
-- [ ] Android APK build #4 (ID: 5c1f38d7-96a1-4864-85fc-cb427ff95f87) — with expo-build-properties + clear cache
-- [ ] iOS IPA build — user has Apple Developer account, will run interactive build
+- [ ] Android APK build #5 (ID: 396d3203-b659-493e-8b8d-2686050b04ae) — bare workflow + clear cache
+- [ ] iOS IPA rebuild with latest fixes (Quran audio + AdMob)
 
 ### Build History
 - Build #1 (22b75342): FAILED — Gradle error (before AdMob plugin)
 - Build #2 (eabfb53a): FAILED — Gradle error (AdMob 14.11.0 Kotlin incompatibility)
-- Build #3 (39db7844): FAILED — Gradle error (same SDK 54 EAS build bug)
-- Build #4 (5c1f38d7): IN PROGRESS — added expo-build-properties, clear cache, downgraded AdMob to 14.7.2
+- Build #3 (39db7844): FAILED — Gradle error (known SDK 54 EAS "No matching variant" bug)
+- Build #4 (5c1f38d7): FAILED — Same Gradle error (expo-build-properties didn't help)
+- Build #5 (396d3203): IN PROGRESS — Bare workflow (committed android/), removed expo-build-properties, clear cache
+
+### iOS Build Process (Documented)
+1. Run `eas build --platform ios --profile preview` (interactive mode)
+2. When prompted "Do you want to log in to your Apple account?" → type Y
+3. Enter Apple ID: shegoz.customercare@gmail.com
+4. Enter app-specific password (or Apple ID password)
+5. EAS auto-creates signing credentials (certificate + provisioning profile)
+6. Build runs on EAS macOS cloud builders
+7. Download IPA from EAS dashboard or install via TestFlight/internal distribution
+- **Note**: iOS build succeeded because it uses Xcode, not Gradle. The "No matching variant" error is Gradle-specific (Android only).
 
 ### Pending
 - [ ] Get EXPO_TOKEN secret set in GitHub repo
 - [ ] Successful Android APK build + download link
-- [ ] Successful iOS IPA build + download link
+- [ ] Successful iOS IPA rebuild + download link
 - [ ] Test background audio on real devices
+- [ ] Create new app in App Store Connect named "The Truth - Al Haq"
+- [ ] Verify OTA updates work
+- [ ] Verify ads show in production build
 
 ## Build Configuration
 
@@ -35,10 +53,23 @@
 - **preview**: internal distribution, Android APK, iOS IPA
 - **production**: Android APK
 
+### Workflow
+- **Android**: Bare workflow (committed `android/` folder) — EAS uses native code directly, no prebuild
+- **iOS**: Managed workflow — EAS runs prebuild on macOS builders (still in .gitignore)
+
 ### AdMob Configuration
 - App ID: `ca-app-pub-7095033876130680~2642429023`
-- Banner Ad Unit ID: `ca-app-pub-7095033876130680/7610704737`
-- Plugin: `react-native-google-mobile-ads` added to app.json plugins
+- Banner Ad Unit ID (production): `ca-app-pub-7095033876130680/7610704737`
+- Test Banner Android: `ca-app-pub-3940256099942544/6300978111`
+- Test Banner iOS: `ca-app-pub-3940256099942544/2934735716`
+- Plugin: `react-native-google-mobile-ads` ~14.7.2
+- Internal builds use test ad IDs; production builds use real ad IDs
+
+### Quran Audio Configuration
+- Source: Islamic Network CDN (`https://cdn.islamic.network/quran/audio-surah/{reciter}/{surah}.mp3`)
+- Playback: Full surah (single URL, `loop=false`) — same as Ruqyah
+- Background: Works because no JS callbacks needed (native audio session handles background)
+- Reciters: Alafasy, Abdul Basit, Hussary, Minshawi, Basfar, Rifai, Shuraim
 
 ### GitHub Actions
 - Workflow: `.github/workflows/eas-build.yml`
@@ -59,4 +90,4 @@
 
 ## Build Links
 - EAS Dashboard: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds
-- Previous failed Android build: 22b75342-ff74-4a70-b880-26dabfe547a9
+- Android Build #5: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/396d3203-b659-493e-8b8d-2686050b04ae
