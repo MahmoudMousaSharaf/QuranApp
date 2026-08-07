@@ -102,9 +102,7 @@
         "alg": "rsa-v1_5-sha256"
       }
     },
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
+    "runtimeVersion": "1.0.0",
     "owner": "majmod"
   }
 }
