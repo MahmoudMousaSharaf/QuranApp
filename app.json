@@ -84,14 +84,7 @@
           ]
         }
       ],
-      "expo-audio",
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-7095033876130680~2642429023",
-          "iosAppId": "ca-app-pub-7095033876130680~2642429023"
-        }
-      ]
+      "expo-audio"
     ],
     "scheme": "alhaq",
     "updates": {
