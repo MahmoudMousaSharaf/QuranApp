@@ -1,0 +1,202 @@
+{
+  "categories": [
+    {
+      "id": 1,
+      "category_ar": "سنن الاستيقاظ",
+      "category_en": "Waking Up Sunnah",
+      "items": [
+        {
+          "text_ar": "كان النبي ﷺ إذا استيقظ يمسح النوم عن وجهه بيده",
+          "text_en": "The Prophet ﷺ would wipe the sleep from his face with his hand upon waking.",
+          "source_en": "Sahih al-Bukhari 245",
+          "source_ar": "صحيح البخاري ٢٤٥"
+        },
+        {
+          "text_ar": "كان يقول عند الاستيقاظ: الْحَمْدُ لِلَّهِ الَّذِي أَحْيَانَا بَعْدَ مَا أَمَاتَنَا وَإِلَيْهِ النُّشُورُ",
+          "text_en": "He would say upon waking: All praise is for Allah who gave us life after He caused us to die, and to Him is the resurrection.",
+          "source_en": "Sahih al-Bukhari 6312",
+          "source_ar": "صحيح البخاري ٦٣١٢"
+        },
+        {
+          "text_ar": "كان يستاك عند الاستيقاظ",
+          "text_en": "He would use the siwak (tooth stick) upon waking.",
+          "source_en": "Sahih al-Bukhari 245",
+          "source_ar": "صحيح البخاري ٢٤٥"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category_ar": "سنن الطعام والشراب",
+      "category_en": "Eating and Drinking Sunnah",
+      "items": [
+        {
+          "text_ar": "كان يقول قبل الطعام: بِسْمِ اللَّهِ",
+          "text_en": "He would say before eating: In the name of Allah.",
+          "source_en": "Sahih al-Bukhari 5376",
+          "source_ar": "صحيح البخاري ٥٣٧٦"
+        },
+        {
+          "text_ar": "كان يأكل بيده اليمنى",
+          "text_en": "He would eat with his right hand.",
+          "source_en": "Sahih Muslim 2020",
+          "source_ar": "صحيح مسلم ٢٠٢٠"
+        },
+        {
+          "text_ar": "كان يأكل مما يليه",
+          "text_en": "He would eat from what is nearest to him on the plate.",
+          "source_en": "Sahih al-Bukhari 5376",
+          "source_ar": "صحيح البخاري ٥٣٧٦"
+        },
+        {
+          "text_ar": "كان يشرب على ثلاث مرات: يتنفس خارج الإناء ثلاثاً",
+          "text_en": "He would drink in three breaths, breathing outside the vessel each time.",
+          "source_en": "Sahih Muslim 2028",
+          "source_ar": "صحيح مسلم ٢٠٢٨"
+        },
+        {
+          "text_ar": "كان يقول بعد الطعام: الْحَمْدُ لِلَّهِ الَّذِي أَطْعَمَنِي هَذَا وَرَزَقَنِيهِ مِنْ غَيْرِ حَوْلٍ مِنِّي وَلَا قُوَّةٍ",
+          "text_en": "He would say after eating: Praise be to Allah who fed me this and provided it for me without any strength or power on my part.",
+          "source_en": "Jami at-Tirmidhi 3458",
+          "source_ar": "جامع الترمذي ٣٤٥٨"
+        },
+        {
+          "text_ar": "كان يلعق أصابعه بعد الطعام",
+          "text_en": "He would lick his fingers after eating.",
+          "source_en": "Sahih Muslim 2032",
+          "source_ar": "صحيح مسلم ٢٠٣٢"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "category_ar": "سنن اللباس",
+      "category_en": "Dressing Sunnah",
+      "items": [
+        {
+          "text_ar": "كان يبدأ باليمين في اللباس والنعال",
+          "text_en": "He would start with the right side when putting on clothes and shoes.",
+          "source_en": "Sahih al-Bukhari 168",
+          "source_ar": "صحيح البخاري ١٦٨"
+        },
+        {
+          "text_ar": "كان يحب الثياب البيضاء",
+          "text_en": "He preferred white clothing.",
+          "source_en": "Sunan Ibn Majah 3563",
+          "source_ar": "سنن ابن ماجه ٣٥٦٣"
+        },
+        {
+          "text_ar": "كان يتطيب (يستخدم العطر)",
+          "text_en": "He would use perfume (fragrance).",
+          "source_en": "Sahih Muslim 2336",
+          "source_ar": "صحيح مسلم ٢٣٣٦"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "category_ar": "سنن النوم",
+      "category_en": "Sleeping Sunnah",
+      "items": [
+        {
+          "text_ar": "كان ينام على شقه الأيمن واضعاً يده اليمنى تحت خده",
+          "text_en": "He would sleep on his right side with his right hand under his cheek.",
+          "source_en": "Sahih al-Bukhari 247",
+          "source_ar": "صحيح البخاري ٢٤٧"
+        },
+        {
+          "text_ar": "كان يتوضأ قبل النوم",
+          "text_en": "He would perform wudu (ablution) before sleeping.",
+          "source_en": "Sahih al-Bukhari 247",
+          "source_ar": "صحيح البخاري ٢٤٧"
+        },
+        {
+          "text_ar": "كان يقرأ سورتي الإخلاص والمعوذتين وينفث في يديه ويمسح بهما جسده قبل النوم",
+          "text_en": "He would recite Surah Al-Ikhlas, Al-Falaq, and An-Nas, blow into his hands, and wipe his body before sleeping.",
+          "source_en": "Sahih al-Bukhari 5017",
+          "source_ar": "صحيح البخاري ٥٠١٧"
+        },
+        {
+          "text_ar": "كان يقول عند النوم: بِاسْمِكَ اللَّهُمَّ أَمُوتُ وَأَحْيَا",
+          "text_en": "He would say when sleeping: In Your name, O Allah, I die and I live.",
+          "source_en": "Sahih al-Bukhari 6324",
+          "source_ar": "صحيح البخاري ٦٣٢٤"
+        },
+        {
+          "text_ar": "نهى عن النوم على البطن",
+          "text_en": "He forbade sleeping on the stomach.",
+          "source_en": "Sunan Abu Dawud 5040",
+          "source_ar": "سنن أبي داود ٥٠٤٠"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "category_ar": "سنن الصلاة",
+      "category_en": "Prayer Sunnah",
+      "items": [
+        {
+          "text_ar": "كان يصلي ركعتين قبل الفجر، وهما خير من الدنيا وما فيها",
+          "text_en": "He would pray two rak'ahs before Fajr — they are better than the world and all it contains.",
+          "source_en": "Sahih Muslim 725",
+          "source_ar": "صحيح مسلم ٧٢٥"
+        },
+        {
+          "text_ar": "كان يصلي أربعاً قبل الظهر وركعتين بعدها",
+          "text_en": "He would pray four rak'ahs before Dhuhr and two after it.",
+          "source_en": "Sahih al-Bukhari 1180",
+          "source_ar": "صحيح البخاري ١١٨٠"
+        },
+        {
+          "text_ar": "كان يصلي ركعتين بعد المغرب وركعتين بعد العشاء",
+          "text_en": "He would pray two rak'ahs after Maghrib and two after Isha.",
+          "source_en": "Sahih Muslim 728",
+          "source_ar": "صحيح مسلم ٧٢٨"
+        },
+        {
+          "text_ar": "كان يسبح ويحمد ويكبر بعد كل صلاة ٣٣-٣٣-٣٣ ويتم المئة بلا إله إلا الله وحده لا شريك له",
+          "text_en": "After each prayer he would say SubhanAllah 33 times, Alhamdulillah 33 times, Allahu Akbar 33 times, completing 100 with 'There is no god but Allah alone.'",
+          "source_en": "Sahih Muslim 597",
+          "source_ar": "صحيح مسلم ٥٩٧"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "category_ar": "سنن اجتماعية",
+      "category_en": "Social Sunnah",
+      "items": [
+        {
+          "text_ar": "كان يسلم على من يعرف ومن لا يعرف",
+          "text_en": "He would greet with peace (salam) those he knew and those he did not know.",
+          "source_en": "Sahih al-Bukhari 12",
+          "source_ar": "صحيح البخاري ١٢"
+        },
+        {
+          "text_ar": "كان يبتسم دائماً، وتبسمه صدقة",
+          "text_en": "He would always smile, and his smile was considered charity.",
+          "source_en": "Jami at-Tirmidhi 1956",
+          "source_ar": "جامع الترمذي ١٩٥٦"
+        },
+        {
+          "text_ar": "كان يعود المرضى ولو كانوا من غير المسلمين",
+          "text_en": "He would visit the sick, even if they were not Muslim.",
+          "source_en": "Sahih al-Bukhari 1236",
+          "source_ar": "صحيح البخاري ١٢٣٦"
+        },
+        {
+          "text_ar": "كان يساعد في أعمال البيت: يخيط ثوبه، يحلب شاته، يخدم نفسه",
+          "text_en": "He would help with household work: sew his clothes, milk his sheep, and serve himself.",
+          "source_en": "Musnad Ahmad 24903",
+          "source_ar": "مسند أحمد ٢٤٩٠٣"
+        },
+        {
+          "text_ar": "كان يقبل الأطفال ويرحمهم",
+          "text_en": "He would kiss children and show them mercy.",
+          "source_en": "Sahih al-Bukhari 5998",
+          "source_ar": "صحيح البخاري ٥٩٩٨"
+        }
+      ]
+    }
+  ]
+}

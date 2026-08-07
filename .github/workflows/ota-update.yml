@@ -1,0 +1,53 @@
+name: OTA Update (EAS)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+    inputs:
+      message:
+        description: 'Update message'
+        required: false
+        default: 'OTA update from GitHub'
+
+jobs:
+  update:
+    name: Push OTA Update
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup Expo
+        uses: expo/expo-github-action@v8
+        with:
+          expo-version: latest
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Push OTA update to production
+        env:
+          EXPO_PRIVATE_KEY: ${{ secrets.UPDATE_CODE_SIGNING_PRIVATE_KEY }}
+        run: |
+          eas update --branch production --non-interactive --message "${{ github.event.inputs.message || format('Auto update from commit {0} by {1}', github.sha, github.actor) }}"
+
+      - name: Summary
+        run: |
+          echo "### OTA Update Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** production" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Author:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Message:** ${{ github.event.inputs.message || 'Auto update from commit' }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Users will receive this update on next app launch." >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,114 @@
+{
+  "months": [
+    {
+      "number": 1,
+      "name_ar": "مُحَرَّم",
+      "name_en": "Muharram",
+      "meaning_en": "Forbidden — one of the four sacred months",
+      "meaning_ar": "محرم — أحد الأشهر الحرم الأربعة",
+      "events_en": "Day of Ashura (10th) — fasting recommended; Prophet's migration to Medina",
+      "events_ar": "يوم عاشوراء (العاشر) — يُستحب صيامه؛ هجرة النبي إلى المدينة"
+    },
+    {
+      "number": 2,
+      "name_ar": "صَفَر",
+      "name_en": "Safar",
+      "meaning_en": "Empty — named because homes were empty as people traveled",
+      "meaning_ar": "خالي — سُمي بذلك لخلو البيوت من السكان لسفرهم",
+      "events_en": "No specific religious events",
+      "events_ar": "لا توجد مناسبات دينية محددة"
+    },
+    {
+      "number": 3,
+      "name_ar": "رَبِيع الأَوَّل",
+      "name_en": "Rabi al-Awwal",
+      "meaning_en": "First spring",
+      "meaning_ar": "الربيع الأول",
+      "events_en": "Birth of Prophet Muhammad ﷺ (12th); Beginning of Hijri calendar",
+      "events_ar": "مولد النبي محمد ﷺ (الثاني عشر)؛ بداية التقويم الهجري"
+    },
+    {
+      "number": 4,
+      "name_ar": "رَبِيع الثَّانِي",
+      "name_en": "Rabi al-Thani",
+      "meaning_en": "Second spring",
+      "meaning_ar": "الربيع الثاني",
+      "events_en": "No specific religious events",
+      "events_ar": "لا توجد مناسبات دينية محددة"
+    },
+    {
+      "number": 5,
+      "name_ar": "جُمَادَى الأُولَى",
+      "name_en": "Jumada al-Awwal",
+      "meaning_en": "First month of cold weather",
+      "meaning_ar": "أول شهر من برد الشتاء",
+      "events_en": "No specific religious events",
+      "events_ar": "لا توجد مناسبات دينية محددة"
+    },
+    {
+      "number": 6,
+      "name_ar": "جُمَادَى الثَّانِيَة",
+      "name_en": "Jumada al-Thani",
+      "meaning_en": "Second month of cold weather",
+      "meaning_ar": "ثاني شهر من برد الشتاء",
+      "events_en": "No specific religious events",
+      "events_ar": "لا توجد مناسبات دينية محددة"
+    },
+    {
+      "number": 7,
+      "name_ar": "رَجَب",
+      "name_en": "Rajab",
+      "meaning_en": "Respect — one of the four sacred months",
+      "meaning_ar": "مُعَظَّم — أحد الأشهر الحرم الأربعة",
+      "events_en": "Isra and Mi'raj (Night Journey) — 27th; Fasting recommended",
+      "events_ar": "الإسراء والمعراج (السابع والعشرون)؛ يُستحب الصيام"
+    },
+    {
+      "number": 8,
+      "name_ar": "شَعْبَان",
+      "name_en": "Sha'ban",
+      "meaning_en": "Branching — month of preparation for Ramadan",
+      "meaning_ar": "التفرع — شهر التحضير لرمضان",
+      "events_en": "Night of the 15th — recommended fasting and worship; Prophet ﷺ fasted most of this month",
+      "events_ar": "ليلة النصف من شعبان — يُستحب الصيام والعبادة؛ كان النبي ﷺ يصوم أكثر هذا الشهر"
+    },
+    {
+      "number": 9,
+      "name_ar": "رَمَضَان",
+      "name_en": "Ramadan",
+      "meaning_en": "Burning heat — the month of fasting",
+      "meaning_ar": "شدة الحر — شهر الصيام",
+      "events_en": "Fasting obligatory; Quran revealed; Laylat al-Qadr (Night of Power, last 10 nights); Battle of Badr (17th)",
+      "events_ar": "الصيام فرض؛ نزول القرآن؛ ليلة القدر (في العشر الأواخر)؛ غزوة بدر (السابع عشر)"
+    },
+    {
+      "number": 10,
+      "name_ar": "شَوَّال",
+      "name_en": "Shawwal",
+      "meaning_en": "Uplift — month of Eid al-Fitr",
+      "meaning_ar": "الارتفاع — شهر عيد الفطر",
+      "events_en": "Eid al-Fitr (1st); Six days of fasting (recommended, 2nd-7th)",
+      "events_ar": "عيد الفطر (الأول)؛ صيام الست (يُستحب، الثاني إلى السابع)"
+    },
+    {
+      "number": 11,
+      "name_ar": "ذُو الْقِعْدَة",
+      "name_en": "Dhu al-Qi'dah",
+      "meaning_en": "Truce — one of the four sacred months",
+      "meaning_ar": "المعاهدة — أحد الأشهر الحرم الأربعة",
+      "events_en": "No specific religious events; preparation for Hajj",
+      "events_ar": "لا توجد مناسبات دينية محددة؛ التحضير للحج"
+    },
+    {
+      "number": 12,
+      "name_ar": "ذُو الْحِجَّة",
+      "name_en": "Dhu al-Hijjah",
+      "meaning_en": "The month of pilgrimage",
+      "meaning_ar": "شهر الحج",
+      "events_en": "Hajj (8th-13th); Day of Arafah (9th) — fasting recommended for non-pilgrims; Eid al-Adha (10th)",
+      "events_ar": "الحج (الثامن إلى الثالث عشر)؛ يوم عرفة (التاسع) — يُستحب صيامه لغير الحجاج؛ عيد الأضحى (العاشر)"
+    }
+  ],
+  "disclaimer_en": "Note: Islamic months begin with the sighting of the new moon. The dates shown may be slightly inaccurate as they are calculated astronomically. Please verify with your local moon sighting announcement.",
+  "disclaimer_ar": "ملاحظة: تبدأ الأشهر الهجرية برؤية الهلال. قد تكون التواريخ المعروضة غير دقيقة قليلاً لأنها محسوبة فلكياً. يرجى التحقق من إعلان رؤية الهلال في منطقتك."
+}

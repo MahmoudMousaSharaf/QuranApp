@@ -1,0 +1,1 @@
+Select-String -Path 'E:\quran-app\src\i18n\translations.ts' -Pattern 'progressTrackingSubtitle' | ForEach-Object { "$($_.LineNumber): $($_.Line.Trim())" } | Out-File 'E:\quran-app\lines.txt' -Encoding utf8

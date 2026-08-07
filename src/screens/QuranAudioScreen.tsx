@@ -1,0 +1,448 @@
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  FlatList,
+  StyleSheet,
+  StatusBar,
+  ActivityIndicator,
+  Alert,
+  ScrollView,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { Audio, AVPlaybackStatus } from 'expo-av';
+import { useTheme, colors } from '../context/ThemeContext';
+import { useLanguage } from '../context/LanguageContext';
+import { useUITranslation } from '../hooks/useUITranslation';
+import { SurahMeta } from '../types';
+import { fetchSurah } from '../services/api';
+import { translateText } from '../services/contentTranslator';
+
+interface QuranAudioScreenProps {
+  onBack: () => void;
+  surahs: SurahMeta[];
+  onSelectSurah: (number: number) => void;
+}
+
+// Free reciters from everyayah.com (no API key needed, free to use)
+const RECITERS = [
+  { id: 'Alafasy_128kbps', name: 'Mishary Rashid Alafasy', ar: 'مشاري العفاسي' },
+  { id: 'Abdul_Basit_Murattal_192kbps', name: 'Abdul Basit (Murattal)', ar: 'عبد الباسط (مرتل)' },
+  { id: 'Husary_128kbps', name: 'Mahmoud Al-Hussary', ar: 'محمود الحصري' },
+  { id: 'Minshawy_Murattal_128kbps', name: 'Al-Minshawi (Murattal)', ar: 'المنشاوي (مرتل)' },
+  { id: 'Abdullah_Basfar_192kbps', name: 'Abdullah Basfar', ar: 'عبدالله بصفر' },
+  { id: 'Hani_Rifai_192kbps', name: 'Hani Ar-Rifai', ar: 'هاني الرفاعي' },
+  { id: 'Saood_ash-Shuraym_128kbps', name: 'Saud Ash-Shuraim', ar: 'سعود الشريم' },
+];
+
+// Format: https://everyayah.com/data/{reciter_id}/{surah padded 3}{ayah padded 3}.mp3
+function getAyahAudioUrl(reciterId: string, surahNumber: number, ayahNumber: number): string {
+  const s = String(surahNumber).padStart(3, '0');
+  const a = String(ayahNumber).padStart(3, '0');
+  return `https://everyayah.com/data/${reciterId}/${s}${a}.mp3`;
+}
+
+const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) => {
+  const { theme } = useTheme();
+  const { t, appLanguage } = useLanguage();
+  const c = colors[theme];
+  const isArabicUI = appLanguage === 'ar';
+  const { ui, translateUI, needsTranslation } = useUITranslation(appLanguage);
+  const [translatedReciters, setTranslatedReciters] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    if (!needsTranslation) return;
+    let cancelled = false;
+    (async () => {
+      const map: Record<string, string> = {};
+      for (const reciter of RECITERS) {
+        if (cancelled) return;
+        map[reciter.id] = await translateText(reciter.name, appLanguage);
+      }
+      if (!cancelled) setTranslatedReciters(map);
+    })();
+    return () => { cancelled = true; };
+  }, [appLanguage, needsTranslation]);
+
+  useEffect(() => {
+    if (!needsTranslation) return;
+    translateUI([
+      'Quran Recitations',
+      'Select Reciter',
+      'Playback Error',
+      'Could not play audio. Check your internet connection.',
+      'Error',
+      'Could not load surah',
+      'Surah',
+      'Ayah',
+      'of',
+      'ayahs',
+    ]);
+  }, [appLanguage, needsTranslation]);
+
+  const [selectedReciter, setSelectedReciter] = useState(0);
+  const [selectedSurah, setSelectedSurah] = useState<number | null>(null);
+  const [currentAyah, setCurrentAyah] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [ayahs, setAyahs] = useState<any[]>([]);
+  const soundRef = useRef<Audio.Sound | null>(null);
+
+  useEffect(() => {
+    // Configure audio for background playback (screen off) but stop when app closes
+    Audio.setAudioModeAsync({
+      allowsRecordingIOS: false,
+      staysActiveInBackground: true,
+      interruptionModeIOS: 1,
+      playsInSilentModeIOS: true,
+      shouldDuckAndroid: true,
+      interruptionModeAndroid: 1,
+      playThroughEarpieceAndroid: false,
+    });
+
+    return () => {
+      if (soundRef.current) {
+        soundRef.current.unloadAsync();
+      }
+    };
+  }, []);
+
+  const playAyah = useCallback(async (surahNum: number, ayahIndex: number, ayahsList: any[]) => {
+    if (ayahIndex >= ayahsList.length) {
+      setIsPlaying(false);
+      setCurrentAyah(0);
+      return;
+    }
+
+    const reciter = RECITERS[selectedReciter];
+    const ayah = ayahsList[ayahIndex];
+    const url = getAyahAudioUrl(reciter.id, surahNum, ayah.numberInSurah);
+
+    try {
+      setIsLoading(true);
+      setCurrentAyah(ayahIndex);
+
+      if (soundRef.current) {
+        await soundRef.current.unloadAsync();
+      }
+
+      const { sound } = await Audio.Sound.createAsync(
+        { uri: url },
+        { shouldPlay: true },
+        (status: AVPlaybackStatus) => {
+          if (status.isLoaded && status.didJustFinish) {
+            playAyah(surahNum, ayahIndex + 1, ayahsList);
+          }
+          if (!status.isLoaded) {
+            setIsPlaying(false);
+            setIsLoading(false);
+          }
+        }
+      );
+
+      soundRef.current = sound;
+      setIsPlaying(true);
+      setIsLoading(false);
+    } catch (error) {
+      setIsLoading(false);
+      setIsPlaying(false);
+      Alert.alert(
+        isArabicUI ? 'خطأ في التشغيل' : ui('Playback Error'),
+        isArabicUI
+          ? 'تعذر تشغيل الصوت. تأكد من اتصالك بالإنترنت.'
+          : ui('Could not play audio. Check your internet connection.')
+      );
+    }
+  }, [selectedReciter, isArabicUI]);
+
+  const handlePlaySurah = useCallback(async (surahNumber: number) => {
+    try {
+      setIsLoading(true);
+      const surahData = await fetchSurah(surahNumber);
+      const ayahsList = surahData.arabic;
+      setAyahs(ayahsList);
+      setSelectedSurah(surahNumber);
+      await playAyah(surahNumber, 0, ayahsList);
+    } catch (error) {
+      setIsLoading(false);
+      Alert.alert(
+        isArabicUI ? 'خطأ' : ui('Error'),
+        isArabicUI ? 'تعذر تحميل السورة' : ui('Could not load surah')
+      );
+    }
+  }, [playAyah, isArabicUI]);
+
+  const handleStop = useCallback(async () => {
+    if (soundRef.current) {
+      await soundRef.current.stopAsync();
+      await soundRef.current.unloadAsync();
+      soundRef.current = null;
+    }
+    setIsPlaying(false);
+    setCurrentAyah(0);
+    setSelectedSurah(null);
+  }, []);
+
+  const handlePauseResume = useCallback(async () => {
+    if (soundRef.current) {
+      const status = await soundRef.current.getStatusAsync();
+      if (status.isLoaded) {
+        if (status.isPlaying) {
+          await soundRef.current.pauseAsync();
+          setIsPlaying(false);
+        } else {
+          await soundRef.current.playAsync();
+          setIsPlaying(true);
+        }
+      }
+    }
+  }, []);
+
+  if (selectedSurah !== null) {
+    const surahMeta = surahs.find((s) => s.number === selectedSurah);
+    return (
+      <View style={[styles.container, { backgroundColor: c.background }]}>
+        <StatusBar barStyle="light-content" backgroundColor={c.headerBg} />
+        <View style={[styles.header, { backgroundColor: c.headerBg }]}>
+          <TouchableOpacity onPress={handleStop} style={styles.backBtn}>
+            <Ionicons name="arrow-back" size={24} color="#fff" />
+          </TouchableOpacity>
+          <Text style={styles.headerTitle}>
+            {isArabicUI
+              ? surahMeta?.name || `سورة ${selectedSurah}`
+              : surahMeta?.englishName || ui(`Surah ${selectedSurah}`)}
+          </Text>
+          <View style={{ width: 28 }} />
+        </View>
+
+        {/* Player Controls */}
+        <View style={[styles.playerBar, { backgroundColor: c.surface, borderBottomColor: c.border }]}>
+          <TouchableOpacity onPress={handlePauseResume} style={[styles.playBtn, { backgroundColor: c.primary }]}>
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#fff" />
+            ) : (
+              <Ionicons name={isPlaying ? 'pause' : 'play'} size={24} color="#fff" />
+            )}
+          </TouchableOpacity>
+          <View style={styles.playerInfo}>
+            <Text style={[styles.playerReciter, { color: c.text }]}>
+              {isArabicUI ? RECITERS[selectedReciter].ar : (needsTranslation ? (translatedReciters[RECITERS[selectedReciter].id] || RECITERS[selectedReciter].name) : RECITERS[selectedReciter].name)}
+            </Text>
+            <Text style={[styles.playerAyah, { color: c.textSecondary }]}>
+              {isArabicUI
+                ? `الآية ${currentAyah + 1} من ${ayahs.length}`
+                : ui(`Ayah ${currentAyah + 1} of ${ayahs.length}`)}
+            </Text>
+          </View>
+          <TouchableOpacity onPress={handleStop} style={styles.stopBtn}>
+            <Ionicons name="stop-outline" size={22} color={c.primary} />
+          </TouchableOpacity>
+        </View>
+
+        {/* Ayah List with current highlight */}
+        <FlatList
+          data={ayahs}
+          keyExtractor={(item) => String(item.numberInSurah)}
+          contentContainerStyle={styles.listContent}
+          initialNumToRender={10}
+          maxToRenderPerBatch={10}
+          windowSize={10}
+          removeClippedSubviews={true}
+          renderItem={({ item, index }) => (
+            <View
+              style={[
+                styles.ayahItem,
+                {
+                  backgroundColor: index === currentAyah ? c.ayahBg : c.surface,
+                  borderBottomColor: c.border,
+                },
+              ]}
+            >
+              <View style={[styles.ayahNumber, { backgroundColor: c.primary }]}>
+                <Text style={styles.ayahNumberText}>{item.numberInSurah}</Text>
+              </View>
+              <Text style={[styles.arabicText, { color: c.text }]}>{item.text}</Text>
+            </View>
+          )}
+        />
+      </View>
+    );
+  }
+
+  return (
+    <View style={[styles.container, { backgroundColor: c.background }]}>
+      <StatusBar barStyle="light-content" backgroundColor={c.headerBg} />
+      <View style={[styles.header, { backgroundColor: c.headerBg }]}>
+        <TouchableOpacity onPress={onBack} style={styles.backBtn}>
+          <Ionicons name="arrow-back" size={24} color="#fff" />
+        </TouchableOpacity>
+        <Text style={styles.headerTitle}>
+          {isArabicUI ? 'تلاوات القرآن' : ui(t('quranAudio'))}
+        </Text>
+        <View style={{ width: 28 }} />
+      </View>
+
+      {/* Reciter Selection */}
+      <View style={[styles.reciterSection, { backgroundColor: c.surface, borderBottomColor: c.border }]}>
+        <Text style={[styles.reciterLabel, { color: c.textSecondary }]}>
+          {isArabicUI ? 'اختر القارئ' : ui('Select Reciter')}
+        </Text>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.reciterScroll}>
+          {RECITERS.map((reciter, index) => (
+            <TouchableOpacity
+              key={reciter.id}
+              style={[
+                styles.reciterChip,
+                {
+                  backgroundColor: selectedReciter === index ? c.primary : c.ayahBg,
+                },
+              ]}
+              onPress={() => setSelectedReciter(index)}
+            >
+              <Text
+                style={[
+                  styles.reciterChipText,
+                  { color: selectedReciter === index ? '#fff' : c.text },
+                ]}
+              >
+                {isArabicUI ? reciter.ar : (needsTranslation ? (translatedReciters[reciter.id] || reciter.name) : reciter.name)}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
+      </View>
+
+      {/* Surah List */}
+      <FlatList
+        data={surahs}
+        keyExtractor={(item) => String(item.number)}
+        contentContainerStyle={styles.listContent}
+        initialNumToRender={15}
+        maxToRenderPerBatch={15}
+        windowSize={10}
+        removeClippedSubviews={true}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={[styles.surahItem, { backgroundColor: c.surface, borderBottomColor: c.border }]}
+            onPress={() => handlePlaySurah(item.number)}
+            activeOpacity={0.7}
+          >
+            <View style={[styles.surahNumber, { backgroundColor: c.ayahBg }]}>
+              <Text style={[styles.surahNumberText, { color: c.primary }]}>{item.number}</Text>
+            </View>
+            <View style={styles.surahInfo}>
+              <Text style={[styles.surahName, { color: c.text }]}>
+                {isArabicUI ? item.name : item.englishName}
+              </Text>
+              <Text style={[styles.surahDetail, { color: c.textSecondary }]}>
+                {item.englishNameTranslation} • {item.numberOfAyahs} {isArabicUI ? 'آية' : ui('ayahs')}
+              </Text>
+            </View>
+            <View style={styles.playIcon}>
+              {isLoading && selectedSurah === item.number ? (
+                <ActivityIndicator size="small" color={c.primary} />
+              ) : (
+                <Ionicons name="play-circle-outline" size={28} color={c.primary} />
+              )}
+            </View>
+          </TouchableOpacity>
+        )}
+      />
+    </View>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: { flex: 1 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingTop: 50,
+    paddingHorizontal: 12,
+    paddingBottom: 14,
+  },
+  backBtn: { padding: 4 },
+  headerTitle: { flex: 1, textAlign: 'center', fontSize: 18, fontWeight: 'bold', color: '#fff' },
+  reciterSection: {
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  reciterLabel: { fontSize: 13, fontWeight: '600', marginBottom: 8 },
+  reciterScroll: { flexGrow: 0 },
+  reciterChip: {
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+    borderRadius: 20,
+    marginRight: 8,
+  },
+  reciterChipText: { fontSize: 13, fontWeight: '600' },
+  listContent: { padding: 16 },
+  surahItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginBottom: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  surahNumber: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
+  },
+  surahNumberText: { fontSize: 14, fontWeight: 'bold' },
+  surahInfo: { flex: 1 },
+  surahName: { fontSize: 16, fontWeight: '600', marginBottom: 3 },
+  surahDetail: { fontSize: 12 },
+  playIcon: { padding: 4 },
+  playerBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  playBtn: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 14,
+  },
+  playerInfo: { flex: 1 },
+  playerReciter: { fontSize: 15, fontWeight: '600' },
+  playerAyah: { fontSize: 13, marginTop: 2 },
+  stopBtn: { padding: 4 },
+  ayahItem: {
+    flexDirection: 'row',
+    paddingHorizontal: 16,
+    paddingVertical: 14,
+    borderRadius: 12,
+    marginBottom: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  ayahNumber: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  ayahNumberText: { fontSize: 12, fontWeight: 'bold', color: '#fff' },
+  arabicText: {
+    flex: 1,
+    fontSize: 20,
+    lineHeight: 36,
+    textAlign: 'right',
+  },
+});
+
+export default QuranAudioScreen;

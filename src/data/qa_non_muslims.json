@@ -1,0 +1,472 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question_en": "Did Prophet Muhammad marry a child (Aisha)?",
+      "question_ar": "هل تزوج النبي محمد طفلة (عائشة)؟",
+      "answer_en": "Aisha's age at marriage is reported in some hadith as 9, but many scholars question this based on historical evidence. Calculations from other historical facts (such as the age of Asma, Aisha's sister) suggest she was between 15-19 at marriage. In 7th century Arabia, marriage at young ages was common across all cultures — including Europe where the legal age with parental consent was 12 until the 19th century. The Prophet's enemies never used this against him — it was not controversial at the time. The controversy is a modern phenomenon applying 21st century standards to 7th century context. The Prophet's first marriage was to Khadija, a woman 15 years older, and he remained monogamous for 25 years until her death. His other marriages were for political alliances, tribal reconciliation, and supporting widows.",
+      "answer_ar": "يُذكر في بعض الروايات أن عمر عائشة عند الزواج كان ٩ سنوات، لكن العديد من العلماء شككوا في هذا بناءً على أدلة تاريخية. تشير حسابات مبنية على حقائق أخرى (مثل عمر أسماء أخت عائشة) إلى أن عائشة كانت بين ١٥-١٩ سنة عند الزواج. في الجزيرة العربية في القرن السابع، كان الزواج المبكر شائعاً في جميع الثقافات — بما في ذلك أوروبا حيث كان السن القانوني للزواج بموافقة الوالدين ١٢ سنة حتى القرن التاسع عشر. لم يستخدم أعداء النبي زواجه من عائشة ضده أبداً — لم يكن مثيراً للجدل آنذاك. الجدل ظاهرة حديثة تطبق معايير القرن الحادي والعشرين على سياق القرن السابع. كان زواج النبي الأول من خديجة، امرأة تكبره بـ ١٥ سنة، وبقي متزوجاً بها وحدها ٢٥ سنة حتى وفاتها. أما زيجاته الأخرى فكانت لأسباب سياسية وتحالفات قبلية ودعم الأرامل.",
+      "reference_en": "Sahih al-Bukhari 5133; Sahih Muslim 1422. Historical analysis: Idrees, S. (2012). 'Aisha's Age of Marriage.' Islamic Research Foundation.",
+      "reference_ar": "صحيح البخاري ٥١٣٣؛ صحيح مسلم ١٤٢٢. تحليل تاريخي للعلماء حول عمر عائشة."
+    },
+    {
+      "id": 2,
+      "question_en": "Is Islam a religion of terrorism?",
+      "question_ar": "هل الإسلام دين إرهاب؟",
+      "answer_en": "No. The word 'Islam' comes from 'salam' meaning peace. The Quran states: 'Whoever kills a soul unless for a soul or for corruption in the land — it is as if he had slain mankind entirely.' (5:32). The Quran forbids aggression: 'Fight in the way of Allah those who fight you but do not transgress.' (2:190). The Prophet forbade killing women, children, elderly, and non-combatants even in war. The vast majority of the world's 1.8 billion Muslims live peacefully. Acts of terrorism by extremists represent a tiny fraction and are condemned by mainstream Islamic scholars worldwide.",
+      "answer_ar": "لا. كلمة «الإسلام» مشتقة من «السلام». ينص القرآن: «مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا» (المائدة ٥:٣٢). ويمنع القرآن العدوان: «وَقَاتِلُوا فِي سَبِيلِ اللَّهِ الَّذِينَ يُقَاتِلُونَكُمْ وَلَا تَعْتَدُوا» (البقرة ٢:١٩٠). نهى النبي ﷺ عن قتل النساء والأطفال وكبار السن وغير المقاتلين حتى في الحرب. الغالبية العظمى من ١.٨ مليار مسلم يعيشون بسلام. أعمال الإرهاب التي يقوم بها المتطرفون تمثل جزءاً ضئيلاً وتُدان من قبل علماء الإسلام في جميع أنحاء العالم.",
+      "reference_en": "Quran 5:32; Quran 2:190; Sahih al-Bukhari 3015; Sahih Muslim 1731. Pew Research Center (2017): 'Muslims are 1.8 billion worldwide.'",
+      "reference_ar": "القرآن ٥:٣٢؛ القرآن ٢:١٩٠؛ صحيح البخاري ٣٠١٥؛ صحيح مسلم ١٧٣١."
+    },
+    {
+      "id": 3,
+      "question_en": "Why do Muslim women wear hijab?",
+      "question_ar": "لماذا ترتدي المسلمات الحجاب؟",
+      "answer_en": "The hijab is an act of obedience to Allah's command: 'O Prophet, tell your wives and daughters and the women of the believers to draw their outer garments close around themselves.' (33:59). It protects women from unwanted attention, focuses society on women's intellect rather than appearance, and is a visible expression of faith. Islam also commands men to lower their gaze and dress modestly. Many Muslim women choose hijab proudly and find it empowering. Islam gave women rights 1400 years ago that the West only granted recently — property ownership, divorce, education, and choosing their husband.",
+      "answer_ar": "الحجاب عبادة وطاعة لأمر الله: «يَا أَيُّهَا النَّبِيُّ قُل لِّأَزْوَاجِكَ وَبَنَاتِكَ وَنِسَاءِ الْمُؤْمِنِينَ يُدْنِينَ عَلَيْهِنَّ مِن جَلَابِيبِهِنَّ» (الأحزاب ٣٣:٥٩). يحمي الحجاب المرأة من الانتباه غير المرغوب، ويوجّه المجتمع نحو عقل المرأة بدلاً من مظهرها، وهو تعبير مرئي عن الإيمان. يأمر الإسلام أيضاً الرجال بغض البصر واللباس المحتشم. العديد من المسلمات يخترن الحجاب بفخر ويجدنه تمكيناً. منح الإسلام المرأة حقوقاً قبل ١٤٠٠ سنة لم تمنحها الغرب إلا مؤخراً — امتلاك الممتلكات، الطلاق، التعليم، واختيار الزوج.",
+      "reference_en": "Quran 33:59; Quran 24:30-31; Sahih Muslim 2188. Encyclopedia of Islam, 2nd ed., Brill.",
+      "reference_ar": "القرآن ٣٣:٥٩؛ القرآن ٢٤:٣٠-٣١؛ صحيح مسلم ٢١٨٨."
+    },
+    {
+      "id": 4,
+      "question_en": "Was Islam spread by the sword?",
+      "question_ar": "هل انتشر الإسلام بالسيف؟",
+      "answer_en": "No. Islam spread primarily through trade, peaceful preaching, and the exemplary character of Muslims. Indonesia (largest Muslim country) never saw an Islamic army. India was ruled by Muslims for centuries yet the majority remained Hindu. The Quran states: 'There shall be no compulsion in religion.' (2:256). Spain under Muslim rule was a golden age of coexistence. The Crusades were launched BY Christians AGAINST Muslims.",
+      "answer_ar": "لا. انتشر الإسلام أساساً عبر التجارة والدعوة السلمية وحسن خلق المسلمين. إندونيسيا (أكبر دولة إسلامية) لم يدخلها جيش إسلامي. حُكمت الهند من قبل المسلمين لقرون ومع ذلك ظل الأغلبية هندوساً. ينص القرآن: «لَا إِكْرَاهَ فِي الدِّينِ» (البقرة ٢:٢٥٦). الأندلس تحت الحكم الإسلامي كانت عصراً ذهبياً للتعايش. الحروب الصليبية شُنّت من قبل المسيحيين ضد المسلمين، وليس العكس.",
+      "reference_en": "Quran 2:256; Quran 16:125. Arnold, T.W. (1913). 'The Preaching of Islam.' Constable. Indonesia: world's largest Muslim population — no Islamic army ever reached it.",
+      "reference_ar": "القرآن ٢:٢٥٦؛ القرآن ١٦:١٢٥. أرنولد (١٩١٣)، «نشر الإسلام»."
+    },
+    {
+      "id": 5,
+      "question_en": "Does Islam oppress women?",
+      "question_ar": "هل الإسلام يقمع المرأة؟",
+      "answer_en": "On the contrary, Islam was the first religion to grant women comprehensive rights. 1400 years ago, Islam gave women: the right to own and inherit property (4:7), the right to initiate divorce, the right to education, the right to choose their husband, the right to keep their own earnings, and financial security. The Prophet's first wife Khadija was a successful businesswoman. His wife Aisha became one of the greatest scholars of Islam. Islam elevated women from being treated as property to equal spiritual worth: 'Whoever does righteousness, whether male or female, while being a believer — We will surely cause them to live a good life.' (16:97).",
+      "answer_ar": "على العكس، كان الإسلام أول دين يمنح المرأة حقوقاً شاملة. قبل ١٤٠٠ سنة، منح الإسلام المرأة: حق امتلاك ووراثة الممتلكات (النساء ٤:٧)، حق طلب الطلاق، حق التعليم، حق اختيار الزوج، حق الاحتفاظ بأرباحها، والأمان المالي. زوجة النبي الأولى خديجة كانت سيدة أعمال ناجحة. وزوجته عائشة أصبحت من أكبر علماء الإسلام. رفع الإسلام المرأة من معاملتها كممتلكات إلى مساواتها في القيمة الروحية: «مَنْ عَمِلَ صَالِحًا مِنْ ذَكَرٍ أَوْ أُنْثَى وَهُوَ مُؤْمِنٌ فَلَنُحْيِيَنَّهُ حَيَاةً طَيِّبَةً» (النحل ١٦:٩٧).",
+      "reference_en": "Quran 4:7; Quran 16:97; Quran 2:228; Sahih al-Bukhari 4805. Encyclopedia Britannica: 'Women in Islam.'",
+      "reference_ar": "القرآن ٤:٧؛ القرآن ١٦:٩٧؛ القرآن ٢:٢٢٨؛ صحيح البخاري ٤٨٠٥."
+    },
+    {
+      "id": 6,
+      "question_en": "What does 'jihad' actually mean?",
+      "question_ar": "ماذا يعني «الجهاد» فعلاً؟",
+      "answer_en": "The word 'jihad' literally means 'struggle' or 'striving' — not 'holy war'. The Prophet said: 'The best jihad is to speak a word of truth to a tyrant.' The greater jihad (jihad al-nafs) is the internal struggle against one's ego and sins. The lesser jihad is armed struggle in self-defense: 'Permission [to fight] has been given to those who are being fought, because they were wronged.' (22:39). Islam forbids offensive wars, killing civilians, and forced conversions. 'Holy war' does not exist in Islamic terminology — it is a Western term from the Crusades.",
+      "answer_ar": "كلمة «الجهاد» تعني حرفياً «السعي» أو «الكفاح» — وليست «الحرب المقدسة». قال النبي ﷺ: «أفضل الجهاد كلمة حق عند سلطان جائر». الجهاد الأكبر (جهاد النفس) هو الصراع الداخلي ضد النفس والشهوات. الجهاد الأصغر هو الكفاح المسلح للدفاع عن النفس: «أُذِنَ لِلَّذِينَ يُقَاتَلُونَ بِأَنَّهُمْ ظُلِمُوا» (الحج ٢٢:٣٩). يمنع الإسلام الحروب الهجومية وقتل المدنيين والإكراه على الدين. «الحرب المقدسة» غير موجودة في المصطلحات الإسلامية — هو مصطلح غربي من عصر الحروب الصليبية.",
+      "reference_en": "Quran 22:39; Quran 2:190; Sunan an-Nasa'i 4099. Esposito, J. (2002). 'Unholy War: Terror in the Name of Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٢٢:٣٩؛ القرآن ٢:١٩٠؛ سنن النسائي ٤٠٩٩."
+    },
+    {
+      "id": 7,
+      "question_en": "Do Muslims worship a different God?",
+      "question_ar": "هل يعبد المسلمون إلهاً مختلفاً؟",
+      "answer_en": "No. Muslims worship the same God as Christians and Jews — the God of Abraham, Moses, and Jesus. 'Allah' is simply the Arabic word for 'God' — Arab Christians also call God 'Allah'. The Quran affirms that Allah sent Moses the Torah, David the Psalms, and Jesus the Gospel. Islam teaches pure monotheism (Tawhid) — God is One, with no partners, no son. This is the same message Jesus preached: 'Hear, O Israel: The Lord our God, the Lord is one.' (Mark 12:29).",
+      "answer_ar": "لا. المسلمون يعبدون نفس إله المسيحيين واليهود — إله إبراهيم وموسى وعيسى. «الله» هي الكلمة العربية لـ «God» — المسيحيون العرب أيضاً يسمون الله «الله». يؤكد القرآن أن الله أرسل لموسى التوراة ولداود الزبور ولعيسى الإنجيل. الإسلام يعلم التوحيد الخالص — الله واحد لا شريك له ولا ولد. هذه هي نفس رسالة عيسى: «اسمع يا إسرائيل: الرب إلهنا رب واحد» (مرقس ١٢:٢٩).",
+      "reference_en": "Quran 4:171; Quran 2:136; Quran 3:84. Mark 12:29 (Bible). Encyclopedia of the Quran, Brill (2006).",
+      "reference_ar": "القرآن ٤:١٧١؛ القرآن ٢:١٣٦؛ القرآن ٣:٨٤. إنجيل مرقس ١٢:٢٩."
+    },
+    {
+      "id": 8,
+      "question_en": "Why can Muslim men marry four wives?",
+      "question_ar": "لماذا يمكن للرجل المسلم أن يتزوج أربع زوجات؟",
+      "answer_en": "The Quran is the only scripture that says 'marry only one': 'But if you fear that you will not be just, then [marry only] one.' (4:3). Before Islam, men had unlimited wives — Islam limited it to four, under the strict condition of justice. The Quran warns: 'You will never be able to be equal between wives, even if you strive.' (4:129). In practice, polygamy is rare. The historical context: after wars, many widows and orphans needed care. Islam gave women the right to prohibit polygamy in their marriage contract.",
+      "answer_ar": "القرآن هو الكتاب الوحيد الذي يقول «تزوجوا واحدة فقط»: «فَإِنْ خِفْتُمْ أَلَّا تَعْدِلُوا فَوَاحِدَةً» (النساء ٤:٣). قبل الإسلام، كان للرجال زوجات بلا حدود — قيّده الإسلام بأربع، بشرط العدل المطلق. يحذر القرآن: «وَلَن تَسْتَطِيعُوا أَن تَعْدِلُوا بَيْنَ النِّسَاءِ وَلَوْ حَرَصْتُمْ» (النساء ٤:١٢٩). في الممارسة، تعدد الزوجات نادر. السياق التاريخي: بعد الحروب، كان هناك أرامل وأيتام يحتاجون رعاية. أعطى الإسلام المرأة حق اشتراط عدم التعدد في عقد الزواج.",
+      "reference_en": "Quran 4:3; Quran 4:129. Sahih Muslim 1467. Armstrong, K. (2000). 'Islam: A Short History.' Modern Library.",
+      "reference_ar": "القرآن ٤:٣؛ القرآن ٤:١٢٩؛ صحيح مسلم ١٤٦٧."
+    },
+    {
+      "id": 9,
+      "question_en": "What is the Islamic view on Jesus?",
+      "question_ar": "ما هو موقف الإسلام من عيسى؟",
+      "answer_en": "Islam holds Jesus (peace be upon him) in the highest regard. He is one of the greatest prophets. The Quran affirms his miraculous birth to the Virgin Mary, his miracles (healing, raising the dead, speaking as an infant), and his return near the end of time. Muslims believe Jesus was not crucified but raised to heaven. However, Islam teaches Jesus is a prophet, not God: 'The Messiah, Jesus, the son of Mary, was but a messenger of Allah.' (4:171). No Muslim is a Muslim if they do not believe in Jesus.",
+      "answer_ar": "يحترم الإسلام عيسى (عليه السلام) أعلى احترام. هو أحد أعظم أنبياء الله. يؤكد القرآن ميلاده المعجزي من العذراء مريم، ومعجزاته (شفاء المرضى، إحياء الموتى، الكلام طفلاً)، وعودته في آخر الزمان. يؤمن المسلمون أن عيسى لم يُصلب بل رفعه الله إلى السماء. لكن الإسلام يعلم أن عيسى نبي وليس إلهاً: «الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ إِنَّمَا رَسُولُ اللَّهِ» (النساء ٤:١٧١). لا يكون المسلم مسلماً إن لم يؤمن بعيسى.",
+      "reference_en": "Quran 4:171; Quran 3:45-59; Quran 19:16-35; Sahih al-Bukhari 3448.",
+      "reference_ar": "القرآن ٤:١٧١؛ القرآن ٣:٤٥-٥٩؛ القرآن ١٩:١٦-٣٥؛ صحيح البخاري ٣٤٤٨."
+    },
+    {
+      "id": 10,
+      "question_en": "Is the Quran copied from the Bible?",
+      "question_ar": "هل القرآن منسوخ من الإنجيل؟",
+      "answer_en": "No. The Quran contains information that contradicts the Bible in many places, and scientific facts unknown at the time. The Prophet Muhammad was unlettered — he could not read or write. The Quran was revealed over 23 years and memorized by followers. It challenges humanity to produce something like it — unmet in 1400 years. The Quran contains no scientific errors. Many stories differ from Biblical versions in details that modern archaeology has confirmed in favor of the Quran (e.g., Pharaoh's body preserved).",
+      "answer_ar": "لا. القرآن يحتوي على معلومات تتعارض مع الإنجيل في أماكن كثيرة، وحقائق علمية غير معروفة آنذاك. كان النبي محمد ﷺ أمياً — لا يقرأ ولا يكتب. نزل القرآن على مدى ٢٣ سنة وحفظه أتباعه. يتحدى القرآن البشر أن يأتوا بمثله — لم يُلبَّ في ١٤٠٠ سنة. لا يحتوي القرآن على أخطاء علمية. تختلف قصص القرآن عن النسخ الإنجيلية في تفاصيل أكدتها الآثار الحديثة لصالح القرآن (مثل حفظ جسد فرعون).",
+      "reference_en": "Quran 2:23; Quran 17:88; Quran 10:92. Bucaille, M. (1976). 'The Bible, The Qur'an and Science.' Seghers.",
+      "reference_ar": "القرآن ٢:٢٣؛ القرآن ١٧:٨٨؛ القرآن ١٠:٩٢. موريس بوكاي (١٩٧٦)."
+    },
+    {
+      "id": 11,
+      "question_en": "Does Islam promote slavery?",
+      "question_ar": "هل الإسلام يشجّع الرق؟",
+      "answer_en": "Islam did not invent slavery — it existed in all ancient civilizations. What Islam did was systematically restrict and regulate slavery, encouraging emancipation at every opportunity. Freeing a slave is an act of expiation for many sins in Islam. The Prophet said: 'Whoever slaps his slave or beats him, the expiation is to free him.' Zakat (charity) funds can be used to free slaves. The Quran: 'And those who seek a contract [for freedom] from among those whom your right hands possess — then make a contract with them.' (24:33). Islam's ultimate goal was abolition — 1400 years before the West abolished slavery.",
+      "answer_ar": "الإسلام لم يخترع الرق — كان موجوداً في كل الحضارات القديمة. ما فعله الإسلام هو تقييد الرق وتنظيمه بشكل منهجي، وتشجيع العتق في كل فرصة. تحرير عبد كفّارة لكثير من الذنوب. قال النبي ﷺ: «من لطم عبده أو ضربه فكفارته عتقه». يمكن إنفاق الزكاة لتحرير العبيد. القرآن: «وَالَّذِينَ يَبْتَغُونَ الْكِتَابَ مِمَّا مَلَكَتْ أَيْمَانُكُمْ فَكَاتِبُوهُمْ» (النور ٢٤:٣٣). هدف الإسلام النهائي كان إلغاء الرق — قبل ١٤٠٠ سنة من إلغاء الغرب للرق.",
+      "reference_en": "Quran 24:33; Quran 90:13; Sahih Muslim 1661. Bernard, L. (1986). 'The Islamic View of Slavery.' Islamic Studies, 25(1).",
+      "reference_ar": "القرآن ٢٤:٣٣؛ القرآن ٩٠:١٣؛ صحيح مسلم ١٦٦١."
+    },
+    {
+      "id": 12,
+      "question_en": "What is Sharia law?",
+      "question_ar": "ما هي الشريعة الإسلامية؟",
+      "answer_en": "Sharia means 'the path' or 'way to water' — it refers to Islamic principles derived from the Quran and Sunnah. Sharia covers personal worship (prayer, fasting, charity), family law (marriage, divorce, inheritance), and social ethics (justice, charity, human rights). It is not a rigid penal code as media portrays. Most of Sharia deals with worship and morality, not criminal law. Sharia protects freedom of religion: 'There is no compulsion in religion.' (2:256). Non-Muslims living under Islamic rule have the right to govern their personal affairs by their own religious laws.",
+      "answer_ar": "الشريعة تعني «الطريق» أو «سبيل الماء» — تشير إلى المبادئ الإسلامية المشتقة من القرآن والسنة. تغطي الشريعة العبادات الشخصية (الصلاة، الصيام، الزكاة)، والأحوال الشخصية (الزواج، الطلاق، الميراث)، والأخلاق الاجتماعية (العدل، الإحسان، حقوق الإنسان). ليست قانوناً جنائياً صارماً كما تصوره وسائل الإعلام. معظم الشريعة يتعلق بالعبادة والأخلاق، لا بالقانون الجنائي. تحمي الشريعة حرية الدين: «لَا إِكْرَاهَ فِي الدِّينِ» (البقرة ٢:٢٥٦). لغير المسلمين تحت الحكم الإسلامي حق إدارة شؤونهم الشخصية حسب قوانينهم الدينية.",
+      "reference_en": "Quran 2:256; Quran 16:90; Quran 73:20. Ramadan, T. (2004). 'Western Muslims and the Future of Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٢:٢٥٦؛ القرآن ١٦:٩٠؛ القرآن ٧٣:٢٠."
+    },
+    {
+      "id": 13,
+      "question_en": "Is there death for apostasy in Islam?",
+      "question_ar": "هل هناك قتل للمرتد في الإسلام؟",
+      "answer_en": "This is a complex issue. The Quran mentions no worldly punishment for apostasy — it speaks of punishment in the Hereafter. The hadith often cited were in the context of treason during wartime, not simple change of faith. Many contemporary scholars argue that apostasy as a personal choice of faith is not punishable by death. The Quran: 'Whoever wills — let him believe; and whoever wills — let him disbelieve.' (18:29). The historical context was that leaving Islam often meant joining enemy forces — equivalent to treason, not mere religious conversion.",
+      "answer_ar": "هذه مسألة معقدة. القرآن لا يذكر عقوبة دنيوية للردة — يتحدث عن العقوبة في الآخرة. الأحاديث المذكورة كانت في سياق الخيانة زمن الحرب، لا مجرد تغيير الدين. يجادل العديد من العلماء المعاصرين أن الردة كاختيار شخصي للعقيدة لا تُعاقب بالقتل. القرآن: «فَمَن شَاء فَلْيُؤْمِن وَمَن شَاء فَلْيَكْفُرْ» (الكهف ١٨:٢٩). السياق التاريخي كان أن ترك الإسلام غالباً يعني الانضمام إلى قوات العدو — أي ما يعادل الخيانة العظمى، لا مجرد تغيير ديني.",
+      "reference_en": "Quran 18:29; Quran 2:256; Quran 4:137. Saeed, A. (2004). 'Freedom of Religion, Apostasy and Islam.' Ashgate.",
+      "reference_ar": "القرآن ١٨:٢٩؛ القرآن ٢:٢٥٦؛ القرآن ٤:١٣٧."
+    },
+    {
+      "id": 14,
+      "question_en": "Does Islam allow forced marriage?",
+      "question_ar": "هل يسمح الإسلام بالزواج بالإكراه؟",
+      "answer_en": "No. Forced marriage is strictly prohibited in Islam. The Prophet explicitly annulled a marriage when a woman complained she was forced. A woman's consent is required — the Prophet said: 'A virgin's consent must be sought, and a previously married woman's consent must be verbal.' When a woman came to the Prophet saying her father married her against her will, he gave her the choice to annul the marriage. Forced marriage is a cultural practice in some societies, not an Islamic teaching.",
+      "answer_ar": "لا. الزواج بالإكراه محظور تماماً في الإسلام. أبطل النبي ﷺ صراحةً زواجاً عندما اشتكت امرأة من إكراهها. رضا المرأة مطلوب — قال النبي ﷺ: «تُستأمر البكر وأذنها صمتها، وتُستأمر الثيب بالنطق». عندما جاءت امرأة للنبي تقول إن أباها زوّجها رغماً عنها، خيّرها بين إبطال الزواج أو إمضائه. الزواج بالإكراه ممارسة ثقافية في بعض المجتمعات، وليس من تعاليم الإسلام.",
+      "reference_en": "Sahih al-Bukhari 5136; Sunan Abu Dawud 2096; Sahih Muslim 1421. Khan, M. (2007). 'Marriage in Islam.' Islamic Book Service.",
+      "reference_ar": "صحيح البخاري ٥١٣٦؛ سنن أبي داود ٢٠٩٦؛ صحيح مسلم ١٤٢١."
+    },
+    {
+      "id": 15,
+      "question_en": "Does Islam promote wife beating?",
+      "question_ar": "هل يشجّع الإسلام ضرب الزوجة؟",
+      "answer_en": "No. The Quran verse (4:34) uses the word 'idribuhunna' which scholars interpret as a light tap (with a miswak/toothstick) as a last resort — never causing pain or injury. The Prophet never hit any of his wives and said: 'The best of you are those who are best to their wives.' He also said: 'No believing man should hate a believing woman; if he dislikes one trait, he will be pleased with another.' The Prophet's example is the standard — and he was never violent toward women. Domestic violence is a crime in Islamic law.",
+      "answer_ar": "لا. الآية (النساء ٤:٣٤) تستخدم كلمة «اضربوهن» التي يفسرها العلماء كضرب خفيف (بمسواك) كملجأ أخير — دون إحداث ألم أو إصابة. النبي ﷺ لم يضرب أي من زوجاته وقال: «خيركم خيركم لأهله». وقال أيضاً: «لا يفرك مؤمن مؤمنة، إن كره منها خلقاً رضي منها آخر». قدوة النبي هي المعيار — ولم يكن عنيفاً مع النساء أبداً. العنف المنزلي جريمة في الشريعة الإسلامية.",
+      "reference_en": "Quran 4:34; Sahih al-Bukhari 3332; Sunan an-Nasa'i 3939. Abdel Haleem, M.A.S. (2004). 'The Qur'an: A New Translation.' Oxford University Press.",
+      "reference_ar": "القرآن ٤:٣٤؛ صحيح البخاري ٣٣٣٢؛ سنن النسائي ٣٩٣٩."
+    },
+    {
+      "id": 16,
+      "question_en": "Why can't Muslim women marry non-Muslim men?",
+      "question_ar": "لماذا لا يمكن للمسلمة أن تتزوج من غير مسلم؟",
+      "answer_en": "This ruling is based on the preservation of the family's faith and the rights of children to be raised Muslim. In Islam, the husband is the head of the household and has religious authority over family matters. A non-Muslim husband may not respect Islamic practices (prayer, fasting, halal food, raising children as Muslims). However, Muslim men can marry Christian and Jewish women (People of the Book) because Islam respects these religions and the children would be raised Muslim. This is about preserving religious identity, not discrimination.",
+      "answer_ar": "هذا الحكم مبني على حفظ دين الأسرة وحق الأطفال في التربية الإسلامية. في الإسلام، الزوج هو راعي الأسرة وله السلطة الدينية في شؤونها. الزوج غير المسلم قد لا يحترم الممارسات الإسلامية (الصلاة، الصيام، الحلال، تربية الأطفال كمسلمين). ومع ذلك، يمكن للرجل المسلم أن يتزوج من الكتابيات (المسيحيات واليهوديات) لأن الإسلام يحترم هذه الأديان وسيُربّى الأطفال كمسلمين. الأمر يتعلق بحفظ الهوية الدينية، لا بالتمييز.",
+      "reference_en": "Quran 2:221; Quran 5:5. Esposito, J. (2011). 'What Everyone Needs to Know About Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٢:٢٢١؛ القرآن ٥:٥."
+    },
+    {
+      "id": 17,
+      "question_en": "Does Islam reject evolution?",
+      "question_ar": "هل الإسلام يرفض نظرية التطور؟",
+      "answer_en": "Islamic scholars have diverse views on evolution. Some accept it as a mechanism of creation, others reject it. The Quran states Allah created humans from clay and in stages. The Quran does not specify the exact mechanism of creation. Many Muslim scientists see no contradiction between evolution as a scientific process and Islamic belief in a Creator — evolution could be the tool Allah used. The key Islamic belief is that Allah is the Creator of all things; the mechanism is not specified.",
+      "answer_ar": "للعلماء المسلمين آراء مختلفة حول نظرية التطور. بعضهم يقبلها كآلية للخلق، وبعضهم يرفضها. ينص القرآن أن الله خلق الإنسان من طين وفي مراحل. لا يحدد القرآن آلية الخلق بالضبط. العديد من العلماء المسلمين لا يرون تناقضاً بين التطور كعملية علمية والإيمان بخالق — فقد يكون التطور أداة استخدمها الله. المعتقد الإسلامي الأساسي هو أن الله خالق كل شيء؛ أما الآلية فغير محددة.",
+      "reference_en": "Quran 23:12-14; Quran 32:7-9. Dajani, R. (2012). 'Evolution and Islam's embrace of science.' Nature, 491, 171.",
+      "reference_ar": "القرآن ٢٣:١٢-١٤؛ القرآن ٣٢:٧-٩. مجلة نيتشر (٢٠١٢)."
+    },
+    {
+      "id": 18,
+      "question_en": "What is halal slaughter and is it cruel?",
+      "question_ar": "ما هو الذبح الحلال وهل هو قاسٍ؟",
+      "answer_en": "Halal slaughter involves a swift cut to the throat severing the jugular veins, carotid arteries, and trachea — causing immediate loss of consciousness and minimal pain. The animal must be healthy, well-treated, and not see other animals being slaughtered. The name of Allah is invoked. Studies show halal slaughter causes less suffering than many conventional methods. The Prophet said: 'Allah has prescribed excellence in all things. If you kill, kill well; and if you slaughter, slaughter well. Sharpen your blade and treat the animal well.'",
+      "answer_ar": "الذبح الحلال involves قطع سريع لشرايين العنق والقصبة الهوائية — مما يسبب فقدان فوري للوعي وأدنى قدر من الألم. يجب أن يكون الحيوان صحيحاً ومعاملاً جيداً ولا يرى حيوانات أخرى تُذبح. ويُذكر اسم الله. تُظهر الدراسات أن الذبح الحلال يسبب معاناة أقل من العديد من الطرق التقليدية. قال النبي ﷺ: «إن الله كتب الإحسان على كل شيء، فإذا قتلتم فأحسنوا القتلة، وإذا ذبحتم فأحسنوا الذبح، وليحد أحدكم شفرته وليرح ذبيحته».",
+      "reference_en": "Sahih Muslim 1955; Sunan an-Nasa'i 4414. Grandin, T. (2010). 'Improving Animal Welfare.' CAB International.",
+      "reference_ar": "صحيح مسلم ١٩٥٥؛ سنن النسائي ٤٤١٤."
+    },
+    {
+      "id": 19,
+      "question_en": "Are all Muslims Arabs?",
+      "question_ar": "هل كل المسلمين عرب؟",
+      "answer_en": "No. Only about 20% of Muslims worldwide are Arab. The largest Muslim populations are in Indonesia, Pakistan, India, Bangladesh, and Nigeria. Arabs make up a minority of the global Muslim population. Islam is a universal religion with followers from every race, language, and nationality. The Quran states: 'We have made you peoples and tribes that you may know one another.' (49:13). Islam explicitly rejects racism — the Prophet said in his farewell sermon: 'An Arab has no superiority over a non-Arab, nor white over black, except by piety and good action.'",
+      "answer_ar": "لا. فقط حوالي ٢٠٪ من المسلمين حول العالم عرب. أكبر التجمعات الإسلامية في إندونيسيا وباكستان والهند وبنغلاديش ونيجيريا. العرب يشكلون أقلية من المسلمين عالمياً. الإسلام دين عالمي له أتباع من كل عرق ولغة وجنسية. ينص القرآن: «وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا» (الحجرات ٤٩:١٣). يرفض الإسلام صراحةً العنصرية — قال النبي ﷺ في خطبة الوداع: «لا فضل لعربي على عجمي، ولا أبيض على أسود، إلا بالتقوى والعمل الصالح».",
+      "reference_en": "Quran 49:13; Sahih Muslim 4691 (Farewell Sermon). Pew Research Center (2017): 'Only 20% of Muslims are Arab.'",
+      "reference_ar": "القرآن ٤٩:١٣؛ صحيح مسلم ٤٦٩١ (خطبة الوداع). مركز بيو للأبحاث (٢٠١٧)."
+    },
+    {
+      "id": 20,
+      "question_en": "Does Islam allow alcohol and pork?",
+      "question_ar": "هل يسمح الإسلام بالكحول ولحم الخنزير؟",
+      "answer_en": "Islam prohibits alcohol and pork for health and spiritual reasons. Alcohol causes addiction, liver disease, violence, accidents, and social harm — the Quran describes it as having 'sin greater than benefit' (2:219). Pork can carry trichinosis, tapeworms, and other diseases. The prohibition is part of a broader Islamic principle of preserving health, mind, and body. Muslims believe that Allah, as the Creator, knows what is best for human consumption. There are medical exceptions — prohibited items become permissible when necessary for survival.",
+      "answer_ar": "يحرّم الإسلام الكحول ولحم الخنزير لأسباب صحية وروحية. الكحول يسبب الإدمان وأمراض الكبد والعنف والحوادث والأضرار الاجتماعية — يصف القرآن الكحول بأن «إِثْمُهُمَا أَكْبَرُ مِن نَّفْعِهِمَا» (البقرة ٢:٢١٩). لحم الخنزير قد يحمل التريخينا والدودة الشريطية وأمراضاً أخرى. التحريم جزء من مبدأ إسلامي أوسع لحفظ الصحة والعقل والجسد. يعتقد المسلمون أن الله، بصفته الخالق، يعرف ما هو الأفضل للاستهلاك البشري. هناك استثناءات طبية — تصبح المحرمات مباحة عند الضرورة للبقاء.",
+      "reference_en": "Quran 2:173; Quran 2:219; Quran 5:90-91. Leviticus 11:7-8 (Bible). WHO: 'Alcohol causes 3 million deaths annually.'",
+      "reference_ar": "القرآن ٢:١٧٣؛ القرآن ٢:٢١٩؛ القرآن ٥:٩٠-٩١. سفر اللاويين ١١:٧-٨. منظمة الصحة العالمية."
+    },
+    {
+      "id": 21,
+      "question_en": "What does Islam say about other religions?",
+      "question_ar": "ماذا يقول الإسلام عن الأديان الأخرى؟",
+      "answer_en": "Islam recognizes and respects previous revelations — the Torah, Psalms, and Gospel. Muslims believe Allah sent prophets to every nation. The Quran: 'Indeed, those who believed and those who were Jews or Christians or Sabeans — those who believed in Allah and the Last Day and did righteousness — will have their reward with their Lord.' (2:62). Islam allows Muslims to marry Jews and Christians and eat their food. The Quran promotes dialogue: 'Do not argue with the People of the Scripture except in a way that is best.' (29:46).",
+      "answer_ar": "يعترف الإسلام ويحترم الرسالات السابقة — التوراة والزبور والإنجيل. يؤمن المسلمون أن الله أرسل أنبياءً إلى كل أمة. القرآن: «إِنَّ الَّذِينَ آمَنُوا وَالَّذِينَ هَادُوا وَالنَّصَارَىٰ وَالصَّابِئِينَ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ وَعَمِلَ صَالِحًا فَلَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ» (البقرة ٢:٦٢). يسمح الإسلام للمسلمين بالزواج من اليهوديات والمسيحيات وأكل طعامهم. يشجع القرآن الحوار: «وَلَا تُجَادِلُوا أَهْلَ الْكِتَابِ إِلَّا بِالَّتِي هِيَ أَحْسَنُ» (العنكبوت ٢٩:٤٦).",
+      "reference_en": "Quran 2:62; Quran 29:46; Quran 5:82. Esposito, J. & Mogahed, D. (2007). 'Who Speaks for Islam?' Gallup Press.",
+      "reference_ar": "القرآن ٢:٦٢؛ القرآن ٢٩:٤٦؛ القرآن ٥:٨٢."
+    },
+    {
+      "id": 22,
+      "question_en": "Why do Muslims pray facing Mecca?",
+      "question_ar": "لماذا يصلي المسلمون باتجاه مكة؟",
+      "answer_en": "Muslims face the Kaaba in Mecca during prayer as a unifying direction, not because the Kaaba is God. The Kaaba was built by Prophet Abraham and his son Ishmael as the first house of worship for One God. Facing one direction creates unity — all Muslims worldwide face the same point, symbolizing their equality and brotherhood. Before Mecca, Muslims prayed facing Jerusalem. The change was commanded by Allah (2:144) to establish the distinct identity of the Muslim community.",
+      "answer_ar": "يستقبل المسلمون الكعبة في مكة خلال الصلاة كاتجاه موحّد، وليس لأن الكعبة هي الله. بُنيت الكعبة على يد النبي إبراهيم وابنه إسماعيل كأول بيت لعبادة الله الواحد. استقبال اتجاه واحد يخلق الوحدة — جميع المسلمين حول العالم يستقبلون نفس النقطة، رمزاً لمساواتهم وأخوّتهم. قبل مكة، كان المسلمون يصلون باتجاه القدس. جاء التغيير بأمر من الله (البقرة ٢:١٤٤) لإرسال هوية متميزة للمجتمع المسلم.",
+      "reference_en": "Quran 2:144; Sahih al-Bukhari 449. Armstrong, K. (2000). 'Islam: A Short History.' Modern Library.",
+      "reference_ar": "القرآن ٢:١٤٤؛ صحيح البخاري ٤٤٩."
+    },
+    {
+      "id": 23,
+      "question_en": "What is the Islamic concept of afterlife?",
+      "question_ar": "ما هو مفهوم الآخرة في الإسلام؟",
+      "answer_en": "Muslims believe in life after death. After death, the soul awaits the Day of Judgment. On that Day, all humans will be resurrected and judged by Allah based on their deeds. Those who believed in Allah, did good deeds, and repented will enter Paradise (Jannah) — described as gardens with rivers, peace, and eternal happiness. Those who rejected Allah and did evil will enter Hell (Jahannam). However, Allah is Most Merciful and forgives all sins except associating partners with Him (shirk), if the person repents before death.",
+      "answer_ar": "يؤمن المسلمون بالحياة بعد الموت. بعد الوفاة، تنتظر الروح يوم القيامة. في ذلك اليوم، يُبعث جميع البشر ويُحاسبهم الله على أعمالهم. الذين آمنوا بالله وعملوا الصالحات وتابوا يدخلون الجنة — الموصوفة بجنات تجري من تحتها الأنهار والسلام والسعادة الأبدية. الذين كفروا بالله وعملوا الشر يدخلون النار. ومع ذلك، الله غفور رحيم يغفر جميع الذنوب ما عدا الشرك به، إذا تاب الشخص قبل الموت.",
+      "reference_en": "Quran 3:30; Quran 99:7-8; Quran 21:47. Nakamura, T. (2015). 'Islamic Eschatology.' In The Oxford Handbook of Islamic Theology.",
+      "reference_ar": "القرآن ٣:٣٠؛ القرآن ٩٩:٧-٨؛ القرآن ٢١:٤٧."
+    },
+    {
+      "id": 24,
+      "question_en": "Is music forbidden in Islam?",
+      "question_ar": "هل الموسيقى محرمة في الإسلام؟",
+      "answer_en": "Scholars differ on music. Some prohibit all musical instruments, while others permit them if the content is not sinful. The majority of contemporary scholars permit music that does not incite sin, immorality, or distract from religious duties. The Prophet allowed singing and poetry on festive occasions. The key principle is that anything that leads to haram (prohibited) becomes haram, but neutral or beneficial music is permitted by many scholars.",
+      "answer_ar": "يختلف العلماء في الموسيقى. بعضهم يحرّم جميع الآلات الموسيقية، بينما يبيحها آخرون إذا لم يكن المحتوى آثماً. أغلب العلماء المعاصرين يبيحون الموسيقى التي لا تحرّض على المعصية أو الفحشاء أو تشغل عن الفرائض. أباح النبي ﷺ الغناء والشعر في المناسبات. المبدأ الأساسي هو أن كل ما يؤدي إلى الحرام يصبح حراماً، ولكن الموسيقى المحايدة أو النافعة مباحة عند كثير من العلماء.",
+      "reference_en": "Sahih al-Bukhari 3679; Quran 31:6. Al-Ghazali, A. (2005). 'Ihya Ulum al-Din.' Dar al-Kutub al-Ilmiyya.",
+      "reference_ar": "صحيح البخاري ٣٦٧٩؛ القرآن ٣١:٦. الغزالي، «إحياء علوم الدين»."
+    },
+    {
+      "id": 25,
+      "question_en": "Does Islam have sects like other religions?",
+      "question_ar": "هل في الإسلام مذاهب كالأديان الأخرى؟",
+      "answer_en": "Yes, but the differences are smaller than portrayed. ~85-90% of Muslims are Sunni, ~10-15% are Shia. The original split was political — about who should lead after the Prophet's death — not theological. Both groups share the same core beliefs: One God, Prophet Muhammad as final messenger, the Quran, five daily prayers, fasting Ramadan, zakat, and hajj. The four Sunni schools of law (Hanafi, Maliki, Shafi'i, Hanbali) differ only in minor details of jurisprudence, not in core beliefs.",
+      "answer_ar": "نعم، لكن الاختلافات أصغر مما تُصوَّر. حوالي ٨٥-٩٠٪ من المسلمين سُنّة، و١٠-١٥٪ شيعة. الانقسام الأصلي كان سياسياً — حول من يقود بعد وفاة النبي — وليس عقائدياً. كلا الفريقين يشتركان في نفس المعتقدات الأساسية: إله واحد، النبي محمد كرسول أخير، القرآن، الصلوات الخمس، صيام رمضان، الزكاة، والحج. المذاهب الفقهية السنية الأربعة (الحنفي، المالكي، الشافعي، الحنبلي) تختلف فقط في تفاصيل فقهية بسيطة، لا في المعتقدات الأساسية.",
+      "reference_en": "Quran 42:13; Sahih Muslim 4596. Nasr, S.H. (2003). 'Islam: Religion, History, and Civilization.' HarperOne.",
+      "reference_ar": "القرآن ٤٢:١٣؛ صحيح مسلم ٤٥٩٦."
+    },
+    {
+      "id": 26,
+      "question_en": "What is the purpose of life in Islam?",
+      "question_ar": "ما هو هدف الحياة في الإسلام؟",
+      "answer_en": "The Quran states the purpose clearly: 'And I did not create the jinn and mankind except to worship Me.' (51:56). Worship in Islam is not limited to prayer — it includes any permissible action done with the intention of pleasing Allah. Working honestly, treating family well, helping others, seeking knowledge, and even smiling are all forms of worship. Islam provides a complete way of life balancing spiritual and worldly affairs, with the ultimate goal of earning Allah's pleasure and Paradise.",
+      "answer_ar": "يحدد القرآن الهدف بوضوح: «وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ» (الذاريات ٥١:٥٦). العبادة في الإسلام لا تقتصر على الصلاة — تشمل أي عمل مباح يُقصد به إرضاء الله. العمل الصادق، وحسن معاملة الأسرة، ومساعدة الآخرين، وطلب العلم، وحتى الابتسام، كلها أشكال من العبادة. يقدم الإسلام منهج حياة متكامل يوازن بين الروح والدينا، بهدف نهائي هو كسب رضا الله والجنة.",
+      "reference_en": "Quran 51:56; Quran 13:28; Sahih al-Bukhari 1. Iqbal, M. (1934). 'The Reconstruction of Religious Thought in Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٥١:٥٦؛ القرآن ١٣:٢٨؛ صحيح البخاري ١."
+    },
+    {
+      "id": 27,
+      "question_en": "How does Islam view science and knowledge?",
+      "question_ar": "كيف ينظر الإسلام إلى العلم والمعرفة؟",
+      "answer_en": "Islam strongly encourages science and knowledge. The Prophet said: 'Seeking knowledge is obligatory upon every Muslim.' The Quran repeatedly urges humans to study creation: 'Will they not look at the camels — how they are created?' (88:17). Islamic civilization led the world in science for centuries — algebra, astronomy, medicine, optics, and chemistry were advanced by Muslim scholars. The Quran contains no contradictions with established scientific facts — it encourages observation and reflection as paths to knowing God.",
+      "answer_ar": "يشجّع الإسلام بقوة العلم والمعرفة. قال النبي ﷺ: «طلب العلم فريضة على كل مسلم». يحث القرآن البشر مراراً على دراسة الخلق: «أَفَلَا يَنظُرُونَ إِلَى الْإِبِلِ كَيْفَ خُلِقَتْ» (الغاشية ٨٨:١٧). قادت الحضارة الإسلامية العالم في العلوم لقرون — الجبر، الفلك، الطب، البصريات، والكيمياء تطوّرت على يد علماء مسلمين. القرآن لا يحتوي على تناقضات مع الحقائق العلمية الثابتة — يشجّع الملاحظة والتأمل كطريق لمعرفة الله.",
+      "reference_en": "Sunan Ibn Majah 224; Quran 88:17; Quran 10:101. Saliba, G. (2007). 'Islamic Science and the Making of the European Renaissance.' MIT Press.",
+      "reference_ar": "سنن ابن ماجه ٢٢٤؛ القرآن ٨٨:١٧؛ القرآن ١٠:١٠١."
+    },
+    {
+      "id": 28,
+      "question_en": "What is Zakat and why is it important?",
+      "question_ar": "ما هي الزكاة ولماذا هي مهمة؟",
+      "answer_en": "Zakat is the obligatory charity — 2.5% of accumulated wealth given annually to the poor. It is one of the Five Pillars of Islam. Zakat is not voluntary charity (sadaqah) but a mandatory wealth tax that redistributes wealth and prevents hoarding. The Quran: 'And establish prayer and give zakat.' (73:20). Zakat funds go to: the poor, the needy, those in debt, travelers, and freeing slaves. If all Muslims paid zakat properly, global poverty among Muslims would be eliminated.",
+      "answer_ar": "الزكاة هي الصدقة الواجبة — ٢.٥٪ من المال المتراكم تُدفع سنوياً للفقراء. وهي أحد أركان الإسلام الخمسة. الزكاة ليست صدقة تطوعية بل ضريبة مالية إلزامية تعيد توزيع الثروة وتمنعكنزها. القرآن: «وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ» (المزمل ٧٣:٢٠). مصارف الزكاة: الفقراء، المساكين، المدينون، ابن السبيل، وتحرير العبيد. لو دفع جميع المسلمين الزكاة بشكل صحيح، لاختفت الفقر عالمياً بين المسلمين.",
+      "reference_en": "Quran 73:20; Quran 9:60; Sahih al-Bukhari 1403. Khan, M.A. (2013). 'Zakat: The Islamic Welfare System.' Islamic Book Trust.",
+      "reference_ar": "القرآن ٧٣:٢٠؛ القرآن ٩:٦٠؛ صحيح البخاري ١٤٠٣."
+    },
+    {
+      "id": 29,
+      "question_en": "What is the Kaaba and why is it important?",
+      "question_ar": "ما هي الكعبة ولماذا هي مهمة؟",
+      "answer_en": "The Kaaba is a cube-shaped building in Mecca, built by Prophet Abraham and his son Ishmael as the first house of monotheistic worship. It is the direction Muslims face in prayer (qibla) and the focal point of Hajj pilgrimage. Muslims do not worship the Kaaba — it is a unifying symbol. When Muslims circle the Kaaba during Hajj, they are demonstrating their devotion to Allah, not the building. The Kaaba has been rebuilt several times throughout history.",
+      "answer_ar": "الكعبة مبنى مكعب في مكة، بناه النبي إبراهيم وابنه إسماعيل كأول بيت لعبادة الله الواحد. وهي اتجاه المسلمين في الصلاة (القبلة) ومركز الحج. المسلمون لا يعبدون الكعبة — هي رمز للوحدة. عندما يطوف المسلمون حول الكعبة في الحج، فإنهم يُظهرون إخلاصهم لله، لا للمبنى. أُعيد بناء الكعبة عدة مرات عبر التاريخ.",
+      "reference_en": "Quran 2:127; Quran 3:96-97; Sahih al-Bukhari 1520. Peters, F.E. (1994). 'The Hajj: The Muslim Pilgrimage to Mecca and the Holy Places.' Princeton University Press.",
+      "reference_ar": "القرآن ٢:١٢٧؛ القرآن ٣:٩٦-٩٧؛ صحيح البخاري ١٥٢٠."
+    },
+    {
+      "id": 30,
+      "question_en": "Can Muslims be friends with non-Muslims?",
+      "question_ar": "هل يمكن للمسلم أن يصادق غير المسلم؟",
+      "answer_en": "Yes. The Quran permits friendship and good treatment of non-Muslims: 'Allah does not forbid you from being righteous and just toward those who have not fought you over religion or driven you from your homes.' (60:8). The verse that warns against taking 'awliya' (protectors/allies) from non-Muslims (5:51) refers to political alliances in wartime, not personal friendships. The Prophet had non-Muslim friends and dealt fairly with people of all faiths. Islam encourages good character with everyone.",
+      "answer_ar": "نعم. يبيح القرآن الصداقة وحسن المعاملة لغير المسلمين: «لَا يَنْهَاكُمُ اللَّهُ عَنِ الَّذِينَ لَمْ يُقَاتِلُوكُمْ فِي الدِّينِ وَلَمْ يُخْرِجُوكُم مِّن دِيَارِكُمْ أَن تَبَرُّوهُمْ وَتُقْسِطُوا إِلَيْهِمْ» (الممتحنة ٦٠:٨). الآية التي تحذر من اتخاذ «أولياء» من غير المسلمين (المائدة ٥:٥١) تشير إلى تحالفات سياسية زمن الحرب، لا الصداقات الشخصية. كان للنبي ﷺ أصدقاء من غير المسلمين وعامل الناس من جميع الأديان بعدل. يشجّع الإسلام حسن الخلق مع الجميع.",
+      "reference_en": "Quran 60:8; Quran 5:51. Sahih al-Bukhari 2620. Esposito, J. (2011). 'What Everyone Needs to Know About Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٦٠:٨؛ القرآن ٥:٥١؛ صحيح البخاري ٢٦٢٠."
+    },
+    {
+      "id": 31,
+      "question_en": "Why does Islam forbid pork?",
+      "question_ar": "لماذا يحرم الإسلام لحم الخنزير؟",
+      "answer_en": "Islam prohibits pork for health and spiritual reasons. Modern science has confirmed that pigs carry numerous parasites and diseases: Trichinella worms, Taenia solium tapeworms, and various viral infections. Pigs also have a unique digestive system that doesn't properly eliminate toxins — they store toxins in their fat. The Quran states: 'He has only forbidden to you dead animals, blood, the flesh of swine...' (2:173). This prohibition also exists in the Bible — Leviticus 11:7-8 and Deuteronomy 14:8 forbid pork. Islam's prohibition is consistent with the original teachings of Moses and Jesus. The prohibition serves as both a health measure and an act of obedience to the Creator who knows what is best for His creation.",
+      "answer_ar": "يحرم الإسلام لحم الخنزير لأسباب صحية وروحية. أثبت العلم الحديث أن الخنازير تحمل العديد من الطفيليات والأمراض: ديدان التريخينا، وديدان الشريطية، والتهابات فيروسية متنوعة. كما أن للخنزير جهاز هضمي فريد لا يُخلّص الجسم من السموم بشكل صحيح — يخزّن السموم في دهونه. ينص القرآن: «إِنَّمَا حَرَّمَ عَلَيْكُمُ الْمَيْتَةَ وَالدَّمَ وَلَحْمَ الْخِنزِيرِ» (البقرة ٢:١٧٣). هذا التحريم موجود أيضاً في الكتاب المقدس — اللاويين ١١:٧-٨ والتثنية ١٤:٨ يحرّمان لحم الخنزير. تحريم الإسلام متوافق مع تعاليم موسى وعيسى الأصلية. التحريم إجراء صحي وطاعة للخالق الذي يعرف ما هو خير لخلقه.",
+      "reference_en": "Quran 2:173; Quran 5:3; Quran 6:145. Leviticus 11:7-8; Deuteronomy 14:8 (Bible). WHO: 'Trichinellosis fact sheet.' CDC: 'Trichinella infection.'",
+      "reference_ar": "القرآن ٢:١٧٣؛ القرآن ٥:٣؛ القرآن ٦:١٤٥. سفر اللاويين ١١:٧-٨. منظمة الصحة العالمية ومراكز السيطرة على الأمراض."
+    },
+    {
+      "id": 32,
+      "question_en": "Why do Muslims pray five times a day?",
+      "question_ar": "لماذا يصلي المسلمون خمس مرات في اليوم؟",
+      "answer_en": "The five daily prayers (Salah) are a direct command from God, given to Prophet Muhammad during the Night Journey (Isra and Mi'raj). They serve multiple purposes: (1) Spiritual connection — constant remembrance of God throughout the day keeps the believer spiritually aware. (2) Discipline — regular prayers at dawn, noon, afternoon, sunset, and night create a structured, disciplined life. (3) Community — congregational prayers unite the community five times daily. (4) Physical benefit — the movements (standing, bowing, prostrating) provide gentle physical exercise and improve circulation. (5) Mental clarity — taking a break from worldly activities to focus on the Creator reduces stress and anxiety. The Quran says: 'Indeed, prayer prohibits immorality and wrongdoing, and the remembrance of Allah is greater.' (29:45). Each prayer takes only 5-10 minutes, yet transforms the entire day into an act of worship.",
+      "answer_ar": "الصلوات الخمس المفروضة هي أمر مباشر من الله، أُعطيت للنبي محمد ﷺ ليلة الإسراء والمعراج. تخدم أغراضاً متعددة: (١) الاتصال الروحي — ذكر الله المستمر طوال اليوم يبقي المؤمن يقظاً روحياً. (٢) الانضباط — الصلوات المنتظمة في الفجر والظهر والعصر والمغرب والعشاء تخلق حياة منظمة منضبطة. (٣) المجتمع — صلاة الجماعة توحّد المجتمع خمس مرات يومياً. (٤) الفائدة الجسدية — الحركات (الوقوف والركوع والسجود) توفّر تماريناً بدنية خفيفة وتحسّن الدورة الدموية. (٥) صفاء الذهن — التوقف عن الأنشاط الدنيوية للتركيز على الخالق يقلل التوتر والقلق. يقول القرآن: «إِنَّ الصَّلَاةَ تَنْهَىٰ عَنِ الْفَحْشَاءِ وَالْمُنكَرِ وَلَذِكْرُ اللَّهِ أَكْبَرُ» (العنكبوت ٢٩:٤٥). كل صلاة تستغرق ٥-١٠ دقائق فقط، لكنها تحوّل اليوم كله إلى عبادة.",
+      "reference_en": "Quran 29:45; Quran 2:238; Sahih al-Bukhari 349. Asad, M. (1980). 'The Message of the Qur'an.' Dar al-Andalus.",
+      "reference_ar": "القرآن ٢٩:٤٥؛ القرآن ٢:٢٣٨؛ صحيح البخاري ٣٤٩."
+    },
+    {
+      "id": 33,
+      "question_en": "What does Islam say about Jesus?",
+      "question_ar": "ماذا يقول الإسلام عن عيسى عليه السلام؟",
+      "answer_en": "Islam holds Jesus (Isa) in the highest regard. He is one of the greatest prophets of God, born miraculously to the Virgin Mary (Maryam). The Quran confirms his miracles: speaking as a baby, healing the blind and lepers, raising the dead, all by God's permission. The Quran says: 'The Messiah, Jesus, the son of Mary, was but a messenger of Allah and His word which He directed to Mary and a soul [created at a command] from Him.' (4:171). Muslims believe Jesus was not crucified but was raised to God, and will return before the Day of Judgment. However, Islam teaches that Jesus was a human prophet, not God or the Son of God. He never claimed divinity — he worshiped God, prayed to God, and submitted to God, just as Muslims do. A Muslim's faith is incomplete without believing in Jesus as a prophet of God.",
+      "answer_ar": "يحترم الإسلام عيسى عليه السلام أعظم احترام. هو أحد أعظم أنبياء الله، وُلد معجزاً من العذراء مريم. يقرّ القرآن بمعجزاته: الكلام في المهد، وشفاء الأكمه والأبرص، وإحياء الموتى، كل ذلك بإذن الله. يقول القرآن: «إِنَّمَا الْمَسِيحُ عِيسَى ابْنُ مَرْيَمَ رَسُولُ اللَّهِ وَكَلِمَتُهُ أَلْقَاهَا إِلَىٰ مَرْيَمَ وَرُوحٌ مِّنْهُ» (النساء ٤:١٧١). يؤمن المسلمون أن عيسى لم يُصلب بل رُفع إلى الله، وسيعود قبل يوم القيامة. لكن الإسلام يعلّم أن عيسى كان نبياً بشرياً، لا إلهاً ولا ابن الله. لم يدّعِ الألوهية قط — عبد الله وصلى لله وأطاع الله، كما يفعل المسلمون. لا يكتمل إيمان المسلم دون الإيمان بعيسى نبياً من أنبياء الله.",
+      "reference_en": "Quran 4:171; Quran 3:45-59; Quran 19:16-35; Quran 43:61; Sahih al-Bukhari 3448; Sahih Muslim 155.",
+      "reference_ar": "القرآن ٤:١٧١؛ القرآن ٣:٤٥-٥٩؛ القرآن ١٩:١٦-٣٥؛ القرآن ٤٣:٦١؛ صحيح البخاري ٣٤٤٨؛ صحيح مسلم ١٥٥."
+    },
+    {
+      "id": 34,
+      "question_en": "Why do Muslims fast during Ramadan?",
+      "question_ar": "لماذا يصوم المسلمون في رمضان؟",
+      "answer_en": "Fasting in Ramadan is one of the Five Pillars of Islam. The Quran commands: 'O you who believe, fasting is prescribed for you as it was prescribed for those before you, that you may achieve piety.' (2:183). Fasting provides: (1) Spiritual growth — increased prayer, Quran reading, and self-reflection. (2) Self-discipline — controlling desires for food, drink, and intimacy during daylight hours strengthens willpower. (3) Empathy — experiencing hunger firsthand creates deep compassion for the poor and needy. (4) Health benefits — modern research shows intermittent fasting improves metabolism, reduces inflammation, and promotes cellular repair. (5) Community — Muslims worldwide fast together, breaking fast collectively, strengthening bonds. Fasting is not unique to Islam — it was practiced by Moses, David, and Jesus as mentioned in the Bible. Ramadan commemorates the first revelation of the Quran.",
+      "answer_ar": "صيام رمضان أحد أركان الإسلام الخمسة. يأمر القرآن: «يَا أَيُّهَا الَّذِينَ آمَنُوا كُتِبَ عَلَيْكُمُ الصِّيَامُ كَمَا كُتِبَ عَلَى الَّذِينَ مِن قَبْلِكُمْ لَعَلَّكُمْ تَتَّقُونَ» (البقرة ٢:١٨٣). يوفّر الصيام: (١) نمواً روحياً — زيادة في الصلاة وقراءة القرآن والتأمل. (٢) انضباطاً للنفس — التحكم في شهوات الطعام والشراب نهاراً يقوّي الإرادة. (٣) تعاطفاً — تجربة الجوع تخلق شفقة عميقة للفقراء والمحتاجين. (٤) فوائد صحية — أظهرت الأبحاث الحديثة أن الصيام المتقطع يحسّن الأيض ويقلل الالتهابات ويعزز إصلاح الخلايا. (٥) مجتمعاً — يصوم المسلمون في العالم معاً ويفطرون جماعياً مما يقوّي الروابط. الصيام ليس جديداً في الإسلام — مارسه موسى وداود وعيسى كما ورد في الكتاب المقدس. يخلّد رمضان نزول أول آيات القرآن.",
+      "reference_en": "Quran 2:183-185; Sahih al-Bukhari 1899. Mattson, I. (2005). 'The Story of the Qur'an.' Blackwell. Harvard T.H. Chan School of Public Health: intermittent fasting benefits.",
+      "reference_ar": "القرآن ٢:١٨٣-١٨٥؛ صحيح البخاري ١٨٩٩. كلية هارفارد للصحة العامة: فوائد الصيام المتقطع."
+    },
+    {
+      "id": 35,
+      "question_en": "Is Islam compatible with science?",
+      "question_ar": "هل الإسلام متوافق مع العلم؟",
+      "answer_en": "Absolutely. Islam and science are deeply compatible. The Quran contains over 750 verses that encourage reflection on nature, investigation, and seeking knowledge. The Quran says: 'Say, observe what is in the heavens and the earth.' (10:101). Islamic civilization led the world in science for centuries — Muslims invented algebra, advanced astronomy, medicine, optics, and chemistry. Scholars like Ibn Sina (Avicenna), Al-Khwarizmi, Ibn al-Haytham, and Al-Razi made foundational contributions to modern science. The Quran describes natural phenomena with stunning accuracy — the expanding universe, embryonic development, the water cycle, deep ocean darkness — centuries before science discovered them. The Quran does not contain a single scientific error. Islam teaches that God created the universe with laws that humans can discover — making science an act of worship when done with sincere intention.",
+      "answer_ar": "بالتأكيد. الإسلام والعلم متوافقان بعمق. يحتوي القرآن على أكثر من ٧٥٠ آية تشجّع على التأمل في الطبيعة والبحث وطلب العلم. يقول القرآن: «قُلِ انظُرُوا مَاذَا فِي السَّمَاوَاتِ وَالْأَرْضِ» (يونس ١٠:١٠١). قادت الحضارة الإسلامية العالم علمياً لقرون — اخترع المسلمون الجبر وطوروا الفلك والطب والبصريات والكيمياء. علماء مثل ابن سينا والخوارزمي وابن الهيثم والرازي قدّموا إسهامات أساسية للعلم الحديث. يصف القرآن الظواهر الطبيعية بدقة مذهلة — توسّع الكون وتطور الأجنة ودورة الماء وظلمات البحار — قبل قرون من اكتشافها علمياً. لا يحتوي القرآن على خطأ علمي واحد. يعلّم الإسلام أن الله خلق الكون بقوانين يمكن للبشر اكتشافها — مما يجعل العلم عبادة إذا أُخلصت فيه النية.",
+      "reference_en": "Quran 10:101; Quran 3:190-191; Quran 88:17-20. Bucaille, M. (1976). 'The Bible, The Qur'an and Science.' Iqbal, M. (2012). 'Science and Islam.'",
+      "reference_ar": "القرآن ١٠:١٠١؛ القرآن ٣:١٩٠-١٩١؛ القرآن ٨٨:١٧-٢٠. موريس بوكاي (١٩٧٦)."
+    },
+    {
+      "id": 36,
+      "question_en": "What is Jihad and does it mean holy war?",
+      "question_ar": "ما هو الجهاد وهل يعني الحرب المقدسة؟",
+      "answer_en": "Jihad literally means 'struggle' or 'striving' — not 'holy war.' There are two types: (1) Greater Jihad (Jihad al-Nafs) — the internal struggle against one's own ego, desires, and sins. This is the primary and most important form. The Prophet said: 'The mujahid is the one who struggles against himself.' (2) Lesser Jihad — armed struggle in self-defense or to protect the oppressed. The Quran strictly regulates warfare: 'Fight in the way of Allah those who fight you but do not transgress.' (2:190). Islam forbids initiating aggression, killing civilians, destroying crops, or harming non-combatants. War is a last resort, only for defense or justice. The term 'holy war' was actually coined by Christian crusaders — it does not exist in the Quran or authentic Hadith. Most of a Muslim's life involves the greater jihad — struggling to be a better person, resisting temptation, and serving humanity.",
+      "answer_ar": "الجهاد يعني لغةً «المجاهدة» و«السعي» — لا «الحرب المقدسة». له نوعان: (١) الجهاد الأكبر (جهاد النفس) — الصراع الداخلي ضد النفس والهوى والذنوب. هذا هو الشكل الأساسي والأهم. قال النبي ﷺ: «المجاهد من جاهد نفسه». (٢) الجهاد الأصغر — القتال دفاعاً عن النفس أو لحماية المظلومين. ينظّم القرآن الحرب بصرامة: «وَقَاتِلُوا فِي سَبِيلِ اللَّهِ الَّذِينَ يُقَاتِلُونَكُمْ وَلَا تَعْتَدُوا» (البقرة ٢:١٩٠). يحرم الإسلام بدء العدوان وقتل المدنيين وتدمير المحاصيل أو الإضرار بغير المقاتلين. الحرب آخر resort، للدفاع أو العدالة فقط. مصطلح «الحرب المقدسة» صاغه الصليبيون — لا يوجد في القرآن أو الحديث الصحيح. معظم حياة المسلم تتضمن الجهاد الأكبر — السعي ليكون شخصاً أفضل ومقاومة الإغراء وخدمة البشرية.",
+      "reference_en": "Quran 2:190; Quran 22:39; Quran 5:32. Sahih al-Bukhari 3015; Sahih Muslim 1731. Esposito, J. (2002). 'Unholy War.' Oxford University Press.",
+      "reference_ar": "القرآن ٢:١٩٠؛ القرآن ٢٢:٣٩؛ القرآن ٥:٣٢؛ صحيح البخاري ٣٠١٥؛ صحيح مسلم ١٧٣١."
+    },
+    {
+      "id": 37,
+      "question_en": "Why do Muslims not eat during daylight in Ramadan if it's harmful?",
+      "question_ar": "لماذا لا يأكل المسلمون نهاراً في رمضان إذا كان ذلك ضاراً؟",
+      "answer_en": "Fasting from dawn to sunset is not harmful for healthy adults — it's actually beneficial. Modern science has extensively studied intermittent fasting (similar to Ramadan fasting) and found it: (1) Improves insulin sensitivity and blood sugar control. (2) Promotes autophagy — cellular cleanup and repair. (3) Reduces inflammation. (4) Supports weight management. (5) Improves brain function and mental clarity. The body stores energy as glycogen and fat, which are used during fasting. Muslims eat a pre-dawn meal (suhoor) and break fast at sunset (iftar) — ensuring adequate nutrition. Islam exempts from fasting those who cannot safely fast: the sick, elderly, pregnant/nursing women, travelers, and children. The Quran says: 'Allah intends for you ease and does not intend for you hardship.' (2:185). Fasting is a spiritual and physical reset, not a health risk.",
+      "answer_ar": "الصيام من الفجر إلى المغرب ليس ضاراً للبالغين الأصحاء — بل هو مفيد فعلاً. درس العلم الحديث الصيام المتقطع (المشابه لصيام رمضان) ووجد أنه: (١) يحسّن حساسية الأنسولين وتنظيم سكر الدم. (٢) يعزز الالتهام الذاتي — تنظيف وإصلاح الخلايا. (٣) يقلل الالتهابات. (٤) يساعد في إدارة الوزن. (٥) يحسّن وظائف الدماغ وصفاء الذهن. يخزّن الجسم الطاقة كجليكوجين ودهون تُستخدم أثناء الصيام. يتناول المسلمون وجبة قبل الفجر (السحور) ويفطرون عند الغروب (الإفطار) — مما يضمن التغذية الكافية. يعفي الإسلام من الصيام من لا يستطيع صوماً آمناً: المرضى وكبار السن والحوامل والمرضعات والمسافرون والأطفال. يقول القرآن: «يُرِيدُ اللَّهُ بِكُمُ الْيُسْرَ وَلَا يُرِيدُ بِكُمُ الْعُسْرَ» (البقرة ٢:١٨٥). الصيام إعادة ضبط روحية وجسدية، لا خطر صحي.",
+      "reference_en": "Quran 2:185; Sahih al-Bukhari 1927. Harvard T.H. Chan School of Public Health (2024): 'Intermittent Fasting: What the Science Says.' New England Journal of Medicine (2019): fasting benefits.",
+      "reference_ar": "القرآن ٢:١٨٥؛ صحيح البخاري ١٩٢٧. مجلة نيو إنغلاند الطبية (٢٠١٩): فوائد الصيام."
+    },
+    {
+      "id": 38,
+      "question_en": "What is the Islamic view on other religions?",
+      "question_ar": "ما هو موقف الإسلام من الأديان الأخرى؟",
+      "answer_en": "Islam recognizes and respects previous religions — Judaism and Christianity are considered 'People of the Book' (Ahl al-Kitab). The Quran says: 'Those who believe, and those who are Jewish, and the Christians, and the Sabians — whoever believes in Allah and the Last Day and does righteousness — will have their reward with their Lord.' (2:62). Islam teaches that God sent prophets to every nation: Abraham, Moses, Jesus, and finally Muhammad — all with the same core message: worship one God, do good, and prepare for the afterlife. Differences arose because earlier scriptures were altered over time. The Quran is the final, preserved revelation. Islam does not force conversion: 'There is no compulsion in religion.' (2:256). Muslims are commanded to debate with other faiths 'in the best manner.' (16:125). Historically, Islamic societies protected religious minorities — Jews and Christians flourished under Muslim rule in Spain, Iraq, and Egypt for centuries.",
+      "answer_ar": "يعترف الإسلام ويحترم الأديان السابقة — اليهودية والمسيحية تُعتبران من «أهل الكتاب». يقول القرآن: «إِنَّ الَّذِينَ آمَنُوا وَالَّذِينَ هَادُوا وَالنَّصَارَىٰ وَالصَّابِئِينَ مَنْ آمَنَ بِاللَّهِ وَالْيَوْمِ الْآخِرِ وَعَمِلَ صَالِحًا فَلَهُمْ أَجْرُهُمْ عِندَ رَبِّهِمْ» (البقرة ٢:٦٢). يعلّم الإسلام أن الله أرسل أنبياء لكل أمة: إبراهيم وموسى وعيسى ثم محمد — جميعهم بنفس الرسالة الأساسية: اعبد إلهاً واحداً وافعل الخير واستعد للآخرة. نشأت الاختلافات لأن الكتب السابقة حُرّفت بمرور الوقت. القرآن هو الوحي النهائي المحفوظ. لا يُجبر الإسلام على اعتناقه: «لَا إِكْرَاهَ فِي الدِّينِ» (البقرة ٢:٢٥٦). يُؤمر المسلمون بمناظرة أصحاب الأديان الأخرى «بِالَّتِي هِيَ أَحْسَنُ» (النحل ١٦:١٢٥). تاريخياً، حمت المجتمعات الإسلامية الأقليات الدينية — ازدهر اليهود والمسيحيون تحت الحكم الإسلامي في الأندلس والعراق ومصر لقرون.",
+      "reference_en": "Quran 2:62; Quran 2:256; Quran 16:125. Esposito, J. & Mogahed, D. (2007). 'Who Speaks for Islam?' Gallup Press.",
+      "reference_ar": "القرآن ٢:٦٢؛ القرآن ٢:٢٥٦؛ القرآن ١٦:١٢٥."
+    },
+    {
+      "id": 39,
+      "question_en": "How does Islam treat women? Are they oppressed?",
+      "question_ar": "كيف يعامل الإسلام المرأة؟ هل هي مظلومة؟",
+      "answer_en": "Islam gave women rights 1400 years ago that the West only achieved in the 20th century: (1) Right to own property and run businesses — Khadija, the Prophet's first wife, was a successful merchant. (2) Right to choose their husband — forced marriage is forbidden in Islam. (3) Right to divorce (Khula). (4) Right to inheritance — the Quran specifies shares for daughters, wives, and mothers. (5) Right to education — the Prophet said: 'Seeking knowledge is obligatory upon every Muslim' (male and female). (6) Financial independence — women keep their earnings; husbands are obligated to provide for them. (7) Right to vote — early Muslims gave women a voice in community decisions. The Quran says: 'And women shall have rights similar to the rights against them, according to what is equitable.' (2:228). Cultural practices in some Muslim countries (honor killings, forced marriages, denying education) violate Islamic teachings and are condemned by Islamic scholars worldwide.",
+      "answer_ar": "منح الإسلام المرأة حقوقاً قبل ١٤٠٠ سنة لم تصل إليها الغرب إلا في القرن العشرين: (١) حق امتلاك الممتلكات وإدارة الأعمال — خديجة زوجة النبي الأولى كانت تاجرة ناجحة. (٢) حق اختيار الزوج — الزواج بالإكرام محرم في الإسلام. (٣) حق الطلاق (الخلع). (٤) حق الميراث — يحدد القرآن أنصبة للبنات والزوجات والأمهات. (٥) حق التعليم — قال النبي ﷺ: «طلب العلم فريضة على كل مسلم» (ذكراً وأنثى). (٦) الاستقلال المالي — تحتفظ المرأة بأرباحها؛ والزوج ملزم بالنفقة عليها. (٧) حق التصويت — أعطى المسلمون الأوائل المرأة صوتاً في قرارات المجتمع. يقول القرآن: «وَلَهُنَّ مِثْلُ الَّذِي عَلَيْهِنَّ بِالْمَعْرُوفِ» (البقرة ٢:٢٢٨). الممارسات الثقافية في بعض البلدان الإسلامية (جرائم الشرف والزواج بالإكرام وحرمان التعليم) تنتهك تعاليم الإسلام وتُدان من قبل علماء الإسلام في جميع أنحاء العالم.",
+      "reference_en": "Quran 2:228; Quran 4:7; Quran 4:32; Sahih Ibn Majah 224. Wadud, A. (1999). 'Qur'an and Woman.' Oxford University Press.",
+      "reference_ar": "القرآن ٢:٢٢٨؛ القرآن ٤:٧؛ القرآن ٤:٣٢؛ سنن ابن ماجه ٢٢٤."
+    },
+    {
+      "id": 40,
+      "question_en": "What happens after death in Islam?",
+      "question_ar": "ماذا يحدث بعد الموت في الإسلام؟",
+      "answer_en": "Islam teaches that death is not the end but a transition to the afterlife (Akhirah). After death, the soul enters Barzakh (a transitional state) until the Day of Judgment. On that Day, all humans will be resurrected and judged by God based on their beliefs and deeds. The Quran says: 'On the Day when every soul will be confronted with what it did of good and what it did of evil.' (3:30). Those whose good deeds outweigh their bad, by God's mercy, enter Paradise (Jannah) — described as gardens of eternal bliss, peace, and reunion with loved ones. Those who reject God and commit evil enter Hell (Jahannam) — a place of punishment, though God's mercy encompasses all and many will eventually be purified. The belief in the afterlife gives life meaning and purpose — every action matters, justice will be served, and the oppressed will be compensated. This is not a fairy tale but a logical necessity — without an afterlife, life's injustices would never be resolved.",
+      "answer_ar": "يعلّم الإسلام أن الموت ليس النهاية بل انتقال إلى الحياة الآخرة. بعد الموت، تدخل النفس في البرزخ (حالة انتقالية) إلى يوم القيامة. في ذلك اليوم، يُبعث جميع البشر ويُحاسبهم الله بناءً على عقائدهم وأعمالهم. يقول القرآن: «يَوْمَ تَجِدُ كُلُّ نَفْسٍ مَّا عَمِلَتْ مِنْ خَيْرٍ مُّحْضَرًا وَمَا عَمِلَتْ مِن سُوءٍ» (آل عمران ٣:٣٠). الذين ترجح حسناتهم بفضل الله يدخلون الجنة — وُصفت بأنها جنات النعيم الأبدي والسلام واللقاء بأحبائهم. الذين يكفرون بالله ويعملون الشر يدخلون النار — مكان العقاب، رغم أن رحمة الله تتسع للجميع وكثيرين سيُطهّرون في النهاية. الإيمان بالآخرة يعطي الحياة معنى وغاية — كل عمل يهم، العدالة ستتحقق، والمظلومون سيُعوّضون. هذا ليس قصة خيالية بل ضرورة منطقية — دون آخرة، لن تُحلّ مظالم الحياة أبداً.",
+      "reference_en": "Quran 3:30; Quran 99:7-8; Quran 21:47; Quran 3:185. Nakamura, T. (2015). 'Islamic Eschatology.' Oxford Handbook of Islamic Theology.",
+      "reference_ar": "القرآن ٣:٣٠؛ القرآن ٩٩:٧-٨؛ القرآن ٢١:٤٧؛ القرآن ٣:١٨٥."
+    },
+    {
+      "id": 41,
+      "question_en": "Why was Prophet Muhammad the last prophet?",
+      "question_ar": "لماذا كان النبي محمد آخر الأنبياء؟",
+      "answer_en": "Islam teaches that Muhammad is the 'Seal of the Prophets' (Khatam an-Nabiyyin) — the final messenger in a long chain starting with Adam. The Quran says: 'Muhammad is not the father of any of your men, but he is the Messenger of Allah and the last of the prophets.' (33:40). There are several wisdoms in this: (1) The message was now complete — the Quran contains the final, comprehensive guidance for humanity. (2) The Quran is preserved — unlike previous scriptures that were altered, the Quran has been memorized and written unchanged for 1400 years. (3) Universal message — while previous prophets were sent to specific nations, Muhammad was sent to all of humanity. (4) Maturity of humanity — humanity had reached a stage where it could preserve and transmit guidance without needing new prophets. The Prophet said: 'I have left you two things — as long as you hold to them, you will never go astray: the Book of Allah and my Sunnah.' No new prophet means no new revelation to dispute — the final guidance is clear and accessible to all.",
+      "answer_ar": "يعلّم الإسلام أن محمداً ﷺ «خاتم النبيين» — آخر رسول في سلسلة طويلة تبدأ بآدم. يقول القرآن: «مَّا كَانَ مُحَمَّدٌ أَبَا أَحَدٍ مِّن رِّجَالِكُمْ وَلَٰكِن رَّسُولَ اللَّهِ وَخَاتَمَ النَّبِيِّينَ» (الأحزاب ٣٣:٤٠). هناك حكم متعددة في هذا: (١) اكتملت الرسالة — القرآن يحتوي الهداية النهائية الشاملة للبشرية. (٢) القرآن محفوظ — بخلاف الكتب السابقة التي حُرّفت، حُفظ القرآن حفظاً متواتراً كتابةً وحفظاً ١٤٠٠ سنة. (٣) رسالة عالمية — بينما أُرسل الأنبياء السابقون لأمم محددة، بُعث محمد ﷺ للبشرية كلها. (٤) نضج البشرية — وصلت البشرية لمرحلة يمكنها فيها حفظ الهداية ونقلها دون الحاجة لأنبياء جدد. قال النبي ﷺ: «تركت فيكم أمرين لن تضلوا ما تمسكتم بهما: كتاب الله وسنتي». لا نبي جديد يعني لا وحي جديد يُختلف فيه — الهداية النهائية واضحة ومتاحة للجميع.",
+      "reference_en": "Quran 33:40; Quran 5:3; Sahih Muslim 4691. Schimmel, A. (1985). 'And Muhammad Is His Messenger.' University of North Carolina Press.",
+      "reference_ar": "القرآن ٣٣:٤٠؛ القرآن ٥:٣؛ صحيح مسلم ٤٦٩١."
+    },
+    {
+      "id": 42,
+      "question_en": "What is the Quran and how was it preserved?",
+      "question_ar": "ما هو القرآن وكيف حُفظ؟",
+      "answer_en": "The Quran is the literal word of God, revealed to Prophet Muhammad over 23 years through the Angel Gabriel. It contains 114 chapters (surahs) and 6,236 verses. Its preservation is miraculous: (1) Memorization — millions of Muslims (Hafiz) have memorized the entire Quran word-for-word, a continuous chain since the Prophet's time. (2) Written preservation — the Quran was written down during the Prophet's life and compiled into one book within 20 years of his death. (3) God's promise — the Quran itself states: 'Indeed, it is We who sent down the Quran and indeed, We will be its guardian.' (15:9). (4) One version — unlike the Bible which has multiple versions (Catholic, Protestant, Orthodox with different books), the Quran has one single Arabic text worldwide. (5) Scientific accuracy — no scientific errors in 1400 years. (6) Linguistic miracle — the Quran's Arabic is inimitable; no one has produced anything like it despite the Quran's challenge (2:23). The oldest Quran manuscripts (Birmingham, Sana'a) match today's text exactly.",
+      "answer_ar": "القرآن كلام الله المنزّل على النبي محمد ﷺ على مدى ٢٣ سنة عبر جبريل عليه السلام. يحتوي على ١١٤ سورة و٦٢٣٦ آية. حفظه معجز: (١) الحفظ — ملايين المسلمين (الحفظة) حفظوا القرآن كاملاً كلمة بكلمة، سلسلة متصلة منذ عهد النبي. (٢) الحفظ الكتابي — كُتب القرآن في حياة النبي وجُمع في مصحف واحد خلال ٢٠ سنة من وفاته. (٣) وعد الله — ينص القرآن نفسه: «إِنَّا نَحْنُ نَزَّلْنَا الذِّكْرَ وَإِنَّا لَهُ لَحَافِظُونَ» (الحجر ١٥:٩). (٤) نسخة واحدة — بخلاف الكتاب المقدس الذي له نسخ متعددة (كاثوليكية وبروتستانتية وأرثوذكسية بكتب مختلفة)، القرآن له نص عربي واحد في العالم كله. (٥) دقة علمية — لا أخطاء علمية في ١٤٠٠ سنة. (٦) إعجاز لغوي — عربية القرآن لا تُقلّد؛ لم يُنتج أحد مثله رغم تحدي القرآن (البقرة ٢:٢٣). أقدم المخطوطات (برمنغهام وصنعاء) تطابق نص اليوم تماماً.",
+      "reference_en": "Quran 15:9; Quran 2:23; Quran 85:21-22. Birmingham Quran Manuscript (University of Birmingham, 2015): carbon-dated to within Prophet's lifetime. Sana'a manuscript findings.",
+      "reference_ar": "القرآن ١٥:٩؛ القرآن ٢:٢٣؛ القرآن ٨٥:٢١-٢٢. مخطوطة برمنغهام (٢٠١٥): مؤرخة بكربون ١٤ لعصر النبي. مخطوطات صنعاء."
+    },
+    {
+      "id": 43,
+      "question_en": "Does Islam promote violence against non-Muslims?",
+      "question_ar": "هل الإسلام يدعو إلى العنف ضد غير المسلمين؟",
+      "answer_en": "No. Islam strictly prohibits violence against non-combatants and innocents. The Quran is explicit: 'Whoever kills a soul unless for a soul or for corruption in the land — it is as if he had slain mankind entirely. And whoever saves one — it is as if he had saved mankind entirely.' (5:32). The rules of war in Islam are among the strictest in history: (1) Only fight those who fight you — no aggression. (2) Do not kill women, children, elderly, monks, or civilians. (3) Do not destroy crops, trees, or infrastructure. (4) Accept peace when offered. (5) Protect religious freedom of minorities. The Prophet's conquest of Mecca was bloodless — he forgave all his enemies. Islamic Spain (Al-Andalus) was a model of coexistence where Muslims, Jews, and Christians lived together for 800 years. The actions of extremists today violate clear Islamic teachings and are condemned by every major Islamic institution worldwide. 1.8 billion Muslims live peacefully — the actions of 0.001% do not represent the religion.",
+      "answer_ar": "لا. يحرم الإسلام تحريماً قاطعاً العنف ضد غير المقاتلين والأبرياء. القرآن صريح: «مَن قَتَلَ نَفْسًا بِغَيْرِ نَفْسٍ أَوْ فَسَادٍ فِي الْأَرْضِ فَكَأَنَّمَا قَتَلَ النَّاسَ جَمِيعًا وَمَنْ أَحْيَاهَا فَكَأَنَّمَا أَحْيَا النَّاسَ جَمِيعًا» (المائدة ٥:٣٢). قواعد الحرب في الإسلام من أصرمها في التاريخ: (١) قاتلوا فقط من يقاتلكم — لا عدوان. (٢) لا تقتلوا النساء والأطفال وكبار السن والرهبان والمدنيين. (٣) لا تدمّروا المحاصيل والأشجار والبنية التحتية. (٤) اقبلوا السلم إذا عُرض. (٥) احموا حرية عبادة الأقليات. فتح النبي ﷺ لمكة كان بلا دماء — عفا عن جميع أعدائه. الأندلس الإسلامية كانت نموذجاً للتعايش حيث عاش المسلمون واليهود والمسيحيون معاً ٨٠٠ سنة. أعمال المتطرفين اليوم تنتهك تعاليم الإسلام الواضحة وتُدان من كل مؤسسة إسلامية كبرى في العالم. ١.٨ مليار مسلم يعيشون بسلام — أعمال ٠.٠٠١٪ لا تمثل الدين.",
+      "reference_en": "Quran 5:32; Quran 2:190; Quran 8:61. Sahih Muslim 1731. Khan, M. (2016). 'Islam and Violence.' Islamic Research Foundation.",
+      "reference_ar": "القرآن ٥:٣٢؛ القرآن ٢:١٩٠؛ القرآن ٨:٦١؛ صحيح مسلم ١٧٣١."
+    },
+    {
+      "id": 44,
+      "question_en": "Why do Muslims face Mecca when praying?",
+      "question_ar": "لماذا يتجه المسلمون نحو مكة في الصلاة؟",
+      "answer_en": "Muslims face the Kaaba in Mecca during prayer as a unifying direction (Qibla), not because they worship the Kaaba. The Quran says: 'So turn your face toward al-Masjid al-Haram. And wherever you are, turn your faces toward it.' (2:144). The wisdom includes: (1) Unity — all Muslims worldwide face the same direction, creating a sense of global community. (2) Discipline — having a fixed direction teaches obedience and unity of purpose. (3) Historical continuity — the Kaaba was built by Abraham and Ishmael as the first house of monotheistic worship. (4) Equality — whether a king or a commoner, all face the same direction in the same position. When praying in the Kaaba itself, Muslims face any direction — proving they worship God, not the building. The Qibla is like a compass pointing to spiritual unity, not an object of worship.",
+      "answer_ar": "يتجه المسلمون نحو الكعبة في مكة في الصلاة كاتحاد للاتجاه (القبلة)، لا لأنهم يعبدون الكعبة. يقول القرآن: «فَوَلِّ وَجْهَكَ شَطْرَ الْمَسْجِدِ الْحَرَامِ وَحَيْثُ مَا كُنتُمْ فَوَلُّوا وُجُوهَكُمْ شَطْرَهُ» (البقرة ٢:١٤٤). تشمل الحكمة: (١) الوحدة — جميع المسلمين في العالم يتجهون لنفس الاتجاه، مما يخلق شعوراً بالمجتمع العالمي. (٢) الانضباط — وجود اتجاه ثابت يعلّم الطاعة ووحدة الغاية. (٣) الاستمرارية التاريخية — الكعبة بناها إبراهيم وإسماعيل كأول بيت لعبادة التوحيد. (٤) المساواة — سواء ملك أو عامة، الجميع يتجهون لنفس الاتجاه في نفس الوضعية. عند الصلاة داخل الكعبة، يتجه المسلمون لأي اتجاه — مما يثبت أنهم يعبدون الله لا المبنى. القبلة كبوصلة تشير إلى الوحدة الروحية، لا موضوع عبادة.",
+      "reference_en": "Quran 2:144; Quran 2:115; Sahih al-Bukhari 449. Peters, F.E. (1994). 'The Hajj.' Princeton University Press.",
+      "reference_ar": "القرآن ٢:١٤٤؛ القرآن ٢:١١٥؛ صحيح البخاري ٤٤٩."
+    },
+    {
+      "id": 45,
+      "question_en": "What is the difference between Islam and Christianity?",
+      "question_ar": "ما الفرق بين الإسلام والمسيحية؟",
+      "answer_en": "Islam and Christianity share many beliefs: one God, prophets, angels, scriptures, the Day of Judgment, heaven and hell, Jesus as the Messiah, the Virgin Mary's honor, and moral teachings. The key differences: (1) Nature of God — Islam teaches absolute monotheism (Tawhid); God is one, indivisible, with no partners, children, or partners. Christianity teaches the Trinity (Father, Son, Holy Spirit). (2) Jesus — Islam views Jesus as a human prophet, not divine. He was not crucified but raised to God. Christianity views Jesus as God incarnate who died for sins. (3) Original sin — Islam rejects original sin; each person is responsible for their own deeds. Christianity teaches inherited sin from Adam. (4) Scripture — Islam views the Quran as the final, uncorrupted revelation. Christianity views the Bible as the complete word of God. (5) Salvation — Islam teaches salvation through faith and good deeds by God's mercy. Christianity teaches salvation through faith in Jesus' sacrifice. Despite differences, the Quran calls Christians 'nearest in affection to believers' (5:82) and permits interfaith marriage.",
+      "answer_ar": "يتشارك الإسلام والمسيحية في كثير من المعتقدات: إله واحد وأنبياء وملائكة وكتب ويوم القيامة وجنة ونار وعيسى كمسيح وتكريم مريم العذراء وتعاليم أخلاقية. الاختلافات الأساسية: (١) طبيعة الله — الإسلام يعلّم التوحيد المطلق؛ الله واحد لا يتجزأ لا شريك له ولا ولد. المسيحية تعلّم التثليث (الأب والابن والروح القدس). (٢) عيسى — الإسلام يرى عيسى نبياً بشرياً لا إلهاً. لم يُصلب بل رُفع إلى الله. المسيحية ترى عيسى إلهاً متجسداً مات للخطايا. (٣) الخطيئة الأصلية — الإسلام يرفض الخطيئة الموروثة؛ كل شخص مسؤول عن أعماله. المسيحية تعلّم خطيئة موروثة من آدم. (٤) الكتاب — الإسلام يرى القرآن الوحي النهائي غير المحرّف. المسيحية ترى الكتاب المقدس كلمة الله الكاملة. (٥) الخلاص — الإسلام يعلّم الخلاص بالإيمان والعمل الصالح برحمة الله. المسيحية تعلّم الخلاص بالإيمان بفداء عيسى. رغم الاختلافات، يسمّي القرآن المسيحيين «أقرب مودة للمؤمنين» (المائدة ٥:٨٢) ويبيح زواج المسلم من الكتابية.",
+      "reference_en": "Quran 4:171; Quran 5:82; Quran 3:45-59. Esposito, J. (2011). 'What Everyone Needs to Know About Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٤:١٧١؛ القرآن ٥:٨٢؛ القرآن ٣:٤٥-٥٩."
+    },
+    {
+      "id": 46,
+      "question_en": "Can someone be Muslim if they have doubts?",
+      "question_ar": "هل يمكن للمرء أن يكون مسلماً إذا كان لديه شكوك؟",
+      "answer_en": "Yes. Islam encourages questioning and seeking knowledge. The Quran repeatedly says 'Do they not think?' 'Do they not reflect?' 'Will you not use your reason?' Having questions or doubts is natural — even the Prophet's companions asked questions. What matters is the sincere search for truth. Islam says: (1) Ask questions respectfully — the Quran commands: 'Ask those who know if you do not know.' (16:43). (2) Seek knowledge — the Prophet said: 'Whoever follows a path seeking knowledge, Allah makes easy for him a path to Paradise.' (3) Reflect on signs — the Quran points to nature, the universe, and human creation as evidence. (4) Pray for guidance — 'Guide us to the straight path' (1:6) is the most recited prayer in Islam. Doubt becomes a problem only when a person stops searching and closes their heart. As long as you sincerely seek truth with an open mind, you are on the right path. Islam is confident in its truth — it welcomes questions.",
+      "answer_ar": "نعم. يشجّع الإسلام على السؤال وطلب العلم. يكرر القرآن «أفلا يتدبرون» «أفلا يتفكرون» «أفلا تعقلون». وجود أسئلة أو شكوك طبيعي — حتى أصحاب النبي ﷺ سألوا. المهم هو البحث الصادق عن الحق. يقول الإسلام: (١) اسأل باحترام — يأمر القرآن: «فَاسْأَلُوا أَهْلَ الذِّكْرِ إِن كُنتُمْ لَا تَعْلَمُونَ» (النحل ١٦:٤٣). (٢) اطلب العلم — قال النبي ﷺ: «من سلك طريقاً يلتمس فيه علماً سهّل الله له به طريقاً إلى الجنة». (٣) تأمل في الآيات — يشير القرآن إلى الطبيعة والكون والخلق البشري كأدلة. (٤) ادعُ بالهداية — «اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ» (الفاتحة ١:٦) أكثر دعاء يُردد في الإسلام. يصبح الشك مشكلة فقط عندما يتوقف المرء عن البحث ويغلق قلبه. ما دمت تبحث صادقاً عن الحق بعقل مفتوح، فأنت على الطريق الصحيح. الإسلام واثق من حقيقته — يرحب بالأسئلة.",
+      "reference_en": "Quran 16:43; Quran 1:6; Sunan Abu Dawud 3641. Al-Ghazali, A. (2005). 'Ihya Ulum al-Din.' Dar al-Kutub al-Ilmiyya.",
+      "reference_ar": "القرآن ١٦:٤٣؛ القرآن ١:٦؛ سنن أبي داود ٣٦٤١."
+    },
+    {
+      "id": 47,
+      "question_en": "What is Halal and why is it important?",
+      "question_ar": "ما هو الحلال ولماذا هو مهم؟",
+      "answer_en": "Halal means 'permissible' in Arabic — it refers to what God has allowed. In food, Halal means: (1) No pork or pork products. (2) No alcohol. (3) Meat must be from permissible animals (cattle, sheep, goats, poultry) slaughtered by mentioning God's name and cutting the throat swiftly to minimize suffering. (4) No blood. The wisdom: (a) Health — Halal slaughter drains blood completely, reducing bacteria and disease risk. (b) Animal welfare — the animal must be treated kindly and slaughtered with minimal pain. (c) Spiritual consciousness — mentioning God's name before eating connects the physical act to spiritual awareness. (d) Discipline — following dietary laws builds self-control. Halal is similar to Jewish Kosher in many ways. The Quran says: 'O you who believe, eat from the good things We have provided for you and be grateful to Allah.' (2:172). Halal extends beyond food — it means living a life permissible by God in all aspects.",
+      "answer_ar": "الحلال يعني «المباح» بالعربية — يشير إلى ما أباحه الله. في الطعام، الحلال يعني: (١) لا لحم خنزير ولا منتجاته. (٢) لا كحول. (٣) يجب أن يكون اللحم من حيوانات مباحة (بقر وغنم وماعز ودواجن) مذبوحة مع ذكر اسم الله وقطع الحلقوم بسرعة لتقليل المعاناة. (٤) لا دم. الحكمة: (أ) الصحة — الذبح الحلال يفرغ الدم كاملاً مما يقلل البكتيريا وخطر المرض. (ب) رعاية الحيوان — يجب معاملة الحيوان بلطف وذبحه بأقل ألم. (ج) الوعي الروحي — ذكر اسم الله قبل الأكل يربط الفعل الجسدي بالوعي الروحي. (د) الانضباط — اتباع القوانين الغذائية يبني ضبط النفس. الحلال مشابه للكوشر اليهودي في كثير من النواحي. يقول القرآن: «يَا أَيُّهَا الَّذِينَ آمَنُوا كُلُوا مِن طَيِّبَاتِ مَا رَزَقْنَاكُمْ وَاشْكُرُوا لِلَّهِ» (البقرة ٢:١٧٢). الحلال يتجاوز الطعام — يعني حياة مباحة لله في كل الجوانب.",
+      "reference_en": "Quran 2:172; Quran 2:173; Quran 5:3-4. Regenstein, J.M. (2003). 'Halal and Kosher slaughter.' Meat Science, 64(3), 287-294.",
+      "reference_ar": "القرآن ٢:١٧٢؛ القرآن ٢:١٧٣؛ القرآن ٥:٣-٤."
+    },
+    {
+      "id": 48,
+      "question_en": "How do I become a Muslim?",
+      "question_ar": "كيف أصبح مسلماً؟",
+      "answer_en": "Becoming a Muslim is beautifully simple. You declare the Shahada (testimony of faith) with sincere belief: 'Ash-hadu an la ilaha illa Allah, wa ash-hadu anna Muhammadan rasulu Allah' — 'I bear witness that there is no god but Allah, and I bear witness that Muhammad is the messenger of Allah.' That's it. No ceremony, no priest, no baptism, no fee. You can say it alone or in front of witnesses. When you say this with your heart believing it, you are a Muslim. After that: (1) Start praying — learn the five daily prayers gradually. (2) Read the Quran — start with a translation in your language. (3) Learn gradually — no one expects you to know everything immediately. (4) Find a Muslim community — they will support and welcome you. (5) Take it step by step — Islam is a journey, not a destination. God says: 'And when My servants ask you concerning Me — indeed, I am near.' (2:186). If you're reading this and feeling drawn to Islam, that may be God calling you home. Every human is born Muslim (submitting to God) — returning is simply coming back to your original nature.",
+      "answer_ar": "الإسلام بسيط وجميل. تنطق الشهادة بصدق ويقين: «أشهد أن لا إله إلا الله وأشهد أن محمداً رسول الله». هذا كل شيء. لا مراسم، لا كاهن، لا معمودية، لا رسوم. يمكنك قولها وحدك أو أمام شهود. عندما تقولها وقلبك يصدق بها، تصبح مسلماً. بعد ذلك: (١) ابدأ الصلاة — تعلّم الصلوات الخمس تدريجياً. (٢) اقرأ القرآن — ابدأ بترجمة بلغتك. (٣) تعلّم تدريجياً — لا أحد يتوقع منك معرفة كل شيء فوراً. (٤) ابحث عن مجتمع مسلم — سيدعمونك ويرحبون بك. (٥) خطوة بخطوة — الإسلام رحلة لا وجهة. يقول الله: «وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ» (البقرة ٢:١٨٦). إذا كنت تقرأ هذا وتشعر بانجذاب للإسلام، فقد يكون الله يناديك للعودة. كل إنسان يولد مسلماً (مستسلماً لله) — العودة هي ببساطة الرجوع إلى فطرتك الأصلية.",
+      "reference_en": "Quran 2:186; Sahih al-Bukhari 1; Sahih Muslim 1. Asad, M. (1980). 'The Message of the Qur'an.' Dar al-Andalus.",
+      "reference_ar": "القرآن ٢:١٨٦؛ صحيح البخاري ١؛ صحيح مسلم ١."
+    },
+    {
+      "id": 49,
+      "question_en": "What is the purpose of life in Islam?",
+      "question_ar": "ما هو هدف الحياة في الإسلام؟",
+      "answer_en": "The Quran answers this directly: 'And I did not create the jinn and mankind except to worship Me.' (51:56). But 'worship' in Islam is not just rituals — it encompasses every aspect of life done with the right intention. Eating, sleeping, working, helping others, being kind to family, studying, exercising — all become worship when done with consciousness of God and good intention. The purpose of life includes: (1) Knowing God — recognizing the Creator through His signs in the universe and within ourselves. (2) Worshiping God — living every moment in awareness of Him. (3) Moral excellence — developing virtues like honesty, kindness, patience, justice, and generosity. (4) Serving humanity — the Prophet said: 'The best of people are those most beneficial to people.' (5) Preparing for the afterlife — this life is a test; our deeds determine our eternal destination. (6) Inner peace — submission to God brings tranquility: 'Those who believe and whose hearts find rest in the remembrance of Allah. Indeed, in the remembrance of Allah do hearts find rest.' (13:28). Life is not meaningless — every moment is an opportunity to earn eternal reward.",
+      "answer_ar": "يجيب القرآن مباشرة: «وَمَا خَلَقْتُ الْجِنَّ وَالْإِنسَ إِلَّا لِيَعْبُدُونِ» (الذاريات ٥١:٥٦). لكن «العبادة» في الإسلام ليست طقوساً فقط — تشمل كل جانب من الحياة يُفعل بنية صحيحة. الأكل والنوم والعمل ومساعدة الآخرين والإحسان للعائلة والدراسة والرياضة — كلها تصبح عبادة بوعي الله والنية الصالحة. تشمل أهداف الحياة: (١) معرفة الله — التعرف على الخالق عبر آياته في الكون وفي أنفسنا. (٢) عبادة الله — العيش كل لحظة بوعيه. (٣) الفضيلة — تنمية الصدق وال kindness والصبر والعدل والكرم. (٤) خدمة البشرية — قال النبي ﷺ: «خير الناس أنفعهم للناس». (٥) الاستعداد للآخرة — هذه الحياة اختبار؛ أعمالنا تحدد مصيرنا الأبدي. (٦) السلام الداخلي — الاستسلام لله يجلب الطمأنينة: «الَّذِينَ آمَنُوا وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ اللَّهِ أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ» (الرعد ١٣:٢٨). الحياة ليست بلا معنى — كل لحظة فرصة لكسب الأجر الأبدي.",
+      "reference_en": "Quran 51:56; Quran 13:28; Quran 3:190-191. Iqbal, M. (1934). 'The Reconstruction of Religious Thought in Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٥١:٥٦؛ القرآن ١٣:٢٨؛ القرآن ٣:١٩٠-١٩١."
+    },
+    {
+      "id": 50,
+      "question_en": "Why are there so many rules in Islam?",
+      "question_ar": "لماذا هناك الكثير من القواعد في الإسلام؟",
+      "answer_en": "Islam's rules are not burdensome — they are a comprehensive guide for a successful life. Think of them like a manufacturer's manual: the One who created us knows best how we should live. The rules cover: (1) Worship — prayer, fasting, charity, pilgrimage — these connect us to God and build discipline. (2) Ethics — honesty, kindness, justice, patience — these build good character. (3) Social laws — marriage, inheritance, business — these create a just society. (4) Dietary laws — halal food — these protect health and build consciousness. (5) Financial laws — no interest (riba), charity (zakat) — these prevent exploitation and redistribute wealth. The Quran says: 'Allah intends for you ease and does not intend for you hardship.' (2:185). Most of life is actually permissible (halal) — only a few things are prohibited. The rules are flexible: (a) Necessity overrides prohibition — you can eat pork if starving. (b) Difficulty is removed — the sick, elderly, travelers get concessions. (c) Intentions matter — actions are judged by intentions. The rules are not meant to control but to guide toward what is good and away from what is harmful.",
+      "answer_ar": "قواعد الإسلام ليست مرهقة — هي دليل شامل لحياة ناجحة. فكّر فيها كدليل المصنّع: الذي خلقنا يعرف أفضل كيف نعيش. تغطي القواعد: (١) العبادة — الصلاة والصيام والصدقة والحج — تربطنا بالله وتبني الانضباط. (٢) الأخلاق — الصدق وال kindness والعدل والصبر — تبني حسن الخلق. (٣) القوانين الاجتماعية — الزواج والميراث والتجارة — تخلق مجتمعاً عادلاً. (٤) القوانين الغذائية — الحلال — تحمي الصحة وتبني الوعي. (٥) القوانين المالية — لا ربا، زكاة — تمنع الاستغلال وتعيد توزيع الثروة. يقول القرآن: «يُرِيدُ اللَّهُ بِكُمُ الْيُسْرَ وَلَا يُرِيدُ بِكُمُ الْعُسْرَ» (البقرة ٢:١٨٥). معظم الحياة مباح فعلاً — أشياء قليلة فقط محرّمة. القواعد مرنة: (أ) الضرورات تبيح المحظورات — تأكل الخنزير إذا جعت. (ب) المشقة تجلب التيسير — المرضى وكبار السن والمسافرون يُخفّف عنهم. (ج) النيات معتبرة — الأعمال بالنيات. القواعد ليست للسيطرة بل للهداية نحو الخير وبعيداً عن الضرر.",
+      "reference_en": "Quran 2:185; Quran 5:6; Sahih al-Bukhari 1. Ramadan, T. (2004). 'Western Muslims and the Future of Islam.' Oxford University Press.",
+      "reference_ar": "القرآن ٢:١٨٥؛ القرآن ٥:٦؛ صحيح البخاري ١."
+    },
+    {
+      "id": 51,
+      "question_en": "What does Islam say about racism and equality?",
+      "question_ar": "ماذا يقول الإسلام عن العنصرية والمساواة؟",
+      "answer_en": "Islam completely rejects racism. The Prophet's Farewell Sermon declared: 'All mankind is from Adam and Eve. An Arab has no superiority over a non-Arab, nor does a non-Arab have superiority over an Arab; a white has no superiority over a black, nor does a black have superiority over a white — except by piety and good action.' The Quran says: 'O mankind, indeed We have created you from male and female and made you peoples and tribes that you may know one another. Indeed, the most noble of you in the sight of Allah is the most righteous.' (49:13). Islam's anti-racism is not just theory — it was practiced: (1) Bilal, a freed black slave, was the first muezzin (caller to prayer), chosen by the Prophet. (2) Salman al-Farisi (Persian), Suhaib ar-Rumi (Roman), and Bilal (African) were among the most honored companions. (3) The Prophet adopted Zayd ibn Harithah, a freed slave, as his son. (4) Islam abolished tribal supremacy and blood-lineage privilege. 1400 years before the civil rights movement, Islam established that character, not color, determines a person's worth.",
+      "answer_ar": "يرفض الإسلام العنصرية رفضاً تاماً. أعلن النبي ﷺ في خطبة الوداع: «أيها الناس إن ربكم واحد وإن أباكم واحد، لا فضل لعربي على عجمي ولا لعجمي على عربي ولا لأحمر على أسود ولا لأسود على أحمر إلا بالتقوى». يقول القرآن: «يَا أَيُّهَا النَّاسُ إِنَّا خَلَقْنَاكُم مِّن ذَكَرٍ وَأُنثَىٰ وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا إِنَّ أَكْرَمَكُمْ عِندَ اللَّهِ أَتْقَاكُمْ» (الحجرات ٤٩:١٣). مناهضة الإسلام للعنصرية ليست نظرية فقط — بل طُبّقت: (١) بلال، العبد الأسود المحرَّر، كان أول مؤذن، اختاره النبي ﷺ. (٢) سلمان الفارسي وصهيب الرومي وبلال الحبشي كانوا من أكرم الصحابة. (٣) تبنّى النبي ﷺ زيد بن حارثة، عبد محرَّر، كابن له. (٤) ألغى الإسلام تفوق القبائل وامتياز النسب. قبل ١٤٠٠ سنة من حركة الحقوق المدنية، أسس الإسلام أن الخلق لا اللون يحدد قيمة الإنسان.",
+      "reference_en": "Quran 49:13; Sahih Muslim 4691 (Farewell Sermon). Bilal ibn Rabah: first muezzin. Martin, R. (2004). 'Encyclopedia of Islam and the Muslim World.' Macmillan.",
+      "reference_ar": "القرآن ٤٩:١٣؛ صحيح مسلم ٤٦٩١ (خطبة الوداع). بلال بن رباح: أول مؤذن في الإسلام."
+    },
+    {
+      "id": 52,
+      "question_en": "Is Islam the fastest-growing religion and why?",
+      "question_ar": "هل الإسلام أسرع الأديان نمواً ولماذا؟",
+      "answer_en": "Yes, Islam is the world's fastest-growing religion, and the reasons are clear: (1) Logical simplicity — one God, one message, no complicated doctrines. The Shahada is all you need to enter Islam. (2) Scientific accuracy — the Quran contains no scientific errors and describes phenomena discovered centuries later, attracting scientists and intellectuals. (3) Complete way of life — Islam provides guidance for every aspect: spiritual, social, economic, political, and personal. (4) Universal brotherhood — Islam erases racial, national, and class barriers. All Muslims are equal before God. (5) Preserved scripture — the Quran is unchanged in 1400 years, verified by manuscript evidence. (6) Rapid growth by conversion — despite no forced conversions, millions embrace Islam yearly, especially in the West, Africa, and Asia. (7) Demographic growth — Muslim families tend to be larger. (8) Appeal to reason — the Quran constantly appeals to intellect: 'Do they not think? Will you not reason?' Pew Research projects Muslims will nearly equal Christians by 2050. People are drawn to Islam because it answers life's biggest questions with clarity, logic, and spiritual depth — offering peace, purpose, and a direct relationship with the Creator.",
+      "answer_ar": "نعم، الإسلام أسرع الأديان نمواً في العالم، والأسباب واضحة: (١) البساطة المنطقية — إله واحد، رسالة واحدة، لا عقائد معقدة. الشهادة كل ما تحتاجه لتدخل الإسلام. (٢) الدقة العلمية — القرآن لا يحتوي على أخطاء علمية ويصف ظواهر اكتُشفت بعد قرون، مما يجذب العلماء والمفكرين. (٣) منهج حياة كامل — الإسلام يوفر هداية لكل جانب: روحي واجتماعي واقتصادي وسياسي وشخصي. (٤) الأخوة العالمية — الإسلام يمحو الحواجز العرقية والقومية والطبقية. كل المسلمين متساوون أمام الله. (٥) كتاب محفوظ — القرآن لم يتغير في ١٤٠٠ سنة، موثق بالمخطوطات. (٦) نمو سريع بالدخول في الدين — رغم عدم وجود إكراه، يدخل ملايين في الإسلام سنوياً، خاصة في الغرب وأفريقيا وآسيا. (٧) نمو ديمغرافي — الأسر المسلمة أكبر عادةً. (٨) مخاطبة العقل — يخاطب القرآن العقل باستمرار: «أفلا يتدبرون، أفلا تعقلون». توقّع بحوث بيو أن المسلمين سيعادلون المسيحيين تقريباً بحلول ٢٠٥٠. ينجذب الناس للإسلام لأنه يجيب أكبر أسئلة الحياة بوضوح ومنطق وعمق روحي — مقدماً السلام والغاية وعلاقة مباشرة بالخالق.",
+      "reference_en": "Pew Research Center (2017): 'The World's Muslims: Unity and Diversity.' Pew Research Center (2015): 'The Future of World Religions.' Iqbal, M. (2012). 'Science and Islam.'",
+      "reference_ar": "مركز بيو للأبحاث (٢٠١٧): «مسلمو العالم: الوحدة والتنوع». مركز بيو (٢٠١٥): «مستقبل الأديان في العالم»."
+    }
+  ]
+}
