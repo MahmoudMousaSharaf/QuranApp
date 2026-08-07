@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: npm
 
       - name: Setup Java
@@ -44,7 +44,7 @@ jobs:
 
       - name: Build APK
         working-directory: android
-        run: ./gradlew assembleRelease --no-daemon -x lint
+        run: ./gradlew assembleRelease --no-daemon -x lint --stacktrace
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
