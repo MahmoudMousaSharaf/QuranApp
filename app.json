@@ -62,7 +62,8 @@
         "android.permission.USE_EXACT_ALARM",
         "android.permission.POST_NOTIFICATIONS",
         "android.permission.RECEIVE_BOOT_COMPLETED",
-        "android.permission.WAKE_LOCK"
+        "android.permission.WAKE_LOCK",
+        "com.google.android.gms.permission.AD_ID"
       ]
     },
     "web": {
@@ -83,7 +84,14 @@
           ]
         }
       ],
-      "expo-audio"
+      "expo-audio",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-7095033876130680~2642429023",
+          "iosAppId": "ca-app-pub-7095033876130680~2642429023"
+        }
+      ]
     ],
     "scheme": "alhaq",
     "updates": {
