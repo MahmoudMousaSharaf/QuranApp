@@ -58,6 +58,8 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
   const isArabicUI = appLanguage === 'ar';
   const { ui, translateUI, needsTranslation } = useUITranslation(appLanguage);
   const [translatedReciters, setTranslatedReciters] = useState<Record<string, string>>({});
+  const [translatedSurahNames, setTranslatedSurahNames] = useState<Record<number, string>>({});
+  const [translatedSurahDetails, setTranslatedSurahDetails] = useState<Record<number, string>>({});
 
   useEffect(() => {
     if (!needsTranslation) return;
@@ -72,6 +74,25 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
     })();
     return () => { cancelled = true; };
   }, [appLanguage, needsTranslation]);
+
+  useEffect(() => {
+    if (!needsTranslation) return;
+    let cancelled = false;
+    (async () => {
+      const nameMap: Record<number, string> = {};
+      const detailMap: Record<number, string> = {};
+      for (const surah of surahs) {
+        if (cancelled) return;
+        nameMap[surah.number] = await translateText(surah.englishName, appLanguage);
+        detailMap[surah.number] = await translateText(surah.englishNameTranslation, appLanguage);
+      }
+      if (!cancelled) {
+        setTranslatedSurahNames(nameMap);
+        setTranslatedSurahDetails(detailMap);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [appLanguage, needsTranslation, surahs]);
 
   useEffect(() => {
     if (!needsTranslation) return;
@@ -102,6 +123,13 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
   const surahRef = useRef<number | null>(null);
   const reciterRef = useRef(0);
   const ayahIndexRef = useRef(0);
+  const isMountedRef = useRef(true);
+  const playAyahRef = useRef<(surahNum: number, ayahIndex: number, ayahsList: any[]) => Promise<void>>(async () => {});
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    return () => { isMountedRef.current = false; };
+  }, []);
 
   useEffect(() => {
     reciterRef.current = selectedReciter;
@@ -109,6 +137,7 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
 
   useEffect(() => {
     const callback = (playing: boolean) => {
+      if (!isMountedRef.current) return;
       setIsPlaying(playing);
       if (!playing) setIsLoading(false);
     };
@@ -120,8 +149,10 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
 
   const playAyah = useCallback(async (surahNum: number, ayahIndex: number, ayahsList: any[]) => {
     if (ayahIndex >= ayahsList.length) {
-      setIsPlaying(false);
-      setCurrentAyah(0);
+      if (isMountedRef.current) {
+        setIsPlaying(false);
+        setCurrentAyah(0);
+      }
       await stopAudio();
       return;
     }
@@ -131,24 +162,30 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
     const url = getAyahAudioUrl(reciter.id, surahNum, ayah.numberInSurah);
 
     try {
-      setIsLoading(true);
-      setCurrentAyah(ayahIndex);
+      if (isMountedRef.current) {
+        setIsLoading(true);
+        setCurrentAyah(ayahIndex);
+      }
       ayahIndexRef.current = ayahIndex;
 
       const onStatus = (status: any) => {
         if (status.isLoaded && status.didJustFinish) {
           const nextIndex = ayahIndexRef.current + 1;
           if (nextIndex < ayahsRef.current.length) {
-            playAyah(surahRef.current!, nextIndex, ayahsRef.current);
+            playAyahRef.current(surahRef.current!, nextIndex, ayahsRef.current);
           } else {
-            setIsPlaying(false);
-            setCurrentAyah(0);
+            if (isMountedRef.current) {
+              setIsPlaying(false);
+              setCurrentAyah(0);
+            }
             stopAudio();
           }
         }
         if (!status.isLoaded) {
-          setIsPlaying(false);
-          setIsLoading(false);
+          if (isMountedRef.current) {
+            setIsPlaying(false);
+            setIsLoading(false);
+          }
         }
       };
 
@@ -159,19 +196,27 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
         await playAudioWithStatus(url, 'quran', onStatus);
       }
 
-      setIsPlaying(true);
-      setIsLoading(false);
+      if (isMountedRef.current) {
+        setIsPlaying(true);
+        setIsLoading(false);
+      }
     } catch (error) {
-      setIsLoading(false);
-      setIsPlaying(false);
-      Alert.alert(
-        isArabicUI ? 'خطأ في التشغيل' : ui('Playback Error'),
-        isArabicUI
-          ? 'تعذر تشغيل الصوت. تأكد من اتصالك بالإنترنت.'
-          : ui('Could not play audio. Check your internet connection.')
-      );
+      if (isMountedRef.current) {
+        setIsLoading(false);
+        setIsPlaying(false);
+        Alert.alert(
+          isArabicUI ? 'خطأ في التشغيل' : ui('Playback Error'),
+          isArabicUI
+            ? 'تعذر تشغيل الصوت. تأكد من اتصالك بالإنترنت.'
+            : ui('Could not play audio. Check your internet connection.')
+        );
+      }
     }
   }, [isArabicUI]);
+
+  useEffect(() => {
+    playAyahRef.current = playAyah;
+  }, [playAyah]);
 
   const handlePlaySurah = useCallback(async (surahNumber: number) => {
     try {
@@ -305,13 +350,17 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
                 <Text style={styles.ayahNumberText}>{item.numberInSurah}</Text>
               </View>
               <View style={styles.ayahTextContainer}>
-                <Text style={[styles.arabicText, { color: c.text }]}>{item.text}</Text>
-                {!isArabicUI && (
-                  <Text style={[styles.translationText, { color: c.textSecondary }]}>
-                    {needsTranslation
-                      ? (translatedAyahs[item.numberInSurah] || (translatingAyahs ? '...' : (englishAyahs.find(e => e.numberInSurah === item.numberInSurah)?.text || '')))
-                      : (englishAyahs.find(e => e.numberInSurah === item.numberInSurah)?.text || '')}
-                  </Text>
+                {isArabicUI ? (
+                  <Text style={[styles.arabicTextBig, { color: c.text }]}>{item.text}</Text>
+                ) : (
+                  <>
+                    <Text style={[styles.translationTextBig, { color: c.text }]}>
+                      {needsTranslation
+                        ? (translatedAyahs[item.numberInSurah] || (translatingAyahs ? '...' : (englishAyahs.find(e => e.numberInSurah === item.numberInSurah)?.text || '')))
+                        : (englishAyahs.find(e => e.numberInSurah === item.numberInSurah)?.text || '')}
+                    </Text>
+                    <Text style={[styles.arabicTextSmall, { color: c.textSecondary }]}>{item.text}</Text>
+                  </>
                 )}
               </View>
             </View>
@@ -384,10 +433,10 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
             </View>
             <View style={styles.surahInfo}>
               <Text style={[styles.surahName, { color: c.text }]}>
-                {isArabicUI ? item.name : item.englishName}
+                {isArabicUI ? item.name : (needsTranslation ? (translatedSurahNames[item.number] || item.englishName) : item.englishName)}
               </Text>
               <Text style={[styles.surahDetail, { color: c.textSecondary }]}>
-                {item.englishNameTranslation} • {item.numberOfAyahs} {isArabicUI ? 'آية' : ui('ayahs')}
+                {isArabicUI ? item.englishNameTranslation : (needsTranslation ? (translatedSurahDetails[item.number] || item.englishNameTranslation) : item.englishNameTranslation)} • {item.numberOfAyahs} {isArabicUI ? 'آية' : ui('ayahs')}
               </Text>
             </View>
             <View style={styles.playIcon}>
@@ -491,15 +540,20 @@ const styles = StyleSheet.create({
   ayahTextContainer: {
     flex: 1,
   },
-  arabicText: {
-    fontSize: 20,
-    lineHeight: 36,
+  arabicTextBig: {
+    fontSize: 22,
+    lineHeight: 40,
     textAlign: 'right',
   },
-  translationText: {
-    fontSize: 14,
-    lineHeight: 22,
-    marginTop: 6,
+  arabicTextSmall: {
+    fontSize: 16,
+    lineHeight: 28,
+    textAlign: 'right',
+    marginTop: 8,
+  },
+  translationTextBig: {
+    fontSize: 18,
+    lineHeight: 28,
     textAlign: 'left',
   },
 });
