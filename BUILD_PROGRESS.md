@@ -18,15 +18,22 @@
 - [x] iOS build succeeded (interactive mode with Apple credentials)
 
 ### In Progress
-- [ ] Android APK build #5 (ID: 396d3203-b659-493e-8b8d-2686050b04ae) — bare workflow + clear cache
-- [ ] iOS IPA rebuild with latest fixes (Quran audio + AdMob)
+- [ ] Android APK build via GitHub Actions (local Gradle build on Linux runner)
+- [ ] iOS IPA rebuild with latest fixes (Quran audio + AdMob) — previous build succeeded
 
 ### Build History
 - Build #1 (22b75342): FAILED — Gradle error (before AdMob plugin)
 - Build #2 (eabfb53a): FAILED — Gradle error (AdMob 14.11.0 Kotlin incompatibility)
 - Build #3 (39db7844): FAILED — Gradle error (known SDK 54 EAS "No matching variant" bug)
 - Build #4 (5c1f38d7): FAILED — Same Gradle error (expo-build-properties didn't help)
-- Build #5 (396d3203): IN PROGRESS — Bare workflow (committed android/), removed expo-build-properties, clear cache
+- Build #5 (396d3203): FAILED — Bare workflow didn't fix it either
+- Build #6 (a0ae937e): FAILED — Same error even WITHOUT AdMob (confirmed EAS cloud infrastructure bug)
+- iOS Build (f1eb102a): SUCCESS — IPA available at EAS dashboard
+
+### Root Cause Analysis
+- **Why iOS worked but Android didn't**: iOS uses Xcode (xcodebuild), Android uses Gradle. The "No matching variant" error is a Gradle-specific issue in EAS Build cloud infrastructure (GitHub issues #42370, #47354, #42730).
+- **EAS Build cloud bug**: EAS Build cloud environment has an AGP version mismatch that causes all React Native native module subprojects to produce zero variants. This is a server-side issue, not a project code issue.
+- **Fix**: Build Android APK directly on GitHub Actions Linux runner using `expo prebuild` + `./gradlew assembleRelease`, bypassing EAS Build cloud entirely.
 
 ### iOS Build Process (Documented)
 1. Run `eas build --platform ios --profile preview` (interactive mode)
@@ -54,8 +61,14 @@
 - **production**: Android APK
 
 ### Workflow
-- **Android**: Bare workflow (committed `android/` folder) — EAS uses native code directly, no prebuild
-- **iOS**: Managed workflow — EAS runs prebuild on macOS builders (still in .gitignore)
+- **Android**: GitHub Actions Linux runner — `expo prebuild` + `./gradlew assembleRelease` (bypasses EAS Build cloud bug)
+- **iOS**: EAS Build cloud (macOS) — works fine, no Gradle involved
+
+### GitHub Actions
+- Workflow: `.github/workflows/android-build.yml`
+- Triggers on: push to main (src/app.json/package changes), manual dispatch
+- No EXPO_TOKEN needed — builds directly with Gradle on Linux
+- APK uploaded as GitHub Actions artifact (30-day retention)
 
 ### AdMob Configuration
 - App ID: `ca-app-pub-7095033876130680~2642429023`
@@ -72,9 +85,7 @@
 - Reciters: Alafasy, Abdul Basit, Hussary, Minshawi, Basfar, Rifai, Shuraim
 
 ### GitHub Actions
-- Workflow: `.github/workflows/eas-build.yml`
-- Triggers on: push to main, manual dispatch
-- Needs: `EXPO_TOKEN` secret in GitHub repo settings
+- See Workflow section above
 
 ## How to Get EXPO_TOKEN
 1. Go to https://expo.dev/accounts/majmod/settings/access-tokens
