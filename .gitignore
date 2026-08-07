@@ -6,6 +6,7 @@ web-build/
 .env
 .DS_Store
 ios/
+android/
 .keys/
 gen-quiz-*.js
 add-translations.js

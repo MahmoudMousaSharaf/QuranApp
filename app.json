@@ -84,7 +84,14 @@
           ]
         }
       ],
-      "expo-audio"
+      "expo-audio",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-7095033876130680~2642429023",
+          "iosAppId": "ca-app-pub-7095033876130680~2642429023"
+        }
+      ]
     ],
     "scheme": "alhaq",
     "updates": {
@@ -95,7 +102,9 @@
         "alg": "rsa-v1_5-sha256"
       }
     },
-    "runtimeVersion": "1.0.0",
+    "runtimeVersion": {
+      "policy": "sdkVersion"
+    },
     "owner": "majmod"
   }
 }
