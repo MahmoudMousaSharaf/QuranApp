@@ -23,6 +23,7 @@ async function ensureAudioMode() {
       playThroughEarpieceAndroid: false,
       interruptionModeAndroid: 1,
       interruptionModeIOS: 1,
+      shouldPlayInBackground: true,
     });
   } catch (e) {
     console.log('Audio mode setup error:', e);

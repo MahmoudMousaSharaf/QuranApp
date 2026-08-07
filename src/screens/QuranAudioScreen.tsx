@@ -95,6 +95,9 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [ayahs, setAyahs] = useState<any[]>([]);
+  const [englishAyahs, setEnglishAyahs] = useState<any[]>([]);
+  const [translatedAyahs, setTranslatedAyahs] = useState<Record<number, string>>({});
+  const [translatingAyahs, setTranslatingAyahs] = useState(false);
   const ayahsRef = useRef<any[]>([]);
   const surahRef = useRef<number | null>(null);
   const reciterRef = useRef(0);
@@ -175,10 +178,13 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
       setIsLoading(true);
       const surahData = await fetchSurah(surahNumber);
       const ayahsList = surahData.arabic;
+      const englishList = surahData.english;
       setAyahs(ayahsList);
+      setEnglishAyahs(englishList);
       ayahsRef.current = ayahsList;
       setSelectedSurah(surahNumber);
       surahRef.current = surahNumber;
+      setTranslatedAyahs({});
       await playAyah(surahNumber, 0, ayahsList);
     } catch (error) {
       setIsLoading(false);
@@ -197,6 +203,10 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
     surahRef.current = null;
   }, []);
 
+  const handleBackFromPlayer = useCallback(() => {
+    setSelectedSurah(null);
+  }, []);
+
   const handlePauseResume = useCallback(async () => {
     if (isPlaying) {
       await pauseAudio();
@@ -207,13 +217,35 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
     }
   }, [isPlaying]);
 
+  useEffect(() => {
+    if (!needsTranslation || englishAyahs.length === 0) return;
+    let cancelled = false;
+    setTranslatingAyahs(true);
+    (async () => {
+      const map: Record<number, string> = {};
+      for (const ayah of englishAyahs) {
+        if (cancelled) return;
+        try {
+          map[ayah.numberInSurah] = await translateText(ayah.text, appLanguage);
+        } catch (e) {
+          map[ayah.numberInSurah] = ayah.text;
+        }
+      }
+      if (!cancelled) {
+        setTranslatedAyahs(map);
+        setTranslatingAyahs(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [appLanguage, needsTranslation, englishAyahs]);
+
   if (selectedSurah !== null) {
     const surahMeta = surahs.find((s) => s.number === selectedSurah);
     return (
       <View style={[styles.container, { backgroundColor: c.background }]}>
         <StatusBar barStyle="light-content" backgroundColor={c.headerBg} />
         <View style={[styles.header, { backgroundColor: c.headerBg }]}>
-          <TouchableOpacity onPress={handleStop} style={styles.backBtn}>
+          <TouchableOpacity onPress={handleBackFromPlayer} style={styles.backBtn}>
             <Ionicons name="arrow-back" size={24} color="#fff" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>
@@ -221,7 +253,9 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
               ? surahMeta?.name || `سورة ${selectedSurah}`
               : surahMeta?.englishName || ui(`Surah ${selectedSurah}`)}
           </Text>
-          <View style={{ width: 28 }} />
+          <TouchableOpacity onPress={handleStop} style={styles.backBtn}>
+            <Ionicons name="stop-outline" size={22} color="#fff" />
+          </TouchableOpacity>
         </View>
 
         {/* Player Controls */}
@@ -270,7 +304,16 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
               <View style={[styles.ayahNumber, { backgroundColor: c.primary }]}>
                 <Text style={styles.ayahNumberText}>{item.numberInSurah}</Text>
               </View>
-              <Text style={[styles.arabicText, { color: c.text }]}>{item.text}</Text>
+              <View style={styles.ayahTextContainer}>
+                <Text style={[styles.arabicText, { color: c.text }]}>{item.text}</Text>
+                {!isArabicUI && (
+                  <Text style={[styles.translationText, { color: c.textSecondary }]}>
+                    {needsTranslation
+                      ? (translatedAyahs[item.numberInSurah] || (translatingAyahs ? '...' : (englishAyahs.find(e => e.numberInSurah === item.numberInSurah)?.text || '')))
+                      : (englishAyahs.find(e => e.numberInSurah === item.numberInSurah)?.text || '')}
+                  </Text>
+                )}
+              </View>
             </View>
           )}
         />
@@ -445,11 +488,19 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   ayahNumberText: { fontSize: 12, fontWeight: 'bold', color: '#fff' },
-  arabicText: {
+  ayahTextContainer: {
     flex: 1,
+  },
+  arabicText: {
     fontSize: 20,
     lineHeight: 36,
     textAlign: 'right',
+  },
+  translationText: {
+    fontSize: 14,
+    lineHeight: 22,
+    marginTop: 6,
+    textAlign: 'left',
   },
 });
 
