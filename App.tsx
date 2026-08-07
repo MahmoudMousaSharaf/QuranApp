@@ -20,6 +20,7 @@ import {
   rescheduleAlarmsFromCache,
   setActiveNotificationId,
 } from './src/services/prayerAlarm';
+import { ensureAudioMode } from './src/services/ruqyahAudio';
 
 import HomeScreen from './src/screens/HomeScreen';
 import SurahListScreen from './src/screens/SurahListScreen';
@@ -100,6 +101,9 @@ const AppContent: React.FC = () => {
     // Reschedule prayer alarms from cached location on app startup
     // This ensures alarms fire even if the app was killed, by scheduling 7 days in advance
     rescheduleAlarmsFromCache(appLanguage).catch((e) => console.error('Failed to reschedule alarms:', e));
+
+    // Configure audio session globally at app startup for background playback
+    ensureAudioMode().catch((e: any) => console.error('Failed to configure audio mode:', e));
 
     return () => {
       notificationListener.current?.remove();

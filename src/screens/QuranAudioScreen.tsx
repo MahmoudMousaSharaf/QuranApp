@@ -17,6 +17,7 @@ import { useUITranslation } from '../hooks/useUITranslation';
 import { SurahMeta } from '../types';
 import { fetchSurah } from '../services/api';
 import { translateText } from '../services/contentTranslator';
+import { getQuranTranslation } from '../services/quranTranslations';
 import {
   playAudioWithStatus,
   stopAudio,
@@ -263,17 +264,36 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
   }, [isPlaying]);
 
   useEffect(() => {
-    if (!needsTranslation || englishAyahs.length === 0) return;
+    if (!needsTranslation || englishAyahs.length === 0 || selectedSurah === null) return;
     let cancelled = false;
     setTranslatingAyahs(true);
     (async () => {
       const map: Record<number, string> = {};
-      for (const ayah of englishAyahs) {
+      try {
+        const quranTranslations = await getQuranTranslation(appLanguage, selectedSurah);
         if (cancelled) return;
-        try {
-          map[ayah.numberInSurah] = await translateText(ayah.text, appLanguage);
-        } catch (e) {
-          map[ayah.numberInSurah] = ayah.text;
+        if (quranTranslations && quranTranslations.length > 0) {
+          for (let i = 0; i < englishAyahs.length; i++) {
+            map[englishAyahs[i].numberInSurah] = quranTranslations[i] || englishAyahs[i].text;
+          }
+        } else {
+          for (const ayah of englishAyahs) {
+            if (cancelled) return;
+            try {
+              map[ayah.numberInSurah] = await translateText(ayah.text, appLanguage);
+            } catch (e) {
+              map[ayah.numberInSurah] = ayah.text;
+            }
+          }
+        }
+      } catch (e) {
+        for (const ayah of englishAyahs) {
+          if (cancelled) return;
+          try {
+            map[ayah.numberInSurah] = await translateText(ayah.text, appLanguage);
+          } catch (e2) {
+            map[ayah.numberInSurah] = ayah.text;
+          }
         }
       }
       if (!cancelled) {
@@ -282,7 +302,7 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
       }
     })();
     return () => { cancelled = true; };
-  }, [appLanguage, needsTranslation, englishAyahs]);
+  }, [appLanguage, needsTranslation, englishAyahs, selectedSurah]);
 
   if (selectedSurah !== null) {
     const surahMeta = surahs.find((s) => s.number === selectedSurah);

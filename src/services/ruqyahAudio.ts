@@ -13,18 +13,15 @@ let playStateCallback: PlayStateCallback | null = null;
 let statusListener: { remove: () => void } | null = null;
 let wasPlayingBeforeInterruption = false;
 
-async function ensureAudioMode() {
+export async function ensureAudioMode() {
   try {
     await setIsAudioActiveAsync(true);
     await setAudioModeAsync({
-      allowsRecordingIOS: false,
-      playsInSilentModeIOS: true,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
-      interruptionModeAndroid: 1,
-      interruptionModeIOS: 1,
+      playsInSilentMode: true,
       shouldPlayInBackground: true,
-    });
+      interruptionMode: 'duckOthers',
+      shouldRouteThroughEarpiece: false,
+    } as any);
   } catch (e) {
     console.log('Audio mode setup error:', e);
   }
