@@ -6,18 +6,15 @@
   "build": {
     "development": {
       "developmentClient": true,
-      "distribution": "internal",
-      "image": "sdk-54"
+      "distribution": "internal"
     },
     "preview": {
       "distribution": "internal",
-      "image": "sdk-54",
       "android": {
         "buildType": "apk"
       }
     },
     "production": {
-      "image": "sdk-54",
       "android": {
         "buildType": "apk"
       }
