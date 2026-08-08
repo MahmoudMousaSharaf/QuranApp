@@ -1,18 +1,27 @@
-# Al-Qur'an — Cross-Platform Quran App (Android & iOS)
+# The Truth - Al Haq — Cross-Platform Islamic App (Android & iOS)
 
-A complete Quran reading application built with **Expo / React Native** — works on both Android and iPhone, including older devices.
+A complete Islamic application built with **Expo / React Native** — works on both Android and iPhone, including older devices. Features Quran reading, audio recitations, Ruqyah Sharia, daily task tracker, prayer times, Qibla, Azkar, Hadith, and more.
 
 ## Features
 
 - **All 114 Surahs** — Complete Quran with verified Arabic (Uthmani script) and English (Sahih International) translation
-- **Language Switch** — Toggle between Arabic only, English only, or both (AR → EN → AR+EN)
-- **Surah List** — Browse all 114 surahs with search by name or number
-- **Surah Reader** — Beautiful ayah-by-ayah display with surah banners
-- **Bookmarks** — Save and manage bookmarked ayahs (persisted via AsyncStorage)
-- **Share** — Share any ayah with Arabic + English text
+- **16 Languages** — English, Arabic, Chinese, Hindi, Russian, Korean, Japanese, German, French, Spanish, Turkish, Urdu, Indonesian, Bengali, Portuguese, Malay
+- **Quran Audio** — 7 reciters with full surah playback from Islamic Network CDN
+- **Audio Caching** — Quran and Ruqyah audio cached for offline playback after first listen
+- **Ruqyah Sharia** — Spiritual healing with Quran verses and supplications from 3 sheikhs
+- **Daily Islamic Tasks** — 17 authentic daily Sunnah tasks with checklist and 4-hour reminder notifications
+- **Prayer Times** — Accurate prayer times for every country with Adhan alarms
+- **Qibla** — Live compass that works offline
+- **Azkar** — Morning, evening, sleep, and after-prayer supplications with reminders
+- **Hadith** — Nawawi, Qudsi, and Sahih collections (works offline)
+- **Tasbih** — Digital counter with statistics
+- **Dhikr Circles** — Personal dhikr tracker
+- **100 Quiz Questions** — Test your Islamic knowledge
+- **Progress Tracking** — Track your level, backup/restore data
+- **Dream Interpretation** — Contact certified scholars via Telegram
+- **AdMob Ads** — Banner ads in Support Us section
 - **Dark / Light Theme** — Auto-saved preference
-- **Remembers Last Surah** — Opens where you left off
-- **Sajda Indicators** — Shows prostration ayahs
+- **Bookmarks** — Save and manage bookmarked ayahs
 
 ## Data Source
 
@@ -70,19 +79,40 @@ E:\quran-app/
     ├── types/index.ts               # TypeScript interfaces
     ├── services/
     │   ├── api.ts                   # AlQuran Cloud API calls
-    │   └── storage.ts               # AsyncStorage (bookmarks, theme, etc.)
+    │   ├── storage.ts               # AsyncStorage (bookmarks, theme, etc.)
+    │   ├── ruqyahAudio.ts           # Audio playback service (expo-audio)
+    │   ├── audioCache.ts            # Audio download & cache service (expo-file-system)
+    │   ├── notifications.ts         # Azkar reminder notifications
+    │   ├── dailyTaskNotifications.ts # Daily task 4-hour reminder notifications
+    │   ├── prayerAlarm.ts           # Prayer time Adhan alarms
+    │   └── contentTranslator.ts     # Google Translate for UI content
+    ├── i18n/
+    │   ├── translations.ts          # Main UI translations (16 languages)
+    │   └── dailyTasks.ts            # Daily tasks translations (16 languages)
     ├── context/
-    │   └── ThemeContext.tsx         # Dark/light theme provider
+    │   ├── ThemeContext.tsx         # Dark/light theme provider
+    │   └── LanguageContext.tsx      # Language provider
     └── screens/
+        ├── HomeScreen.tsx           # Main menu with all features
         ├── SurahListScreen.tsx      # All 114 surahs list + search
         ├── SurahReaderScreen.tsx    # Ayah display with AR/EN toggle
-        └── BookmarksScreen.tsx      # Saved ayahs
+        ├── QuranAudioScreen.tsx     # Quran audio with 7 reciters
+        ├── RuqyahShariaScreen.tsx   # Ruqyah Sharia spiritual healing
+        ├── DailyTasksScreen.tsx     # Daily Islamic task tracker
+        ├── PrayerTimesScreen.tsx    # Prayer times with alarms
+        ├── QiblaScreen.tsx          # Qibla compass
+        ├── AzkarScreen.tsx          # Morning/evening Azkar
+        └── ...                      # And more screens
 ```
 
 ## Tech Stack
 
-- **React Native** 0.72 (Expo SDK 49)
+- **React Native** 0.81.5 (Expo SDK 54)
 - **TypeScript**
-- **React Navigation** (native-stack)
+- **expo-audio** for audio playback with background support
+- **expo-file-system** for audio caching
+- **expo-notifications** for prayer alarms, Azkar reminders, and daily task reminders
+- **react-native-google-mobile-ads** v16.0.0 for AdMob banner ads
+- **react-native-reanimated** v4.1.7
 - **AsyncStorage** for local persistence
-- **AlQuran Cloud API** for Quran data
+- **AlQuran Cloud API** + Islamic Network CDN for Quran data and audio

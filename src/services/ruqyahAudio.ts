@@ -1,5 +1,6 @@
 import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync, AudioPlayer, AudioStatus } from 'expo-audio';
 import { AppState, AppStateStatus } from 'react-native';
+import { getPlayableAudioUrl } from './audioCache';
 
 export type AudioOwner = 'ruqyah' | 'quran';
 
@@ -103,7 +104,8 @@ export async function playAudio(url: string, owner: AudioOwner = 'ruqyah', loop:
     destroyPlayer();
   }
 
-  player = createAudioPlayer(url, { keepAudioSessionActive: true });
+  const playableUrl = await getPlayableAudioUrl(url);
+  player = createAudioPlayer(playableUrl, { keepAudioSessionActive: true, downloadFirst: false });
   player.loop = loop;
   currentUrl = url;
   currentOwner = owner;
@@ -123,7 +125,8 @@ export async function playAudioWithStatus(
     destroyPlayer();
   }
 
-  player = createAudioPlayer(url, { keepAudioSessionActive: true });
+  const playableUrl = await getPlayableAudioUrl(url);
+  player = createAudioPlayer(playableUrl, { keepAudioSessionActive: true });
   player.loop = false;
   currentUrl = url;
   currentOwner = owner;

@@ -206,7 +206,34 @@ export type TranslationKey =
   | 'ruqyahNowPlaying'
   | 'ruqyahQuranVerses'
   | 'ruqyahSupplications'
-  | 'ruqyahBackgroundPlay';
+  | 'ruqyahBackgroundPlay'
+  | 'dailyTasks'
+  | 'dailyTasksSubtitle'
+  | 'dailyTasksTitle'
+  | 'dailyTasksProgress'
+  | 'dailyTasksRemaining'
+  | 'dailyTasksComplete'
+  | 'dailyTasksReset'
+  | 'dailyTasksAllDone'
+  | 'taskFajr'
+  | 'taskSunnahFajr'
+  | 'taskMorningAzkar'
+  | 'taskDuha'
+  | 'taskReadQuran'
+  | 'taskDhuhr'
+  | 'taskSunnahDhuhr'
+  | 'taskAsr'
+  | 'taskEveningAzkar'
+  | 'taskMaghrib'
+  | 'taskSunnahMaghrib'
+  | 'taskIsha'
+  | 'taskWitr'
+  | 'taskSleepAzkar'
+  | 'taskTasbih'
+  | 'taskSalawat'
+  | 'taskIstighfar'
+  | 'dailyTaskReminderTitle'
+  | 'dailyTaskReminderBody';
 
 type Translations = Partial<Record<TranslationKey, string>>;
 
@@ -376,6 +403,33 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Quran Verses',
     ruqyahSupplications: 'Supplications (Du\'a)',
     ruqyahBackgroundPlay: 'Audio continues even if you close the app',
+    dailyTasks: 'Daily Tasks',
+    dailyTasksSubtitle: 'Track your daily Islamic worship',
+    dailyTasksTitle: 'Daily Islamic Tasks',
+    dailyTasksProgress: 'Completed',
+    dailyTasksRemaining: 'remaining',
+    dailyTasksComplete: 'Complete',
+    dailyTasksReset: 'Tasks reset daily at midnight',
+    dailyTasksAllDone: 'All tasks completed! May Allah accept your worship 🤲',
+    taskFajr: 'Fajr Prayer',
+    taskSunnahFajr: 'Sunnah of Fajr (2 Rak\'ahs)',
+    taskMorningAzkar: 'Morning Azkar',
+    taskDuha: 'Duha Prayer',
+    taskReadQuran: 'Read Quran',
+    taskDhuhr: 'Dhuhr Prayer',
+    taskSunnahDhuhr: 'Sunnah after Dhuhr (2 Rak\'ahs)',
+    taskAsr: 'Asr Prayer',
+    taskEveningAzkar: 'Evening Azkar',
+    taskMaghrib: 'Maghrib Prayer',
+    taskSunnahMaghrib: 'Sunnah after Maghrib (2 Rak\'ahs)',
+    taskIsha: 'Isha Prayer',
+    taskWitr: 'Witr Prayer',
+    taskSleepAzkar: 'Sleep Azkar',
+    taskTasbih: 'Tasbih (SubhanAllah, Alhamdulillah, Allahu Akbar x33)',
+    taskSalawat: 'Send blessings on Prophet ﷺ',
+    taskIstighfar: 'Istighfar (100 times)',
+    dailyTaskReminderTitle: 'Daily Tasks Reminder',
+    dailyTaskReminderBody: 'You have incomplete daily tasks. Complete them to earn rewards 🤲',
 
   },
   ar: {
@@ -543,6 +597,33 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'آيات القرآن',
     ruqyahSupplications: 'الأدعية',
     ruqyahBackgroundPlay: 'يستمر الصوت حتى لو أغلقت التطبيق',
+    dailyTasks: 'المهام اليومية',
+    dailyTasksSubtitle: 'تابع عبادتك اليومية',
+    dailyTasksTitle: 'المهام الإسلامية اليومية',
+    dailyTasksProgress: 'مكتمل',
+    dailyTasksRemaining: 'متبقي',
+    dailyTasksComplete: 'إكمال',
+    dailyTasksReset: 'تتجدد المهام يومياً عند منتصف الليل',
+    dailyTasksAllDone: 'تم إكمال جميع المهام! تقبل الله منك 🤲',
+    taskFajr: 'صلاة الفجر',
+    taskSunnahFajr: 'سنة الفجر (ركعتان)',
+    taskMorningAzkar: 'أذكار الصباح',
+    taskDuha: 'صلاة الضحى',
+    taskReadQuran: 'قراءة القرآن',
+    taskDhuhr: 'صلاة الظهر',
+    taskSunnahDhuhr: 'سنة بعد الظهر (ركعتان)',
+    taskAsr: 'صلاة العصر',
+    taskEveningAzkar: 'أذكار المساء',
+    taskMaghrib: 'صلاة المغرب',
+    taskSunnahMaghrib: 'سنة بعد المغرب (ركعتان)',
+    taskIsha: 'صلاة العشاء',
+    taskWitr: 'صلاة الوتر',
+    taskSleepAzkar: 'أذكار النوم',
+    taskTasbih: 'التسبيح (سبحان الله، الحمد لله، الله أكبر ×33)',
+    taskSalawat: 'الصلاة على النبي ﷺ',
+    taskIstighfar: 'الاستغفار (100 مرة)',
+    dailyTaskReminderTitle: 'تذكير المهام اليومية',
+    dailyTaskReminderBody: 'لديك مهام يومية غير مكتملة. أكملها لتنال الأجر 🤲',
 
   },
   zh: {

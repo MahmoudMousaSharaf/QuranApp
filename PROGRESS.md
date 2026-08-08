@@ -181,5 +181,31 @@
 - **Translation:** Ruqyah verses and supplications now translate to all 16 languages (big Arabic text + small translation below)
 - **Dream hadith:** Translated to all languages (was only Arabic/Urdu/English before)
 
+### 15. Audio Caching & Offline Playback ✅
+- **New file:** `src/services/audioCache.ts` — on-demand download & cache using `expo-file-system`
+- **Cache location:** `documentDirectory/audio-cache/` with hash-based filenames
+- **API:** `getPlayableAudioUrl(url)` — returns local path if cached, downloads if not, falls back to remote on failure
+- **Updated:** `src/services/ruqyahAudio.ts` — `playAudio` and `playAudioWithStatus` now use cached audio
+- **Fixes:** Fast loading on Android (instant replay after first listen), fixes iOS no-audio issue (local file URI avoids expo-audio streaming bug)
+- **Offline:** Both Quran and Ruqyah audio work without internet after first play
+
+### 16. Daily Islamic Task Tracker ✅
+- **New screen:** `src/screens/DailyTasksScreen.tsx` — 17 authentic daily Sunnah tasks with checklist
+- **Tasks based on Quran & Sunnah:** Fajr, Sunnah Fajr, Morning Azkar, Duha, Read Quran, Dhuhr, Sunnah Dhuhr, Asr, Evening Azkar, Maghrib, Sunnah Maghrib, Isha, Witr, Sleep Azkar, Tasbih, Salawat, Istighfar
+- **Progress tracking:** Daily progress bar, tasks reset at midnight via AsyncStorage
+- **New file:** `src/i18n/dailyTasks.ts` — all 17 task names + UI strings translated in all 16 languages
+- **New file:** `src/services/dailyTaskNotifications.ts` — 4-hour reminder notifications at 10:00, 14:00, 18:00, 22:00 (translated)
+- **Navigation:** Added to `App.tsx` (screen type + routing) and `HomeScreen.tsx` (feature card with green gradient)
+
+### 17. ASO & App Store Optimization ✅
+- **App name shortened:** "The Truth - Al Haq" (18 chars, fits both App Store & Play Store 30-char limit)
+- **Previous name was 49 chars** (exceeded store title limits)
+- **iOS CFBundleKeywords expanded:** Added "truth", "Al Haq", "spiritual", "faith", "worship", "morning azkar", "evening azkar", "daily tasks", "Quran audio", "recitation"
+- **Version bumped:** 1.0.0 → 1.1.0, buildNumber 1 → 2, versionCode 1 → 2
+
 ## Pending Tasks
-- Test all changes on Expo server with physical devices
+- Rebuild Android (GitHub Actions) and iOS (EAS) with v1.1.0 changes
+- Test audio caching on real devices (Android + iOS)
+- Test daily task tracker + 4-hour notifications
+- Test offline audio playback
+- Verify AdMob production ads

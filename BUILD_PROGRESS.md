@@ -16,6 +16,13 @@
 - [x] AdMob banner fixed: test ad IDs for internal builds, fallback on load failure
 - [x] Switched to bare workflow for Android (committed android/ folder) to fix EAS build
 - [x] iOS build succeeded (interactive mode with Apple credentials)
+- [x] **Audio caching service** (`src/services/audioCache.ts`): on-demand download & cache using expo-file-system
+- [x] **Fast Quran audio loading**: audio files downloaded to local storage before playback (instant replay on second play)
+- [x] **iOS audio fix**: local file playback avoids iOS streaming issues with expo-audio
+- [x] **Offline audio support**: Quran and Ruqyah audio cached for offline playback after first listen
+- [x] **Daily Islamic Task Tracker** (`src/screens/DailyTasksScreen.tsx`): 17 authentic daily Sunnah tasks with checklist
+- [x] **4-hour reminder notifications** for daily tasks, translated in all 16 supported languages
+- [x] **Daily tasks translations** (`src/i18n/dailyTasks.ts`): all 16 languages (en, ar, zh, hi, ru, ko, ja, de, fr, es, tr, ur, id, bn, pt, ms)
 
 ### In Progress
 - [ ] Test on real devices: Quran audio background playback, AdMob banners, OTA updates
@@ -53,7 +60,10 @@
 ### Pending
 - [x] Successful Android APK build on GitHub Actions (run #31252672597)
 - [x] Successful iOS IPA rebuild with updated deps (EAS build 52dc0d88)
+- [ ] **Rebuild Android + iOS with audio cache + daily tasks features**
 - [ ] Test background audio on real devices (Android + iOS)
+- [ ] Test offline audio playback (cached Quran + Ruqyah audio)
+- [ ] Test daily task tracker + 4-hour reminder notifications
 - [ ] Create new app in App Store Connect named "The Truth - Al Haq"
 - [ ] Verify OTA updates work
 - [ ] Verify ads show in production build
@@ -87,6 +97,49 @@
 - Playback: Full surah (single URL, `loop=false`) — same as Ruqyah
 - Background: Works because no JS callbacks needed (native audio session handles background)
 - Reciters: Alafasy, Abdul Basit, Hussary, Minshawi, Basfar, Rifai, Shuraim
+- **Caching**: Audio files downloaded to `documentDirectory/audio-cache/` on first play, subsequent plays are instant
+- **Offline**: Once cached, audio plays without internet connection on both Android and iOS
+- **iOS fix**: Local file URI playback avoids expo-audio streaming issues on iOS
+
+### Ruqyah Audio Configuration
+- Sources: 3 sheikhs (Mishary Alafasy, Abdul Rahman Al-Sudais, Maher Al-Muaiqly)
+- URLs from `ruqyah_sharia.json` `audio_sources` array
+- **Caching**: Same audio cache service as Quran audio — offline playback after first listen
+
+### Daily Islamic Task Tracker
+- **Screen**: `src/screens/DailyTasksScreen.tsx`
+- **Tasks**: 17 authentic daily Sunnah tasks based on Quran and Sunnah:
+  1. Fajr Prayer (obligatory)
+  2. Sunnah of Fajr (2 Rak'ahs)
+  3. Morning Azkar
+  4. Duha Prayer
+  5. Read Quran
+  6. Dhuhr Prayer (obligatory)
+  7. Sunnah after Dhuhr (2 Rak'ahs)
+  8. Asr Prayer (obligatory)
+  9. Evening Azkar
+  10. Maghrib Prayer (obligatory)
+  11. Sunnah after Maghrib (2 Rak'ahs)
+  12. Isha Prayer (obligatory)
+  13. Witr Prayer
+  14. Sleep Azkar
+  15. Tasbih (SubhanAllah, Alhamdulillah, Allahu Akbar x33)
+  16. Send blessings on Prophet ﷺ
+  17. Istighfar (100 times)
+- **Progress tracking**: Daily progress bar, tasks reset at midnight
+- **Notifications**: 4-hour reminders at 10:00, 14:00, 18:00, 22:00 (translated in all 16 languages)
+- **Translations**: `src/i18n/dailyTasks.ts` — all 16 languages
+- **Notification service**: `src/services/dailyTaskNotifications.ts`
+- **Storage**: AsyncStorage (`@daily_tasks_progress`, `@daily_tasks_date`)
+
+### Audio Cache Service
+- **File**: `src/services/audioCache.ts`
+- **Approach**: On-demand download using `expo-file-system` `createDownloadResumable`
+- **Cache location**: `documentDirectory/audio-cache/`
+- **Cache key**: Hash of URL → `audio_{hash}.mp3`
+- **API**: `getPlayableAudioUrl(url)` — returns local path if cached, downloads if not
+- **Fallback**: If download fails, falls back to remote URL for streaming
+- **Memory**: In-memory Map for fast cache lookups
 
 ### GitHub Actions
 - See Workflow section above

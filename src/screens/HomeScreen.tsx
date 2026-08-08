@@ -71,6 +71,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
       t('aboutUs'), t('aboutSubtitle'),
       t('quiz100'), t('quiz100Subtitle'),
       t('progressTracking'), t('progressTrackingSubtitle'),
+      t('dailyTasks' as TranslationKey), t('dailyTasksSubtitle' as TranslationKey),
     ]);
   }, [appLanguage]);
 
@@ -93,6 +94,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
     { id: 'bookmarks', icon: 'bookmark', titleKey: 'bookmarks', subtitleKey: 'bookmarksSubtitle', color: '#f97316', gradient: ['#f97316', '#fb923c'] },
     { id: 'quiz', icon: 'help-buoy', titleKey: 'quiz100' as TranslationKey, subtitleKey: 'quiz100Subtitle' as TranslationKey, color: '#0891b2', gradient: ['#0891b2', '#06b6d4'] },
     { id: 'progress', icon: 'analytics', titleKey: 'progressTracking' as TranslationKey, subtitleKey: 'progressTrackingSubtitle' as TranslationKey, color: '#7c3aed', gradient: ['#7c3aed', '#8b5cf6'] },
+    { id: 'dailyTasks', icon: 'checkmark-done-circle', titleKey: 'dailyTasks' as TranslationKey, subtitleKey: 'dailyTasksSubtitle' as TranslationKey, color: '#059669', gradient: ['#059669', '#10b981'] },
     { id: 'about', icon: 'information-circle', titleKey: 'aboutUs', subtitleKey: 'aboutSubtitle', color: '#64748b', gradient: ['#64748b', '#94a3b8'] },
   ];
 

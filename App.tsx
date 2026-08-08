@@ -43,6 +43,7 @@ import QuizScreen from './src/screens/QuizScreen';
 import ProgressTrackingScreen from './src/screens/ProgressTrackingScreen';
 import DreamInterpretationScreen from './src/screens/DreamInterpretationScreen';
 import RuqyahShariaScreen from './src/screens/RuqyahShariaScreen';
+import DailyTasksScreen from './src/screens/DailyTasksScreen';
 
 type Screen =
   | 'home'
@@ -65,7 +66,8 @@ type Screen =
   | 'quiz'
   | 'progress'
   | 'dream'
-  | 'ruqyah';
+  | 'ruqyah'
+  | 'dailyTasks';
 
 const AppContent: React.FC = () => {
   const { theme, isDark, toggleTheme } = useTheme();
@@ -148,6 +150,7 @@ const AppContent: React.FC = () => {
     else if (target === 'progress') setScreen('progress');
     else if (target === 'dream') setScreen('dream');
     else if (target === 'ruqyah') setScreen('ruqyah');
+    else if (target === 'dailyTasks') setScreen('dailyTasks');
   }, []);
 
   const handleSelectSurah = useCallback((number: number, ayahNumber?: number) => {
@@ -285,6 +288,9 @@ const AppContent: React.FC = () => {
       )}
       {screen === 'ruqyah' && (
         <RuqyahShariaScreen onBack={handleBackToHome} />
+      )}
+      {screen === 'dailyTasks' && (
+        <DailyTasksScreen onBack={handleBackToHome} />
       )}
       <LanguagePickerModal
         visible={showLangPicker}
