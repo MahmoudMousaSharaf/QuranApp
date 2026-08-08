@@ -7,7 +7,7 @@ A complete Islamic application built with **Expo / React Native** — works on b
 - **All 114 Surahs** — Complete Quran with verified Arabic (Uthmani script) and English (Sahih International) translation
 - **16 Languages** — English, Arabic, Chinese, Hindi, Russian, Korean, Japanese, German, French, Spanish, Turkish, Urdu, Indonesian, Bengali, Portuguese, Malay
 - **Quran Audio** — 7 reciters with full surah playback from Islamic Network CDN
-- **Audio Caching** — Quran and Ruqyah audio cached for offline playback after first listen
+- **Audio Pre-Download** — Background download of all selected audio for instant offline playback (WiFi-only option, per-reciter selection, data usage warnings)
 - **Ruqyah Sharia** — Spiritual healing with Quran verses and supplications from 3 sheikhs
 - **Daily Islamic Tasks** — 17 authentic daily Sunnah tasks with checklist and 4-hour reminder notifications
 - **Prayer Times** — Accurate prayer times for every country with Adhan alarms
@@ -81,7 +81,8 @@ E:\quran-app/
     │   ├── api.ts                   # AlQuran Cloud API calls
     │   ├── storage.ts               # AsyncStorage (bookmarks, theme, etc.)
     │   ├── ruqyahAudio.ts           # Audio playback service (expo-audio)
-    │   ├── audioCache.ts            # Audio download & cache service (expo-file-system)
+    │   ├── audioCache.ts            # Background pre-download, cache, priority queue (expo-file-system)
+    │   ├── audioDownloadSettings.ts # User download preferences, NetInfo network detection
     │   ├── notifications.ts         # Azkar reminder notifications
     │   ├── dailyTaskNotifications.ts # Daily task 4-hour reminder notifications
     │   ├── prayerAlarm.ts           # Prayer time Adhan alarms
@@ -99,6 +100,7 @@ E:\quran-app/
         ├── QuranAudioScreen.tsx     # Quran audio with 7 reciters
         ├── RuqyahShariaScreen.tsx   # Ruqyah Sharia spiritual healing
         ├── DailyTasksScreen.tsx     # Daily Islamic task tracker
+        ├── AudioDownloadSettingsScreen.tsx # Audio download settings (WiFi-only, reciter selection)
         ├── PrayerTimesScreen.tsx    # Prayer times with alarms
         ├── QiblaScreen.tsx          # Qibla compass
         ├── AzkarScreen.tsx          # Morning/evening Azkar
@@ -110,7 +112,8 @@ E:\quran-app/
 - **React Native** 0.81.5 (Expo SDK 54)
 - **TypeScript**
 - **expo-audio** for audio playback with background support
-- **expo-file-system** for audio caching
+- **expo-file-system** for audio pre-download and caching
+- **@react-native-community/netinfo** for WiFi/cellular network detection
 - **expo-notifications** for prayer alarms, Azkar reminders, and daily task reminders
 - **react-native-google-mobile-ads** v16.0.0 for AdMob banner ads
 - **react-native-reanimated** v4.1.7

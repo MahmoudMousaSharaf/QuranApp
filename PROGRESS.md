@@ -181,7 +181,7 @@
 - **Translation:** Ruqyah verses and supplications now translate to all 16 languages (big Arabic text + small translation below)
 - **Dream hadith:** Translated to all languages (was only Arabic/Urdu/English before)
 
-### 15. Audio Caching & Offline Playback ✅
+### 15. Audio Caching & Offline Playback (v1.1.0) ✅
 - **New file:** `src/services/audioCache.ts` — on-demand download & cache using `expo-file-system`
 - **Cache location:** `documentDirectory/audio-cache/` with hash-based filenames
 - **API:** `getPlayableAudioUrl(url)` — returns local path if cached, downloads if not, falls back to remote on failure
@@ -189,7 +189,7 @@
 - **Fixes:** Fast loading on Android (instant replay after first listen), fixes iOS no-audio issue (local file URI avoids expo-audio streaming bug)
 - **Offline:** Both Quran and Ruqyah audio work without internet after first play
 
-### 16. Daily Islamic Task Tracker ✅
+### 16. Daily Islamic Task Tracker (v1.1.0) ✅
 - **New screen:** `src/screens/DailyTasksScreen.tsx` — 17 authentic daily Sunnah tasks with checklist
 - **Tasks based on Quran & Sunnah:** Fajr, Sunnah Fajr, Morning Azkar, Duha, Read Quran, Dhuhr, Sunnah Dhuhr, Asr, Evening Azkar, Maghrib, Sunnah Maghrib, Isha, Witr, Sleep Azkar, Tasbih, Salawat, Istighfar
 - **Progress tracking:** Daily progress bar, tasks reset at midnight via AsyncStorage
@@ -197,15 +197,70 @@
 - **New file:** `src/services/dailyTaskNotifications.ts` — 4-hour reminder notifications at 10:00, 14:00, 18:00, 22:00 (translated)
 - **Navigation:** Added to `App.tsx` (screen type + routing) and `HomeScreen.tsx` (feature card with green gradient)
 
-### 17. ASO & App Store Optimization ✅
+### 17. ASO & App Store Optimization (v1.1.0) ✅
 - **App name shortened:** "The Truth - Al Haq" (18 chars, fits both App Store & Play Store 30-char limit)
 - **Previous name was 49 chars** (exceeded store title limits)
 - **iOS CFBundleKeywords expanded:** Added "truth", "Al Haq", "spiritual", "faith", "worship", "morning azkar", "evening azkar", "daily tasks", "Quran audio", "recitation"
 - **Version bumped:** 1.0.0 → 1.1.0, buildNumber 1 → 2, versionCode 1 → 2
 
 ## Pending Tasks
-- Rebuild Android (GitHub Actions) and iOS (EAS) with v1.1.0 changes
-- Test audio caching on real devices (Android + iOS)
+- Test audio pre-download on real devices (WiFi-only, reciter selection, progress)
+- Test priority download (instant play on user tap)
 - Test daily task tracker + 4-hour notifications
 - Test offline audio playback
 - Verify AdMob production ads
+
+### 18. Background Audio Pre-Download with User Controls (v1.2.0) ✅
+- **Problem with v1.1.0:** On-demand caching was too slow — user had to listen first, then it cached. Loading delays on first play.
+- **v1.2.0 solution:** Background pre-download of ALL selected audio on app startup with user controls.
+
+#### Files Created
+- **`src/services/audioDownloadSettings.ts`** — User preference management:
+  - WiFi-only toggle (default ON — won't use cellular data without permission)
+  - Per-reciter selection (user picks which of 7 reciters to download)
+  - Ruqyah audio toggle (3 sheikhs)
+  - Auto-download toggle (default OFF — user must opt in)
+  - Network detection via `@react-native-community/netinfo`
+  - Estimated download size calculation (~171 MB per reciter, ~150 MB for Ruqyah)
+  - AsyncStorage keys: `@audio_download_wifi_only`, `@audio_download_selected_reciters`, `@audio_download_ruqyah`, `@audio_download_auto`
+
+- **`src/screens/AudioDownloadSettingsScreen.tsx`** — Full settings UI:
+  - Toggle switches for WiFi-only, auto-download, Ruqyah
+  - Checkbox list of 7 reciters with names (Arabic/English)
+  - Estimated download size display
+  - Start/Stop download button with live progress bar
+  - Cellular data warning dialog if not on WiFi
+  - Clear cache button with confirmation
+  - Cache size display
+
+#### Files Modified
+- **`src/services/audioCache.ts`** — Fully rewritten:
+  - `preloadAllAudio(onProgress)` — downloads user-selected audio with 3 concurrent workers
+  - `prioritizeAudioDownload(url)` — jumps the queue when user taps play
+  - `getUserSelectedUrls()` — builds URL list from user settings
+  - Resumes on app restart (skips already-downloaded files)
+  - Respects WiFi-only and auto-download settings
+  - Progress persisted in AsyncStorage (`@audio_preload_progress`, `@audio_preload_done`)
+
+- **`src/services/ruqyahAudio.ts`** — `playAudio` and `playAudioWithStatus` now use `prioritizeAudioDownload` for instant playback
+
+- **`App.tsx`** — Starts `preloadAllAudio()` on app launch with progress tracking, passes progress to HomeScreen
+
+- **`src/screens/HomeScreen.tsx`** — Download progress banner on home screen (tappable → settings), new "Audio Downloads" feature card
+
+- **`src/i18n/translations.ts`** — Added `audioDownloadSettings` and `audioDownloadSettingsSubtitle` keys in English and Arabic
+
+#### How It Works for the User
+1. App stays small (~56 MB APK, no bundled audio)
+2. User opens Audio Downloads settings from home screen
+3. Selects which reciters they want offline
+4. Toggles WiFi-only (default ON) to protect data plan
+5. Taps "Start Download Now" — if on cellular with WiFi-only on, gets warning dialog
+6. Background download starts with progress bar (3 concurrent downloads)
+7. If user taps play before download completes, that file gets priority download
+8. Downloads resume on app restart (skips completed files)
+9. User can clear all downloaded audio anytime
+
+#### v1.2.0 Builds
+- **Android APK**: ✅ SUCCESS — https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31263436487/artifacts/9023758295 (56 MB)
+- **iOS IPA**: ✅ SUCCESS — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/5b01adcd-4489-473c-9176-35521745c601

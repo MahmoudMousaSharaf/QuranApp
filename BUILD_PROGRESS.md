@@ -16,16 +16,25 @@
 - [x] AdMob banner fixed: test ad IDs for internal builds, fallback on load failure
 - [x] Switched to bare workflow for Android (committed android/ folder) to fix EAS build
 - [x] iOS build succeeded (interactive mode with Apple credentials)
-- [x] **Audio caching service** (`src/services/audioCache.ts`): on-demand download & cache using expo-file-system
-- [x] **Fast Quran audio loading**: audio files downloaded to local storage before playback (instant replay on second play)
-- [x] **iOS audio fix**: local file playback avoids iOS streaming issues with expo-audio
-- [x] **Offline audio support**: Quran and Ruqyah audio cached for offline playback after first listen
-- [x] **Daily Islamic Task Tracker** (`src/screens/DailyTasksScreen.tsx`): 17 authentic daily Sunnah tasks with checklist
-- [x] **4-hour reminder notifications** for daily tasks, translated in all 16 supported languages
-- [x] **Daily tasks translations** (`src/i18n/dailyTasks.ts`): all 16 languages (en, ar, zh, hi, ru, ko, ja, de, fr, es, tr, ur, id, bn, pt, ms)
+- [x] **v1.1.0 — Audio caching service** (`src/services/audioCache.ts`): on-demand download & cache using expo-file-system
+- [x] **v1.1.0 — Fast Quran audio loading**: audio files downloaded to local storage before playback (instant replay on second play)
+- [x] **v1.1.0 — iOS audio fix**: local file playback avoids iOS streaming issues with expo-audio
+- [x] **v1.1.0 — Offline audio support**: Quran and Ruqyah audio cached for offline playback after first listen
+- [x] **v1.1.0 — Daily Islamic Task Tracker** (`src/screens/DailyTasksScreen.tsx`): 17 authentic daily Sunnah tasks with checklist
+- [x] **v1.1.0 — 4-hour reminder notifications** for daily tasks, translated in all 16 supported languages
+- [x] **v1.1.0 — Daily tasks translations** (`src/i18n/dailyTasks.ts`): all 16 languages (en, ar, zh, hi, ru, ko, ja, de, fr, es, tr, ur, id, bn, pt, ms)
+- [x] **v1.2.0 — Background audio pre-download**: All selected audio downloaded on app startup (not on-demand)
+- [x] **v1.2.0 — User download settings** (`src/screens/AudioDownloadSettingsScreen.tsx`): WiFi-only toggle, per-reciter selection, Ruqyah toggle, auto-download toggle
+- [x] **v1.2.0 — Network detection** (`src/services/audioDownloadSettings.ts`): NetInfo integration for WiFi vs cellular detection
+- [x] **v1.2.0 — Data usage warnings**: Cellular download confirmation dialog prevents surprise data charges
+- [x] **v1.2.0 — Download progress tracking**: Live progress bar on HomeScreen + settings screen, persisted in AsyncStorage
+- [x] **v1.2.0 — Priority download queue**: User-tapped audio jumps the download queue for instant playback
+- [x] **v1.2.0 — Download resume**: Skips already-downloaded files on app restart
+- [x] **v1.2.0 — Concurrency control**: 3 parallel downloads max to avoid Android OOM
+- [x] **v1.2.0 — Cache management**: Clear all downloaded audio button with confirmation dialog
 
 ### In Progress
-- [ ] Test on real devices: Quran audio background playback, AdMob banners, OTA updates
+- [ ] Test on real devices: audio pre-download, streaming, background playback, AdMob banners, OTA updates
 
 ### Build History
 - Build #1 (22b75342): FAILED — Gradle error (before AdMob plugin)
@@ -38,6 +47,8 @@
 - GitHub Actions #6 (31252672597): **SUCCESS** — Android APK built successfully (56.5 MB)
 - iOS Build #1 (f1eb102a): SUCCESS — IPA available at EAS dashboard (old deps)
 - iOS Build #2 (52dc0d88): **SUCCESS** — IPA with updated deps (reanimated 4.1.7, ads v16.0.0) — QR code available
+- iOS Build #3 (5b01adcd): **SUCCESS** — v1.2.0 IPA with audio pre-download + user controls
+- GitHub Actions #18 (31263436487): **SUCCESS** — v1.2.0 Android APK (56 MB)
 
 ### Root Cause Analysis (Final)
 - **Actual root cause**: Two separate issues caused Android build failures:
@@ -60,9 +71,10 @@
 ### Pending
 - [x] Successful Android APK build on GitHub Actions (run #31252672597)
 - [x] Successful iOS IPA rebuild with updated deps (EAS build 52dc0d88)
-- [ ] **Rebuild Android + iOS with audio cache + daily tasks features**
+- [x] **Rebuild Android + iOS with audio pre-download + user controls (v1.2.0)**
 - [ ] Test background audio on real devices (Android + iOS)
-- [ ] Test offline audio playback (cached Quran + Ruqyah audio)
+- [ ] Test audio pre-download (WiFi-only, reciter selection, progress)
+- [ ] Test priority download (instant play on user tap)
 - [ ] Test daily task tracker + 4-hour reminder notifications
 - [ ] Create new app in App Store Connect named "The Truth - Al Haq"
 - [ ] Verify OTA updates work
@@ -132,14 +144,48 @@
 - **Notification service**: `src/services/dailyTaskNotifications.ts`
 - **Storage**: AsyncStorage (`@daily_tasks_progress`, `@daily_tasks_date`)
 
-### Audio Cache Service
-- **File**: `src/services/audioCache.ts`
-- **Approach**: On-demand download using `expo-file-system` `createDownloadResumable`
-- **Cache location**: `documentDirectory/audio-cache/`
-- **Cache key**: Hash of URL → `audio_{hash}.mp3`
-- **API**: `getPlayableAudioUrl(url)` — returns local path if cached, downloads if not
-- **Fallback**: If download fails, falls back to remote URL for streaming
-- **Memory**: In-memory Map for fast cache lookups
+### Audio Pre-Download Service (v1.2.0)
+- **File**: `src/services/audioCache.ts` — fully rewritten for background pre-download
+- **Approach**: Background pre-download of ALL selected audio on app startup (not on-demand)
+- **Concurrency**: 3 parallel downloads max to avoid Android OOM
+- **Cache location**: `documentDirectory/audio-cache/` with hash-based filenames
+- **Key functions**:
+  - `preloadAllAudio(onProgress)` — downloads all user-selected audio with progress callback
+  - `prioritizeAudioDownload(url)` — jumps the queue for instant playback on user tap
+  - `getUserSelectedUrls()` — builds URL list from user settings (selected reciters + Ruqyah)
+  - `isAudioCached(url)` — fast check if file exists locally
+  - `getCacheSize()` — total size of cached audio files
+  - `clearAudioCache()` — deletes all cached audio
+  - `cancelPreload()` — stops ongoing download
+- **Progress tracking**: Persisted in AsyncStorage (`@audio_preload_progress`, `@audio_preload_done`)
+- **Resume support**: Skips already-downloaded files on app restart
+- **Fallback**: If pre-download hasn't reached a file yet, `prioritizeAudioDownload` downloads it immediately
+
+### Audio Download Settings Service (v1.2.0)
+- **File**: `src/services/audioDownloadSettings.ts`
+- **User preferences** (stored in AsyncStorage):
+  - `@audio_download_wifi_only` — WiFi-only toggle (default: true)
+  - `@audio_download_selected_reciters` — array of selected reciter IDs (default: all 7)
+  - `@audio_download_ruqyah` — download Ruqyah audio toggle (default: true)
+  - `@audio_download_auto` — auto-download on app start (default: false)
+- **Network detection**: Uses `@react-native-community/netinfo` for WiFi vs cellular
+- **Functions**: `getWifiOnlySetting()`, `setWifiOnlySetting()`, `getSelectedReciters()`, `setSelectedReciters()`, `getDownloadRuqyahSetting()`, `setDownloadRuqyahSetting()`, `getAutoDownloadSetting()`, `setAutoDownloadSetting()`, `isOnWifi()`, `estimateDownloadSizeMB()`
+- **Constants**: `ALL_RECITERS` (7 reciters with id/name/ar), `RUQYAH_SHEIKHS` (3 sheikhs)
+- **Size estimation**: ~171 MB per reciter (114 surahs), ~150 MB for all 3 Ruqyah sheikhs
+
+### Audio Download Settings Screen (v1.2.0)
+- **File**: `src/screens/AudioDownloadSettingsScreen.tsx`
+- **Features**:
+  - Auto-download toggle (opt-in, default OFF)
+  - WiFi-only toggle (default ON — protects user data)
+  - Per-reciter checkbox list (7 reciters with Arabic/English names)
+  - Ruqyah audio toggle (3 sheikhs)
+  - Estimated download size display
+  - Start/Stop download button with live progress bar
+  - Cellular data warning dialog if not on WiFi
+  - Download complete confirmation
+  - Clear all cached audio button with confirmation
+  - Cache size display
 
 ### GitHub Actions
 - See Workflow section above
@@ -158,11 +204,12 @@
 
 ## Download Links & QR Codes
 
-### Android APK (v1.2.0 — building)
-- **GitHub Actions**: Check latest run at https://github.com/MahmoudMousaSharaf/QuranApp/actions
-- **Previous build (v1.0.0)**: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597/artifacts/9020718978
-  - Click the link, sign in to GitHub, download the `quran-app-apk` artifact (zip containing app-release.apk)
+### Android APK (v1.2.0 — ready)
+- **Direct download** (GitHub login required): https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31263436487/artifacts/9023758295
+- **Actions page**: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31263436487
+  - Click the link, sign in to GitHub, download the `quran-app-apk` artifact (zip, ~54 MB)
   - Unzip and install `app-release.apk` on your Android device (enable "Install from unknown sources")
+- **Previous build (v1.0.0)**: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597/artifacts/9020718978
 
 ### iOS IPA (v1.2.0 — ready)
 - **EAS Build Page (with QR code)**: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/5b01adcd-4489-473c-9176-35521745c601
