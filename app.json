@@ -94,7 +94,12 @@
           ]
         }
       ],
-      "expo-audio",
+      [
+        "expo-audio",
+        {
+          "enableBackgroundPlayback": true
+        }
+      ],
       [
         "react-native-google-mobile-ads",
         {

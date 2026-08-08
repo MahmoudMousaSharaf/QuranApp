@@ -26,6 +26,7 @@ import {
   setPlayStateCallback,
   isSoundPlaying,
   getCurrentOwner,
+  AudioMetadata,
 } from '../services/ruqyahAudio';
 
 interface QuranAudioScreenProps {
@@ -155,13 +156,19 @@ const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) =
 
       const reciter = RECITERS[reciterRef.current];
       const url = getSurahAudioUrl(reciter.id, surahNumber);
+      const surahMeta = surahs.find(s => s.number === surahNumber);
+      const metadata: AudioMetadata = {
+        title: isArabicUI ? (surahMeta?.name || `سورة ${surahNumber}`) : (surahMeta?.englishName || `Surah ${surahNumber}`),
+        artist: isArabicUI ? reciter.ar : reciter.name,
+        albumTitle: 'The Truth - Al Haq',
+      };
 
       if (isMountedRef.current) {
         setIsLoading(true);
         setSelectedSurah(surahNumber);
       }
 
-      await playAudio(url, 'quran', false);
+      await playAudio(url, 'quran', false, metadata);
 
       if (isMountedRef.current) {
         setIsPlaying(true);

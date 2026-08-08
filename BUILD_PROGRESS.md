@@ -37,6 +37,9 @@
 - [x] **v1.3.0 — YouTube channel link updated**: Changed from @waytoallah2 to @TheTruth-AlHaq-Tafsirkom in About Us screen
 - [x] **v1.3.0 — Audio Downloads translations**: Added `audioDownloadSettings` and `audioDownloadSettingsSubtitle` in all 16 languages
 - [x] **v1.3.0 — Adhan sound fix**: Migrated `prayerAlarm.ts` from deprecated `expo-av` to `expo-audio`, set `loop: true` so Adhan loops until user stops it, removed `expo-av` dependency
+- [x] **v1.4.0 — Fast audio loading**: Stream mode now skips cache check and passes remote URL directly to player for instant streaming (1-3 sec load)
+- [x] **v1.4.0 — Media notification controls**: Quran and Ruqyah audio now shows in notification center / lock screen with pause/resume controls on both Android and iOS via `setActiveForLockScreen`
+- [x] **v1.4.0 — Background playback config**: Added `enableBackgroundPlayback: true` to expo-audio plugin in app.json
 
 ### In Progress
 - [ ] Test on real devices: audio pre-download, streaming, background playback, AdMob banners, OTA updates

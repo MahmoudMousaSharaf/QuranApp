@@ -16,7 +16,7 @@ import { useTheme, colors } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { useUITranslation } from '../hooks/useUITranslation';
 import { translateText } from '../services/contentTranslator';
-import { playAudio, stopAudio, setPlayStateCallback, isSoundPlaying } from '../services/ruqyahAudio';
+import { playAudio, stopAudio, setPlayStateCallback, isSoundPlaying, AudioMetadata } from '../services/ruqyahAudio';
 import ruqyahData from '../data/ruqyah_sharia.json';
 
 interface RuqyahShariaScreenProps {
@@ -118,7 +118,12 @@ const RuqyahShariaScreen: React.FC<RuqyahShariaScreenProps> = ({ onBack }) => {
     setIsLoading(true);
     try {
       const sheikh = ruqyahData.audio_sources[selectedSheikh];
-      await playAudio(sheikh.url, 'ruqyah');
+      const metadata: AudioMetadata = {
+        title: isArabicUI ? 'رقية شرعية' : 'Ruqyah Sharia',
+        artist: isArabicUI ? sheikh.name_ar : sheikh.name_en,
+        albumTitle: 'The Truth - Al Haq',
+      };
+      await playAudio(sheikh.url, 'ruqyah', true, metadata);
     } catch (error) {
       Alert.alert(
         isArabicUI ? 'خطأ' : 'Error',

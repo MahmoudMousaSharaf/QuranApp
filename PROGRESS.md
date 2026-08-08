@@ -347,4 +347,33 @@
 
 #### v1.3.0 Builds
 - **iOS IPA**: ✅ SUCCESS — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/10545303-0181-4a57-a8a1-e7b2b312e798
-- **Android APK**: ⏳ PENDING — GitHub Actions triggered by push, check https://github.com/MahmoudMousaSharaf/QuranApp/actions for artifact
+- **Android APK**: ✅ SUCCESS — https://github.com/MahmoudMousaSharaf/QuranApp/releases/download/v1.3.0/app-release.apk
+
+### 21. Fast Audio Loading + Media Notification Controls (v1.4.0) ✅
+
+#### Problem
+- Quran audio loaded very slowly — each surah took too long to start playing
+- No media notification or lock screen controls — user couldn't pause/resume from notification center
+- `interruptionMode: 'duckOthers'` prevented lock screen controls from working
+
+#### Fix 1: Fast Audio Loading
+- In stream mode, skip `isAudioCached()` check and pass remote URL directly to `createAudioPlayer`
+- `downloadFirst: false` lets expo-audio handle native streaming/buffering
+- Audio now starts in 1-3 seconds instead of waiting for full download
+
+#### Fix 2: Media Notification Controls (Lock Screen)
+- Added `enableBackgroundPlayback: true` to expo-audio plugin in `app.json`
+- Changed `interruptionMode` from `'duckOthers'` to `'doNotMix'` (required for lock screen)
+- Added `enableLockScreen(metadata)` / `disableLockScreen()` helper functions in `ruqyahAudio.ts`
+- Call `player.setActiveForLockScreen(true, { title, artist, albumTitle })` when audio starts
+- Call `player.setActiveForLockScreen(false)` when audio stops
+- Quran audio shows: Surah name + Reciter name in notification
+- Ruqyah audio shows: "Ruqyah Sharia" + Sheikh name in notification
+- User can pause/resume from notification center on both Android and iOS
+
+#### Files Modified
+- `app.json` — Added `enableBackgroundPlayback: true` to expo-audio plugin
+- `src/services/ruqyahAudio.ts` — Lock screen controls, fast streaming, AudioMetadata interface
+- `src/screens/QuranAudioScreen.tsx` — Pass surah name + reciter as metadata
+- `src/screens/RuqyahShariaScreen.tsx` — Pass track name + sheikh as metadata
+- `src/services/prayerAlarm.ts` — Changed interruptionMode to doNotMix for consistency

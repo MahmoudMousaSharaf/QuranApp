@@ -5,15 +5,46 @@ import { getStreamMode } from './audioDownloadSettings';
 
 export type AudioOwner = 'ruqyah' | 'quran';
 
+export interface AudioMetadata {
+  title: string;
+  artist: string;
+  albumTitle?: string;
+  artworkUrl?: string;
+}
+
 type PlayStateCallback = (isPlaying: boolean) => void;
 type StatusCallback = (status: AudioStatus) => void;
 
 let player: AudioPlayer | null = null;
 let currentUrl: string | null = null;
 let currentOwner: AudioOwner | null = null;
+let currentMetadata: AudioMetadata | null = null;
 let playStateCallback: PlayStateCallback | null = null;
 let statusListener: { remove: () => void } | null = null;
 let wasPlayingBeforeInterruption = false;
+
+function enableLockScreen(metadata: AudioMetadata) {
+  if (!player) return;
+  try {
+    player.setActiveForLockScreen(true, {
+      title: metadata.title,
+      artist: metadata.artist,
+      albumTitle: metadata.albumTitle || 'The Truth - Al Haq',
+      artworkUrl: metadata.artworkUrl,
+    } as any);
+  } catch (e) {
+    console.log('Lock screen enable error:', e);
+  }
+}
+
+function disableLockScreen() {
+  if (!player) return;
+  try {
+    player.setActiveForLockScreen(false);
+  } catch (e) {
+    console.log('Lock screen disable error:', e);
+  }
+}
 
 export async function ensureAudioMode() {
   try {
@@ -21,7 +52,7 @@ export async function ensureAudioMode() {
     await setAudioModeAsync({
       playsInSilentMode: true,
       shouldPlayInBackground: true,
-      interruptionMode: 'duckOthers',
+      interruptionMode: 'doNotMix',
       shouldRouteThroughEarpiece: false,
     } as any);
   } catch (e) {
@@ -66,6 +97,7 @@ function clearStatusListener() {
 function destroyPlayer() {
   if (player) {
     try {
+      disableLockScreen();
       player.pause();
       player.remove();
     } catch (e) {
@@ -92,44 +124,46 @@ export function getCurrentOwner(): AudioOwner | null {
   return currentOwner;
 }
 
-export async function playAudio(url: string, owner: AudioOwner = 'ruqyah', loop: boolean = true): Promise<void> {
+export async function playAudio(url: string, owner: AudioOwner = 'ruqyah', loop: boolean = true, metadata?: AudioMetadata): Promise<void> {
   await ensureAudioMode();
   setupAppStateListener();
 
   if (player) {
     if (currentUrl === url && currentOwner === owner) {
       player.play();
+      if (metadata) enableLockScreen(metadata);
       if (playStateCallback) playStateCallback(true);
       return;
     }
     destroyPlayer();
   }
 
+  const mode = await getStreamMode();
   const cached = await isAudioCached(url);
   let playableUrl: string;
   if (cached) {
     playableUrl = await getPlayableAudioUrl(url);
+  } else if (mode === 'stream') {
+    playableUrl = url;
   } else {
-    const mode = await getStreamMode();
-    if (mode === 'stream') {
-      playableUrl = url;
-    } else {
-      await prioritizeAudioDownload(url);
-      playableUrl = await getPlayableAudioUrl(url);
-    }
+    await prioritizeAudioDownload(url);
+    playableUrl = await getPlayableAudioUrl(url);
   }
   player = createAudioPlayer(playableUrl, { keepAudioSessionActive: true, downloadFirst: false });
   player.loop = loop;
   currentUrl = url;
   currentOwner = owner;
+  currentMetadata = metadata || null;
   player.play();
+  if (metadata) enableLockScreen(metadata);
   if (playStateCallback) playStateCallback(true);
 }
 
 export async function playAudioWithStatus(
   url: string,
   owner: AudioOwner,
-  onStatus: StatusCallback
+  onStatus: StatusCallback,
+  metadata?: AudioMetadata
 ): Promise<void> {
   await ensureAudioMode();
   setupAppStateListener();
@@ -138,25 +172,25 @@ export async function playAudioWithStatus(
     destroyPlayer();
   }
 
+  const mode = await getStreamMode();
   const cached = await isAudioCached(url);
   let playableUrl: string;
   if (cached) {
     playableUrl = await getPlayableAudioUrl(url);
+  } else if (mode === 'stream') {
+    playableUrl = url;
   } else {
-    const mode = await getStreamMode();
-    if (mode === 'stream') {
-      playableUrl = url;
-    } else {
-      await prioritizeAudioDownload(url);
-      playableUrl = await getPlayableAudioUrl(url);
-    }
+    await prioritizeAudioDownload(url);
+    playableUrl = await getPlayableAudioUrl(url);
   }
   player = createAudioPlayer(playableUrl, { keepAudioSessionActive: true });
   player.loop = false;
   currentUrl = url;
   currentOwner = owner;
+  currentMetadata = metadata || null;
   statusListener = player.addListener('playbackStatusUpdate', onStatus);
   player.play();
+  if (metadata) enableLockScreen(metadata);
   if (playStateCallback) playStateCallback(true);
 }
 
@@ -164,6 +198,7 @@ export async function stopAudio(): Promise<void> {
   destroyPlayer();
   currentUrl = null;
   currentOwner = null;
+  currentMetadata = null;
   wasPlayingBeforeInterruption = false;
   if (appStateSubscription) {
     appStateSubscription.remove();
@@ -193,6 +228,10 @@ export async function resumeAudio(): Promise<void> {
       console.log('Resume error:', e);
     }
   }
+}
+
+export function getCurrentMetadata(): AudioMetadata | null {
+  return currentMetadata;
 }
 
 export async function replaceAudio(url: string, onStatus?: StatusCallback): Promise<void> {
