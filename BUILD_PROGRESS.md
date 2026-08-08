@@ -18,7 +18,7 @@
 - [x] iOS build succeeded (interactive mode with Apple credentials)
 
 ### In Progress
-- [ ] iOS IPA rebuild with latest fixes (Quran audio + AdMob + reanimated 4.1.7) — previous build succeeded but needs rebuild with new deps
+- [ ] Test on real devices: Quran audio background playback, AdMob banners, OTA updates
 
 ### Build History
 - Build #1 (22b75342): FAILED — Gradle error (before AdMob plugin)
@@ -29,7 +29,8 @@
 - Build #6 (a0ae937e): FAILED — Same error even WITHOUT AdMob (confirmed EAS cloud infrastructure bug)
 - GitHub Actions #1-#5: FAILED — Various Gradle errors (AGP pinning, autolinking cache, debug build attempts)
 - GitHub Actions #6 (31252672597): **SUCCESS** — Android APK built successfully (56.5 MB)
-- iOS Build (f1eb102a): SUCCESS — IPA available at EAS dashboard
+- iOS Build #1 (f1eb102a): SUCCESS — IPA available at EAS dashboard (old deps)
+- iOS Build #2 (52dc0d88): **SUCCESS** — IPA with updated deps (reanimated 4.1.7, ads v16.0.0) — QR code available
 
 ### Root Cause Analysis (Final)
 - **Actual root cause**: Two separate issues caused Android build failures:
@@ -51,8 +52,8 @@
 
 ### Pending
 - [x] Successful Android APK build on GitHub Actions (run #31252672597)
-- [ ] Successful iOS IPA rebuild + download link
-- [ ] Test background audio on real devices
+- [x] Successful iOS IPA rebuild with updated deps (EAS build 52dc0d88)
+- [ ] Test background audio on real devices (Android + iOS)
 - [ ] Create new app in App Store Connect named "The Truth - Al Haq"
 - [ ] Verify OTA updates work
 - [ ] Verify ads show in production build
@@ -102,8 +103,19 @@
 - EAS will handle credential creation automatically in interactive mode
 - Run: `eas build --platform ios --profile preview` (interactive)
 
-## Build Links
-- EAS Dashboard: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds
-- Android Build #5: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/396d3203-b659-493e-8b8d-2686050b04ae
-- GitHub Actions Android APK (SUCCESS): https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597
-- APK Artifact download: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597/artifacts/9020718978
+## Download Links & QR Codes
+
+### Android APK (ready to install)
+- **GitHub Actions Build**: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597
+- **Download APK**: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597/artifacts/9020718978
+  - Click the link, sign in to GitHub, download the `quran-app-apk` artifact (zip containing app-release.apk)
+  - Unzip and install `app-release.apk` on your Android device (enable "Install from unknown sources")
+
+### iOS IPA (install via QR code)
+- **EAS Build Page (with QR code)**: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/52dc0d88-da2b-4e13-968d-c87503bdcabb
+  - Open this link on your iPhone to see the QR code
+  - Or scan the QR code from the EAS dashboard on any device
+  - Install via Expo's internal distribution (registered device: iPhone 11 Pro Max)
+
+### EAS Dashboard
+- https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds
