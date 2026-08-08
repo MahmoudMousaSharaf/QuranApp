@@ -44,20 +44,33 @@ jobs:
 
       - name: Patch Gradle config (fix No matching variant)
         run: |
-          # Pin AGP version to avoid 8.11.0 bug
-          sed -i "s/classpath('com.android.tools.build:gradle')/classpath('com.android.tools.build:gradle:8.9.2')/" android/build.gradle
+          # Pin AGP version to 8.9.2 to avoid 8.11.0 bug
+          sed -i "s|classpath('com.android.tools.build:gradle')|classpath('com.android.tools.build:gradle:8.9.2')|" android/build.gradle
+          
+          # Also pin in settings.gradle pluginManagement if exists
+          sed -i "s|classpath('com.android.tools.build:gradle')|classpath('com.android.tools.build:gradle:8.9.2')|" android/settings.gradle 2>/dev/null || true
+          
+          # Downgrade Gradle wrapper to 8.10.2 (compatible with AGP 8.9.2)
+          sed -i "s|gradle-8.14.3-bin.zip|gradle-8.10.2-bin.zip|" android/gradle/wrapper/gradle-wrapper.properties
           
           # Add autolinking cache cleanup to settings.gradle
-          sed -i '1i\
-          // Force-delete autolinking cache (fix Windows/Linux path mismatch)\
-          def autolinkingCacheDir = new File(rootDir, "build/generated/autolinking")\
-          if (!System.getProperty("os.name").toLowerCase().contains("windows")) {\
-            autolinkingCacheDir.deleteDir()\
-          }\
-          ' android/settings.gradle
+          cat > /tmp/autolinking_fix.txt << 'EOF'
+          // Force-delete autolinking cache (fix path mismatch)
+          def autolinkingCacheDir = new File(rootDir, "build/generated/autolinking")
+          if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
+            autolinkingCacheDir.deleteDir()
+          }
+          EOF
+          sed -i '1r /tmp/autolinking_fix.txt' android/settings.gradle
           
           # Clean any existing cache
           rm -rf android/build/generated/autolinking
+          
+          # Verify patches
+          echo "=== build.gradle dependencies ==="
+          grep -n "gradle" android/build.gradle | head -5
+          echo "=== gradle-wrapper.properties ==="
+          cat android/gradle/wrapper/gradle-wrapper.properties
 
       - name: Configure SDK path
         run: |
