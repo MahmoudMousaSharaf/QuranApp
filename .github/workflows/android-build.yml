@@ -42,10 +42,26 @@ jobs:
       - name: Generate native Android project
         run: npx expo prebuild --platform android --clean
 
-      - name: Configure SDK and clean cache
+      - name: Patch Gradle config (fix No matching variant)
+        run: |
+          # Pin AGP version to avoid 8.11.0 bug
+          sed -i "s/classpath('com.android.tools.build:gradle')/classpath('com.android.tools.build:gradle:8.9.2')/" android/build.gradle
+          
+          # Add autolinking cache cleanup to settings.gradle
+          sed -i '1i\
+          // Force-delete autolinking cache (fix Windows/Linux path mismatch)\
+          def autolinkingCacheDir = new File(rootDir, "build/generated/autolinking")\
+          if (!System.getProperty("os.name").toLowerCase().contains("windows")) {\
+            autolinkingCacheDir.deleteDir()\
+          }\
+          ' android/settings.gradle
+          
+          # Clean any existing cache
+          rm -rf android/build/generated/autolinking
+
+      - name: Configure SDK path
         run: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
-          rm -rf android/build/generated/autolinking
 
       - name: Build APK
         working-directory: android
