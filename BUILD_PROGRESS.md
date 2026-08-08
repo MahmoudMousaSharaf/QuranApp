@@ -36,6 +36,7 @@
 - [x] **v1.3.0 — Playback mode toggle**: "Stream & Cache" (default) vs "Offline Only" in Audio Download Settings
 - [x] **v1.3.0 — YouTube channel link updated**: Changed from @waytoallah2 to @TheTruth-AlHaq-Tafsirkom in About Us screen
 - [x] **v1.3.0 — Audio Downloads translations**: Added `audioDownloadSettings` and `audioDownloadSettingsSubtitle` in all 16 languages
+- [x] **v1.3.0 — Adhan sound fix**: Migrated `prayerAlarm.ts` from deprecated `expo-av` to `expo-audio`, set `loop: true` so Adhan loops until user stops it, removed `expo-av` dependency
 
 ### In Progress
 - [ ] Test on real devices: audio pre-download, streaming, background playback, AdMob banners, OTA updates

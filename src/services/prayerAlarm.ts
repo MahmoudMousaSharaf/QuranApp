@@ -1,7 +1,7 @@
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Audio, InterruptionModeIOS, InterruptionModeAndroid } from 'expo-av';
+import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync, AudioPlayer, AudioStatus } from 'expo-audio';
 import { AppLanguage } from '../i18n/translations';
 import { getPrayerNames } from './contentTranslations';
 
@@ -15,6 +15,7 @@ const STOP_ADHAN_RESPONSE_ID = 'stop_adhan_response';
 
 let _audioModeConfigured = false;
 let _onPlaybackStatusUpdate: ((status: any) => void) | null = null;
+let _statusListener: { remove: () => void } | null = null;
 
 export interface CachedLocation {
   latitude: number;
@@ -42,7 +43,7 @@ const DEFAULT_SETTINGS: PrayerAlarmSettings = {
 
 const PRAYER_KEYS: (keyof PrayerAlarmSettings)[] = ['fajr', 'dhuhr', 'asr', 'maghrib', 'isha'];
 
-let _soundObject: Audio.Sound | null = null;
+let _player: AudioPlayer | null = null;
 let _isLoadingSound = false;
 let _lastRescheduleTime = 0;
 let _activeNotificationId: string | null = null;
@@ -123,7 +124,7 @@ export async function cancelAllScheduledPrayerAlarms(): Promise<void> {
 }
 
 export function isAdhanPlaying(): boolean {
-  return _soundObject !== null;
+  return _player !== null && _player.playing;
 }
 
 export function setOnPlaybackStatusUpdate(callback: ((status: any) => void) | null): void {
@@ -133,14 +134,13 @@ export function setOnPlaybackStatusUpdate(callback: ((status: any) => void) | nu
 async function configureAudioMode(): Promise<void> {
   if (_audioModeConfigured) return;
   try {
-    await Audio.setAudioModeAsync({
-      staysActiveInBackground: true,
-      playsInSilentModeIOS: true,
-      interruptionModeIOS: InterruptionModeIOS.DuckOthers,
-      interruptionModeAndroid: InterruptionModeAndroid.DuckOthers,
-      shouldDuckAndroid: true,
-      playThroughEarpieceAndroid: false,
-    });
+    await setIsAudioActiveAsync(true);
+    await setAudioModeAsync({
+      playsInSilentMode: true,
+      shouldPlayInBackground: true,
+      interruptionMode: 'duckOthers',
+      shouldRouteThroughEarpiece: false,
+    } as any);
     _audioModeConfigured = true;
   } catch (error) {
     console.error('Error configuring audio mode:', error);
@@ -373,40 +373,39 @@ export async function rescheduleAlarmsFromCache(lang: AppLanguage): Promise<void
 export async function playAdhanSound(prayer?: keyof PrayerAlarmSettings): Promise<void> {
   try {
     await configureAudioMode();
-    if (_soundObject) {
-      await _soundObject.stopAsync().catch(() => {});
-      await _soundObject.unloadAsync().catch(() => {});
-      _soundObject = null;
+    if (_player) {
+      try { _player.pause(); _player.remove(); } catch {}
+      _player = null;
+    }
+    if (_statusListener) {
+      _statusListener.remove();
+      _statusListener = null;
     }
     _isLoadingSound = true;
     const isFajr = prayer === 'fajr';
     const soundSource = isFajr
       ? require('../../assets/sounds/adhan_fajr.mp3')
       : require('../../assets/sounds/adhan.mp3');
-    const { sound } = await Audio.Sound.createAsync(
-      soundSource,
-      {
-        shouldPlay: true,
-        isLooping: false,
-        volume: 1.0,
-        progressUpdateIntervalMillis: 500,
-      },
-      (status: any) => {
-        if (_onPlaybackStatusUpdate) {
-          _onPlaybackStatusUpdate(status);
-        }
-        if (status.didJustFinish && !status.isLooping) {
-          stopAdhanSound();
-        }
-      }
-    );
+    const player = createAudioPlayer(soundSource, {
+      shouldPlay: true,
+      loop: true,
+      volume: 1.0,
+      keepAudioSessionActive: true,
+    });
     if (!_isLoadingSound) {
-      // Stop was called while loading
-      await sound.stopAsync().catch(() => {});
-      await sound.unloadAsync().catch(() => {});
+      try { player.pause(); player.remove(); } catch {}
       return;
     }
-    _soundObject = sound;
+    _player = player;
+    _statusListener = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
+      if (_onPlaybackStatusUpdate) {
+        _onPlaybackStatusUpdate(status);
+      }
+      if (status.didJustFinish && !status.isLooping) {
+        stopAdhanSound();
+      }
+    });
+    player.play();
   } catch (error) {
     console.error('Error playing adhan:', error);
     if (_onPlaybackStatusUpdate) {
@@ -424,10 +423,13 @@ export function setActiveNotificationId(id: string | null): void {
 export async function stopAdhanSound(): Promise<void> {
   _isLoadingSound = false;
   try {
-    if (_soundObject) {
-      await _soundObject.stopAsync().catch(() => {});
-      await _soundObject.unloadAsync().catch(() => {});
-      _soundObject = null;
+    if (_player) {
+      try { _player.pause(); _player.remove(); } catch {}
+      _player = null;
+    }
+    if (_statusListener) {
+      _statusListener.remove();
+      _statusListener = null;
     }
     // Dismiss the active prayer alarm notification
     if (_activeNotificationId) {

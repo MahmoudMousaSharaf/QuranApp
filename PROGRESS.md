@@ -313,3 +313,34 @@
   - bn: অডিও ডাউনলোড / অফলাইন অডিও স্টোরেজ পরিচালনা
   - pt: Downloads de áudio / Gerenciar armazenamento de áudio offline
   - ms: Muat turun Audio / Urus storan audio luar talian
+
+### 20. Adhan Sound Fix — expo-audio Migration + Loop Until Stopped (v1.3.0) ✅
+
+#### Problem
+- Prayer time notifications fired but **no Adhan sound played** — notification appeared silently
+- Root cause: `prayerAlarm.ts` used deprecated `expo-av` (`Audio.Sound`) which conflicts with `expo-audio` used by the rest of the app
+- `isLooping: false` meant Adhan played once and stopped instead of looping until user stops it
+- `Notifications.addNotificationReceivedListener` only fires in foreground — in background, notification shows but `playAdhanSound()` was never called
+
+#### Fix
+- **Migrated `prayerAlarm.ts` from `expo-av` to `expo-audio`:**
+  - Replaced `Audio.Sound` with `createAudioPlayer` from `expo-audio`
+  - Replaced `Audio.setAudioModeAsync()` with `setAudioModeAsync()` + `setIsAudioActiveAsync()` from `expo-audio`
+  - Replaced `_soundObject` with `_player: AudioPlayer`
+  - Updated `stopAdhanSound()` to use `player.pause()` + `player.remove()` instead of `stopAsync()` + `unloadAsync()`
+- **Set `loop: true`** so Adhan loops continuously until user taps Stop
+- **Removed `expo-av` from `package.json`** — no longer needed
+- Updated comment in `notifications.ts` from "expo-av" to "expo-audio"
+
+#### Files Modified
+- `src/services/prayerAlarm.ts` — Full migration from expo-av to expo-audio, loop=true
+- `src/services/notifications.ts` — Updated comment
+- `package.json` — Removed `expo-av` dependency
+
+#### How It Works Now
+1. Prayer time notification fires → `Notifications.addNotificationReceivedListener` in `App.tsx` calls `playAdhanSound(prayer)`
+2. `playAdhanSound()` creates an `AudioPlayer` with `loop: true` — Adhan plays and loops
+3. Sound continues until:
+   - User taps "Stop Azan" button on notification → `stopAdhanSound()` is called
+   - User stops it from the app (PrayerTimesScreen Stop button) → `stopAdhanSound()` is called
+4. `stopAdhanSound()` stops the player, removes it, and dismisses the notification

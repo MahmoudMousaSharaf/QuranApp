@@ -47,7 +47,7 @@ export async function initNotifications(): Promise<void> {
         shouldShowAlert: true,
         shouldShowBanner: true,
         shouldShowList: true,
-        shouldPlaySound: false, // Adhan is played via expo-av, not notification sound
+        shouldPlaySound: false, // Adhan is played via expo-audio, not notification sound
         shouldSetBadge: false,
         priority: isPrayerAlarm
           ? Notifications.AndroidNotificationPriority.HIGH
