@@ -344,3 +344,7 @@
    - User taps "Stop Azan" button on notification → `stopAdhanSound()` is called
    - User stops it from the app (PrayerTimesScreen Stop button) → `stopAdhanSound()` is called
 4. `stopAdhanSound()` stops the player, removes it, and dismisses the notification
+
+#### v1.3.0 Builds
+- **iOS IPA**: ✅ SUCCESS — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/10545303-0181-4a57-a8a1-e7b2b312e798
+- **Android APK**: ⏳ PENDING — GitHub Actions triggered by push, check https://github.com/MahmoudMousaSharaf/QuranApp/actions for artifact

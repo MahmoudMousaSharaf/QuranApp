@@ -54,6 +54,8 @@
 - iOS Build #2 (52dc0d88): **SUCCESS** — IPA with updated deps (reanimated 4.1.7, ads v16.0.0) — QR code available
 - iOS Build #3 (5b01adcd): **SUCCESS** — v1.2.0 IPA with audio pre-download + user controls
 - GitHub Actions #18 (31263436487): **SUCCESS** — v1.2.0 Android APK (56 MB)
+- iOS Build #4 (10545303): **SUCCESS** — v1.3.0 IPA with Smart Hybrid audio + Adhan fix — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/10545303-0181-4a57-a8a1-e7b2b312e798
+- GitHub Actions #19: **PENDING** — v1.3.0 Android APK (triggered by push, check Actions tab for artifact)
 
 ### Root Cause Analysis (Final)
 - **Actual root cause**: Two separate issues caused Android build failures:
