@@ -78,6 +78,10 @@ jobs:
       - name: Configure SDK path
         run: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          echo "=== settings.gradle ==="
+          cat android/settings.gradle
+          echo "=== app/build.gradle (first 30 lines) ==="
+          head -30 android/app/build.gradle
 
       - name: Build APK (Debug first to isolate issue)
         working-directory: android
@@ -86,18 +90,21 @@ jobs:
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: |
           echo "=== Trying debug build first ==="
-          ./gradlew assembleDebug --no-daemon -x lint --stacktrace 2>&1 | tee gradle-output.txt
-          if [ ! -f app/build/outputs/apk/debug/app-debug.apk ]; then
+          set -o pipefail
+          ./gradlew assembleDebug --no-daemon -x lint --stacktrace 2>&1 | tee gradle-output.txt || true
+          echo "=== GRADLE OUTPUT (last 100 lines) ==="
+          tail -100 gradle-output.txt
+          if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
+            echo "=== Debug build succeeded, now trying release ==="
+            ./gradlew assembleRelease --no-daemon -x lint --stacktrace 2>&1 | tee -a gradle-output.txt || true
+            echo "=== RELEASE OUTPUT (last 100 lines) ==="
+            tail -100 gradle-output.txt
+            if [ ! -f app/build/outputs/apk/release/app-release.apk ]; then
+              echo "=== RELEASE BUILD FAILED ==="
+              exit 1
+            fi
+          else
             echo "=== DEBUG BUILD FAILED ==="
-            echo "=== Last 80 lines of output ==="
-            tail -80 gradle-output.txt
-            exit 1
-          fi
-          echo "=== Debug build succeeded, now trying release ==="
-          ./gradlew assembleRelease --no-daemon -x lint --stacktrace 2>&1 | tee -a gradle-output.txt
-          if [ ! -f app/build/outputs/apk/release/app-release.apk ]; then
-            echo "=== RELEASE BUILD FAILED ==="
-            tail -80 gradle-output.txt
             exit 1
           fi
 
