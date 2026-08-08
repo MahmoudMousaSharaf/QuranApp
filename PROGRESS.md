@@ -377,3 +377,7 @@
 - `src/screens/QuranAudioScreen.tsx` — Pass surah name + reciter as metadata
 - `src/screens/RuqyahShariaScreen.tsx` — Pass track name + sheikh as metadata
 - `src/services/prayerAlarm.ts` — Changed interruptionMode to doNotMix for consistency
+
+#### v1.4.0 Builds
+- **iOS IPA**: ✅ SUCCESS — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/52f0b283-93d2-44fb-9fdf-35ca59676d9f
+- **Android APK**: ✅ SUCCESS — https://github.com/MahmoudMousaSharaf/QuranApp/releases/download/v1.4.0/app-release.apk

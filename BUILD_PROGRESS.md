@@ -58,7 +58,9 @@
 - iOS Build #3 (5b01adcd): **SUCCESS** — v1.2.0 IPA with audio pre-download + user controls
 - GitHub Actions #18 (31263436487): **SUCCESS** — v1.2.0 Android APK (56 MB)
 - iOS Build #4 (10545303): **SUCCESS** — v1.3.0 IPA with Smart Hybrid audio + Adhan fix — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/10545303-0181-4a57-a8a1-e7b2b312e798
-- GitHub Actions #19: **PENDING** — v1.3.0 Android APK (triggered by push, check Actions tab for artifact)
+- GitHub Actions #19: **SUCCESS** — v1.3.0 Android APK — https://github.com/MahmoudMousaSharaf/QuranApp/releases/download/v1.3.0/app-release.apk
+- iOS Build #5 (52f0b283): **SUCCESS** — v1.4.0 IPA with fast audio + media notification controls — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/52f0b283-93d2-44fb-9fdf-35ca59676d9f
+- GitHub Actions #20 (31275780094): **SUCCESS** — v1.4.0 Android APK — https://github.com/MahmoudMousaSharaf/QuranApp/releases/download/v1.4.0/app-release.apk
 
 ### Root Cause Analysis (Final)
 - **Actual root cause**: Two separate issues caused Android build failures:
