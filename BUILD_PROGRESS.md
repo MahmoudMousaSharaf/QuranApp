@@ -158,18 +158,18 @@
 
 ## Download Links & QR Codes
 
-### Android APK (v1.1.0 — building)
+### Android APK (v1.2.0 — building)
 - **GitHub Actions**: Check latest run at https://github.com/MahmoudMousaSharaf/QuranApp/actions
 - **Previous build (v1.0.0)**: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597/artifacts/9020718978
   - Click the link, sign in to GitHub, download the `quran-app-apk` artifact (zip containing app-release.apk)
   - Unzip and install `app-release.apk` on your Android device (enable "Install from unknown sources")
 
-### iOS IPA (v1.1.0 — building)
-- **EAS Build Page (with QR code)**: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/21ecd94f-b735-451e-8aa3-4942a5e2ce68
+### iOS IPA (v1.2.0 — ready)
+- **EAS Build Page (with QR code)**: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/5b01adcd-4489-473c-9176-35521745c601
   - Open this link on your iPhone to see the QR code
   - Or scan the QR code from the EAS dashboard on any device
   - Install via Expo's internal distribution (registered device: iPhone 11 Pro Max)
-- **Previous build (v1.0.0)**: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/52dc0d88-da2b-4e13-968d-c87503bdcabb
+- **Previous build (v1.1.0)**: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/21ecd94f-b735-451e-8aa3-4942a5e2ce68
 
 ### EAS Dashboard
 - https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds
