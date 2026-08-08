@@ -55,7 +55,6 @@
       },
       "package": "com.alhaq.app",
       "versionCode": 1,
-      "newArchEnabled": false,
       "permissions": [
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK",
