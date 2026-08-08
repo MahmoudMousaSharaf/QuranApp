@@ -74,7 +74,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({ onBack }) => {
         {/* YouTube Channel */}
         <TouchableOpacity
           style={[styles.linkCard, { backgroundColor: c.surface, borderBottomColor: c.border }]}
-          onPress={() => openLink('https://youtube.com/@waytoallah2')}
+          onPress={() => openLink('https://www.youtube.com/@TheTruth-AlHaq-Tafsirkom')}
           activeOpacity={0.7}
         >
           <View style={[styles.linkIcon, { backgroundColor: '#FF0000' }]}>
@@ -84,7 +84,7 @@ const AboutUsScreen: React.FC<AboutUsScreenProps> = ({ onBack }) => {
             <Text style={[styles.linkTitle, { color: c.text }]}>
               {isArabicUI ? 'قناة اليوتيوب' : ui(t('youtubeChannel'))}
             </Text>
-            <Text style={[styles.linkUrl, { color: c.textSecondary }]}>youtube.com/@waytoallah2</Text>
+            <Text style={[styles.linkUrl, { color: c.textSecondary }]}>youtube.com/@TheTruth-AlHaq-Tafsirkom</Text>
           </View>
           <Ionicons name="open-outline" size={20} color={c.primary} />
         </TouchableOpacity>

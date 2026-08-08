@@ -32,6 +32,10 @@
 - [x] **v1.2.0 — Download resume**: Skips already-downloaded files on app restart
 - [x] **v1.2.0 — Concurrency control**: 3 parallel downloads max to avoid Android OOM
 - [x] **v1.2.0 — Cache management**: Clear all downloaded audio button with confirmation dialog
+- [x] **v1.3.0 — Smart Hybrid audio playback**: Stream from internet if not cached (instant play), play local file if cached
+- [x] **v1.3.0 — Playback mode toggle**: "Stream & Cache" (default) vs "Offline Only" in Audio Download Settings
+- [x] **v1.3.0 — YouTube channel link updated**: Changed from @waytoallah2 to @TheTruth-AlHaq-Tafsirkom in About Us screen
+- [x] **v1.3.0 — Audio Downloads translations**: Added `audioDownloadSettings` and `audioDownloadSettingsSubtitle` in all 16 languages
 
 ### In Progress
 - [ ] Test on real devices: audio pre-download, streaming, background playback, AdMob banners, OTA updates
@@ -186,6 +190,18 @@
   - Download complete confirmation
   - Clear all cached audio button with confirmation
   - Cache size display
+
+### Audio Smart Hybrid Playback (v1.3.0)
+- **Problem with v1.2.0:** If audio not yet downloaded, user had to wait for `prioritizeAudioDownload` to finish before playback could start — loading delay on first play.
+- **v1.3.0 solution:** Two playback modes:
+  - **Stream & Cache (default):** If file is cached locally → play local file (instant). If not cached → stream remote URL directly with `downloadFirst: false` (starts in 1-3 seconds via ExoPlayer/AVPlayer). Background download continues for future offline use.
+  - **Offline Only:** If file is cached → play local file. If not cached → download it first via `prioritizeAudioDownload`, then play. No streaming, saves data.
+- **Files modified:**
+  - `src/services/audioDownloadSettings.ts` — Added `StreamMode` type, `getStreamMode()`, `setStreamMode()`, AsyncStorage key `@audio_stream_mode`
+  - `src/services/ruqyahAudio.ts` — `playAudio()` and `playAudioWithStatus()` now check `getStreamMode()` and stream remote URL if mode is 'stream' and file not cached
+  - `src/screens/AudioDownloadSettingsScreen.tsx` — Added playback mode selector UI (two buttons: Stream & Cache / Offline Only) with icons and descriptions
+- **YouTube link fix:** `src/screens/AboutUsScreen.tsx` — Changed YouTube channel from `@waytoallah2` to `@TheTruth-AlHaq-Tafsirkom`
+- **Translations:** `src/i18n/translations.ts` — Added `audioDownloadSettings` and `audioDownloadSettingsSubtitle` keys in all 16 languages (en, ar, zh, hi, ru, ko, ja, de, fr, es, tr, ur, id, bn, pt, ms)
 
 ### GitHub Actions
 - See Workflow section above

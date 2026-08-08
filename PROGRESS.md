@@ -264,3 +264,52 @@
 #### v1.2.0 Builds
 - **Android APK**: ✅ SUCCESS — https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31263436487/artifacts/9023758295 (56 MB)
 - **iOS IPA**: ✅ SUCCESS — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/5b01adcd-4489-473c-9176-35521745c601
+
+### 19. Smart Hybrid Audio Playback + YouTube Link Fix + Translations (v1.3.0) ✅
+
+#### Smart Hybrid Audio Playback
+- **Problem with v1.2.0:** If audio not yet downloaded, user had to wait for `prioritizeAudioDownload` to finish before playback — loading delay on first play.
+- **v1.3.0 solution:** Two playback modes in Audio Download Settings:
+  - **Stream & Cache (default):** If cached → play local file (instant). If not cached → stream remote URL directly via ExoPlayer (Android) / AVPlayer (iOS). Starts in 1-3 seconds. Background download continues for offline use.
+  - **Offline Only:** If cached → play local file. If not cached → download first, then play. No streaming, saves data.
+
+#### Files Modified
+- **`src/services/audioDownloadSettings.ts`** — Added:
+  - `StreamMode` type (`'stream' | 'offline'`)
+  - `getStreamMode()` / `setStreamMode()` functions
+  - AsyncStorage key: `@audio_stream_mode` (default: `'stream'`)
+- **`src/services/ruqyahAudio.ts`** — Updated `playAudio()` and `playAudioWithStatus()`:
+  - Import `getStreamMode` from `audioDownloadSettings`
+  - If file not cached and mode is `'stream'` → play remote URL directly (instant streaming)
+  - If file not cached and mode is `'offline'` → download via `prioritizeAudioDownload` first
+- **`src/screens/AudioDownloadSettingsScreen.tsx`** — Added:
+  - Playback mode selector UI (two buttons with icons: cloud for Stream & Cache, download for Offline Only)
+  - `streamMode` state, `toggleStreamMode()` handler
+  - Loads/saves `getStreamMode()` / `setStreamMode()`
+  - New translation keys: `streamMode`, `streamModeDesc`, `streamAndCache`, `offlineOnly`
+  - New styles: `modeSelector`, `modeBtn`, `modeBtnText`
+
+#### YouTube Channel Link Fix
+- **File:** `src/screens/AboutUsScreen.tsx`
+- Changed from: `https://youtube.com/@waytoallah2` → `https://www.youtube.com/@TheTruth-AlHaq-Tafsirkom`
+- Updated both the `onPress` link and the display text
+
+#### Audio Downloads Tab Translations (All 16 Languages)
+- **File:** `src/i18n/translations.ts`
+- Added `audioDownloadSettings` and `audioDownloadSettingsSubtitle` keys for all 16 languages:
+  - en: Audio Downloads / Manage offline audio storage
+  - ar: تحميل الصوت / إدارة التخزين الصوتي
+  - zh: 音频下载 / 管理离线音频存储
+  - hi: ऑडियो डाउनलोड / ऑफ़लाइन ऑडियो स्टोरेज प्रबंधित करें
+  - ru: Загрузка аудио / Управление автономным хранилищем аудио
+  - ko: 오디오 다운로드 / 오프라인 오디오 저장소 관리
+  - ja: オーディオダウンロード / オフラインオーディオストレージを管理
+  - de: Audio-Downloads / Offline-Audio-Speicher verwalten
+  - fr: Téléchargements audio / Gérer le stockage audio hors ligne
+  - es: Descargas de audio / Gestionar almacenamiento de audio sin conexión
+  - tr: Ses İndirilenleri / Çevrimdışı ses depolamayı yönet
+  - ur: آڈیو ڈاؤن لوڈ / آف لائن آڈیو اسٹوریج کا انتظام
+  - id: Unduhan Audio / Kelola penyimpanan audio offline
+  - bn: অডিও ডাউনলোড / অফলাইন অডিও স্টোরেজ পরিচালনা
+  - pt: Downloads de áudio / Gerenciar armazenamento de áudio offline
+  - ms: Muat turun Audio / Urus storan audio luar talian

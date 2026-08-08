@@ -5,6 +5,7 @@ const WIFI_ONLY_KEY = '@audio_download_wifi_only';
 const SELECTED_RECITERS_KEY = '@audio_download_selected_reciters';
 const DOWNLOAD_RUQYAH_KEY = '@audio_download_ruqyah';
 const AUTO_DOWNLOAD_KEY = '@audio_download_auto';
+const STREAM_MODE_KEY = '@audio_stream_mode';
 
 export const ALL_RECITERS = [
   { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy', ar: 'مشاري العفاسي' },
@@ -109,6 +110,21 @@ export function getRuqyahUrls(): string[] {
     'https://peace.azmza.com/store/storep/scrd/RuqyahShariah/Ruqyah-Shariah-Quran-voice-abdul-rehman.mp3',
     'https://archive.org/download/khaled_alridwany_256/%D8%A7%D9%84%D8%B1%D9%82%D9%8A%D9%87%20%D8%A7%D9%84%D8%B4%D8%B1%D8%B9%D9%8A%D9%87%20-%20%D8%A7%D9%84%D8%B4%D9%8A%D8%AE%20%D9%85%D8%A7%D9%87%D8%B1%20%D8%A7%D9%84%D9%85%D8%B9%D9%8A%D9%82%D9%84%D9%8A.mp3',
   ];
+}
+
+export type StreamMode = 'stream' | 'offline';
+
+export async function getStreamMode(): Promise<StreamMode> {
+  try {
+    const val = await AsyncStorage.getItem(STREAM_MODE_KEY);
+    return (val as StreamMode) || 'stream';
+  } catch {
+    return 'stream';
+  }
+}
+
+export async function setStreamMode(mode: StreamMode): Promise<void> {
+  await AsyncStorage.setItem(STREAM_MODE_KEY, mode);
 }
 
 export function estimateDownloadSizeMB(reciterIds: string[], includeRuqyah: boolean): number {

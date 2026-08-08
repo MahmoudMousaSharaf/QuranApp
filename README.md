@@ -8,6 +8,7 @@ A complete Islamic application built with **Expo / React Native** — works on b
 - **16 Languages** — English, Arabic, Chinese, Hindi, Russian, Korean, Japanese, German, French, Spanish, Turkish, Urdu, Indonesian, Bengali, Portuguese, Malay
 - **Quran Audio** — 7 reciters with full surah playback from Islamic Network CDN
 - **Audio Pre-Download** — Background download of all selected audio for instant offline playback (WiFi-only option, per-reciter selection, data usage warnings)
+- **Smart Hybrid Playback** — Stream from internet instantly if not downloaded, or play from local cache. User chooses: "Stream & Cache" (default) or "Offline Only" mode
 - **Ruqyah Sharia** — Spiritual healing with Quran verses and supplications from 3 sheikhs
 - **Daily Islamic Tasks** — 17 authentic daily Sunnah tasks with checklist and 4-hour reminder notifications
 - **Prayer Times** — Accurate prayer times for every country with Adhan alarms

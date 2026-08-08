@@ -29,6 +29,9 @@ import {
   setDownloadRuqyahSetting,
   estimateDownloadSizeMB,
   isOnWifi,
+  getStreamMode,
+  setStreamMode,
+  StreamMode,
 } from '../services/audioDownloadSettings';
 import {
   preloadAllAudio,
@@ -54,6 +57,7 @@ const AudioDownloadSettingsScreen: React.FC<AudioDownloadSettingsScreenProps> = 
 
   const [wifiOnly, setWifiOnly] = useState(true);
   const [autoDownload, setAutoDownload] = useState(false);
+  const [streamMode, setStreamModeState] = useState<StreamMode>('stream');
   const [selectedReciters, setSelectedRecitersState] = useState<string[]>([]);
   const [downloadRuqyah, setDownloadRuqyahState] = useState(false);
   const [cacheSizeMB, setCacheSizeMB] = useState(0);
@@ -66,9 +70,10 @@ const AudioDownloadSettingsScreen: React.FC<AudioDownloadSettingsScreenProps> = 
   }, []);
 
   const loadSettings = async () => {
-    const [w, a, r, rq, done, size, progress] = await Promise.all([
+    const [w, a, sm, r, rq, done, size, progress] = await Promise.all([
       getWifiOnlySetting(),
       getAutoDownloadSetting(),
+      getStreamMode(),
       getSelectedReciters(),
       getDownloadRuqyahSetting(),
       isPreloadComplete(),
@@ -77,6 +82,7 @@ const AudioDownloadSettingsScreen: React.FC<AudioDownloadSettingsScreenProps> = 
     ]);
     setWifiOnly(w);
     setAutoDownload(a);
+    setStreamModeState(sm);
     setSelectedRecitersState(r);
     setDownloadRuqyahState(rq);
     setPreloadDone(done);
@@ -90,6 +96,10 @@ const AudioDownloadSettingsScreen: React.FC<AudioDownloadSettingsScreenProps> = 
   const tt = (key: string) => {
     const translations: Record<string, Record<string, string>> = {
       downloadSettings: { en: 'Audio Download Settings', ar: 'إعدادات تحميل الصوت' },
+      streamMode: { en: 'Playback Mode', ar: 'وضع التشغيل' },
+      streamModeDesc: { en: 'Stream plays instantly from internet if not downloaded. Offline Only requires download before playing.', ar: 'البث يشغل فوراً من الإنترنت إذا لم يكن محملاً. دون اتصال يتطلب التحميل قبل التشغيل.' },
+      streamAndCache: { en: 'Stream & Cache', ar: 'بث وتخزين' },
+      offlineOnly: { en: 'Offline Only', ar: 'دون اتصال فقط' },
       autoDownload: { en: 'Auto-download on app start', ar: 'تحميل تلقائي عند فتح التطبيق' },
       autoDownloadDesc: { en: 'Automatically download selected audio in background', ar: 'تحميل الصوت المحدد تلقائياً في الخلفية' },
       wifiOnly: { en: 'Wi-Fi only', ar: 'عبر واي فاي فقط' },
@@ -130,6 +140,11 @@ const AudioDownloadSettingsScreen: React.FC<AudioDownloadSettingsScreenProps> = 
   const toggleWifiOnly = async (enabled: boolean) => {
     setWifiOnly(enabled);
     await setWifiOnlySetting(enabled);
+  };
+
+  const toggleStreamMode = async (mode: StreamMode) => {
+    setStreamModeState(mode);
+    await setStreamMode(mode);
   };
 
   const toggleAutoDownload = async (enabled: boolean) => {
@@ -230,6 +245,44 @@ const AudioDownloadSettingsScreen: React.FC<AudioDownloadSettingsScreenProps> = 
       </LinearGradient>
 
       <ScrollView contentContainerStyle={styles.content} showsVerticalScrollIndicator={false}>
+        {/* Playback Mode */}
+        <View style={[styles.card, { backgroundColor: c.surface }]}>
+          <Text style={[styles.cardTitle, { color: c.text }]}>{tt('streamMode')}</Text>
+          <Text style={[styles.cardDesc, { color: c.textSecondary, marginBottom: 12 }]}>{tt('streamModeDesc')}</Text>
+          <View style={styles.modeSelector}>
+            <TouchableOpacity
+              onPress={() => toggleStreamMode('stream')}
+              style={[
+                styles.modeBtn,
+                {
+                  backgroundColor: streamMode === 'stream' ? '#0d9488' : c.ayahBg,
+                  borderColor: streamMode === 'stream' ? '#0d9488' : c.border,
+                },
+              ]}
+            >
+              <Ionicons name="cloud" size={18} color={streamMode === 'stream' ? '#fff' : c.textSecondary} />
+              <Text style={[styles.modeBtnText, { color: streamMode === 'stream' ? '#fff' : c.text }]}>
+                {tt('streamAndCache')}
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => toggleStreamMode('offline')}
+              style={[
+                styles.modeBtn,
+                {
+                  backgroundColor: streamMode === 'offline' ? '#0d9488' : c.ayahBg,
+                  borderColor: streamMode === 'offline' ? '#0d9488' : c.border,
+                },
+              ]}
+            >
+              <Ionicons name="download" size={18} color={streamMode === 'offline' ? '#fff' : c.textSecondary} />
+              <Text style={[styles.modeBtnText, { color: streamMode === 'offline' ? '#fff' : c.text }]}>
+                {tt('offlineOnly')}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
         {/* Auto-download toggle */}
         <View style={[styles.card, { backgroundColor: c.surface }]}>
           <View style={styles.cardRow}>
@@ -425,6 +478,21 @@ const styles = StyleSheet.create({
   cardText: { flex: 1, marginRight: 12 },
   cardTitle: { fontSize: 15, fontWeight: '600' },
   cardDesc: { fontSize: 12, marginTop: 4 },
+  modeSelector: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  modeBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 12,
+    borderRadius: 10,
+    borderWidth: 1.5,
+  },
+  modeBtnText: { fontSize: 13, fontWeight: '600' },
   sectionTitle: { fontSize: 16, fontWeight: '700', marginTop: 20, marginBottom: 4 },
   sectionDesc: { fontSize: 12, marginBottom: 12 },
   reciterItem: {

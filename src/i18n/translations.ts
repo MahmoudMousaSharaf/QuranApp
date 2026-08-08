@@ -797,6 +797,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: '《古兰经》经文',
     ruqyahSupplications: '祈祷词',
     ruqyahBackgroundPlay: '即使关闭应用，音频也会继续播放',
+    audioDownloadSettings: '音频下载',
+    audioDownloadSettingsSubtitle: '管理离线音频存储',
 
   },
   hi: {
@@ -964,6 +966,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'क़ुरआन की आयतें',
     ruqyahSupplications: 'दुआएं',
     ruqyahBackgroundPlay: 'ऐप बंद करने पर भी ऑडियो चलता रहेगा',
+    audioDownloadSettings: 'ऑडियो डाउनलोड',
+    audioDownloadSettingsSubtitle: 'ऑफ़लाइन ऑडियो स्टोरेज प्रबंधित करें',
 
   },
   ru: {
@@ -1131,6 +1135,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Аяты Корана',
     ruqyahSupplications: 'Мольбы (Дуа)',
     ruqyahBackgroundPlay: 'Аудио продолжается даже при закрытии приложения',
+    audioDownloadSettings: 'Загрузка аудио',
+    audioDownloadSettingsSubtitle: 'Управление автономным хранилищем аудио',
 
   },
   ko: {
@@ -1298,6 +1304,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: '꾸란 구절',
     ruqyahSupplications: '기도 (두아)',
     ruqyahBackgroundPlay: '앱을 닫아도 오디오가 계속 재생됩니다',
+    audioDownloadSettings: '오디오 다운로드',
+    audioDownloadSettingsSubtitle: '오프라인 오디오 저장소 관리',
 
   },
   ja: {
@@ -1465,6 +1473,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'クルアーンの節',
     ruqyahSupplications: '祈り（ドゥア）',
     ruqyahBackgroundPlay: 'アプリを閉じても音声は続きます',
+    audioDownloadSettings: 'オーディオダウンロード',
+    audioDownloadSettingsSubtitle: 'オフラインオーディオストレージを管理',
 
   },
   de: {
@@ -1632,6 +1642,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Koran-Verse',
     ruqyahSupplications: 'Bittgebete (Du\'a)',
     ruqyahBackgroundPlay: 'Audio läuft weiter, auch wenn Sie die App schließen',
+    audioDownloadSettings: 'Audio-Downloads',
+    audioDownloadSettingsSubtitle: 'Offline-Audio-Speicher verwalten',
 
   },
   fr: {
@@ -1799,6 +1811,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Versets du Coran',
     ruqyahSupplications: 'Invocations (Du\'a)',
     ruqyahBackgroundPlay: 'L\'audio continue même si vous fermez l\'application',
+    audioDownloadSettings: 'Téléchargements audio',
+    audioDownloadSettingsSubtitle: 'Gérer le stockage audio hors ligne',
 
   },
   es: {
@@ -1966,6 +1980,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Versículos del Corán',
     ruqyahSupplications: 'Súplicas (Du\'a)',
     ruqyahBackgroundPlay: 'El audio continúa incluso si cierras la aplicación',
+    audioDownloadSettings: 'Descargas de audio',
+    audioDownloadSettingsSubtitle: 'Gestionar almacenamiento de audio sin conexión',
 
   },
   tr: {
@@ -2133,6 +2149,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Kur\'an Ayetleri',
     ruqyahSupplications: 'Dualar (Dua)',
     ruqyahBackgroundPlay: 'Uygulamayı kapatsanız bile ses devam eder',
+    audioDownloadSettings: 'Ses İndirilenleri',
+    audioDownloadSettingsSubtitle: 'Çevrimdışı ses depolamayı yönet',
 
   },
   ur: {
@@ -2300,6 +2318,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'قرآن کی آیات',
     ruqyahSupplications: 'دعائیں',
     ruqyahBackgroundPlay: 'ایپ بند کرنے پر بھی آڈیو جاری رہتا ہے',
+    audioDownloadSettings: 'آڈیو ڈاؤن لوڈ',
+    audioDownloadSettingsSubtitle: 'آف لائن آڈیو اسٹوریج کا انتظام',
 
   },
   id: {
@@ -2467,6 +2487,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Ayat Al-Qur\'an',
     ruqyahSupplications: 'Doa',
     ruqyahBackgroundPlay: 'Audio tetap berjalan meski aplikasi ditutup',
+    audioDownloadSettings: 'Unduhan Audio',
+    audioDownloadSettingsSubtitle: 'Kelola penyimpanan audio offline',
 
   },
   bn: {
@@ -2634,6 +2656,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'কুরআনের আয়াত',
     ruqyahSupplications: 'দুআ',
     ruqyahBackgroundPlay: 'অ্যাপ বন্ধ করলেও অডিও চলতে থাকে',
+    audioDownloadSettings: 'অডিও ডাউনলোড',
+    audioDownloadSettingsSubtitle: 'অফলাইন অডিও স্টোরেজ পরিচালনা',
 
   },
   pt: {
@@ -2801,6 +2825,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Versículos do Alcorão',
     ruqyahSupplications: 'Súplicas (Du\'a)',
     ruqyahBackgroundPlay: 'O áudio continua mesmo se você fechar o aplicativo',
+    audioDownloadSettings: 'Downloads de áudio',
+    audioDownloadSettingsSubtitle: 'Gerenciar armazenamento de áudio offline',
 
   },
   ms: {
@@ -2968,6 +2994,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     ruqyahQuranVerses: 'Ayat Al-Qur\'an',
     ruqyahSupplications: 'Doa',
     ruqyahBackgroundPlay: 'Audio berterusan walaupun anda menutup aplikasi',
+    audioDownloadSettings: 'Muat turun Audio',
+    audioDownloadSettingsSubtitle: 'Urus storan audio luar talian',
 
   },
 };

@@ -1,6 +1,7 @@
 import { createAudioPlayer, setAudioModeAsync, setIsAudioActiveAsync, AudioPlayer, AudioStatus } from 'expo-audio';
 import { AppState, AppStateStatus } from 'react-native';
 import { getPlayableAudioUrl, prioritizeAudioDownload, isAudioCached } from './audioCache';
+import { getStreamMode } from './audioDownloadSettings';
 
 export type AudioOwner = 'ruqyah' | 'quran';
 
@@ -109,8 +110,13 @@ export async function playAudio(url: string, owner: AudioOwner = 'ruqyah', loop:
   if (cached) {
     playableUrl = await getPlayableAudioUrl(url);
   } else {
-    await prioritizeAudioDownload(url);
-    playableUrl = await getPlayableAudioUrl(url);
+    const mode = await getStreamMode();
+    if (mode === 'stream') {
+      playableUrl = url;
+    } else {
+      await prioritizeAudioDownload(url);
+      playableUrl = await getPlayableAudioUrl(url);
+    }
   }
   player = createAudioPlayer(playableUrl, { keepAudioSessionActive: true, downloadFirst: false });
   player.loop = loop;
@@ -137,8 +143,13 @@ export async function playAudioWithStatus(
   if (cached) {
     playableUrl = await getPlayableAudioUrl(url);
   } else {
-    await prioritizeAudioDownload(url);
-    playableUrl = await getPlayableAudioUrl(url);
+    const mode = await getStreamMode();
+    if (mode === 'stream') {
+      playableUrl = url;
+    } else {
+      await prioritizeAudioDownload(url);
+      playableUrl = await getPlayableAudioUrl(url);
+    }
   }
   player = createAudioPlayer(playableUrl, { keepAudioSessionActive: true });
   player.loop = false;
