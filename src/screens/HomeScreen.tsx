@@ -17,6 +17,7 @@ import { useTheme, colors } from '../context/ThemeContext';
 import { useLanguage } from '../context/LanguageContext';
 import { TranslationKey } from '../i18n/translations';
 import { useUITranslation } from '../hooks/useUITranslation';
+import { PreloadProgress } from '../services/audioCache';
 
 const USER_NAME_KEY = '@user_name';
 
@@ -28,6 +29,7 @@ interface HomeScreenProps {
   isDark: boolean;
   onToggleTheme: () => void;
   onOpenLanguagePicker: () => void;
+  audioPreloadProgress?: PreloadProgress | null;
 }
 
 const HomeScreen: React.FC<HomeScreenProps> = ({
@@ -35,6 +37,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
   isDark,
   onToggleTheme,
   onOpenLanguagePicker,
+  audioPreloadProgress,
 }) => {
   const { theme } = useTheme();
   const { t, appLanguage } = useLanguage();
@@ -72,6 +75,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
       t('quiz100'), t('quiz100Subtitle'),
       t('progressTracking'), t('progressTrackingSubtitle'),
       t('dailyTasks' as TranslationKey), t('dailyTasksSubtitle' as TranslationKey),
+      t('audioDownloadSettings' as TranslationKey), t('audioDownloadSettingsSubtitle' as TranslationKey),
     ]);
   }, [appLanguage]);
 
@@ -95,6 +99,7 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
     { id: 'quiz', icon: 'help-buoy', titleKey: 'quiz100' as TranslationKey, subtitleKey: 'quiz100Subtitle' as TranslationKey, color: '#0891b2', gradient: ['#0891b2', '#06b6d4'] },
     { id: 'progress', icon: 'analytics', titleKey: 'progressTracking' as TranslationKey, subtitleKey: 'progressTrackingSubtitle' as TranslationKey, color: '#7c3aed', gradient: ['#7c3aed', '#8b5cf6'] },
     { id: 'dailyTasks', icon: 'checkmark-done-circle', titleKey: 'dailyTasks' as TranslationKey, subtitleKey: 'dailyTasksSubtitle' as TranslationKey, color: '#059669', gradient: ['#059669', '#10b981'] },
+    { id: 'audioDownloadSettings', icon: 'cloud-download', titleKey: 'audioDownloadSettings' as TranslationKey, subtitleKey: 'audioDownloadSettingsSubtitle' as TranslationKey, color: '#0284c7', gradient: ['#0284c7', '#0ea5e9'] },
     { id: 'about', icon: 'information-circle', titleKey: 'aboutUs', subtitleKey: 'aboutSubtitle', color: '#64748b', gradient: ['#64748b', '#94a3b8'] },
   ];
 
@@ -162,6 +167,30 @@ const HomeScreen: React.FC<HomeScreenProps> = ({
           </View>
         </View>
       </LinearGradient>
+
+      {/* Audio Download Progress Banner */}
+      {audioPreloadProgress && audioPreloadProgress.total > 0 && (
+        <TouchableOpacity
+          onPress={() => onNavigate('audioDownloadSettings')}
+          activeOpacity={0.8}
+          style={[styles.downloadBanner, { backgroundColor: c.surface }]}
+        >
+          <Ionicons name="cloud-download" size={20} color="#0d9488" />
+          <View style={styles.downloadBannerContent}>
+            <Text style={[styles.downloadBannerText, { color: c.text }]}>
+              {appLanguage === 'ar' ? 'تحميل الصوت' : 'Audio Download'}: {audioPreloadProgress.percentage}%
+            </Text>
+            <View style={[styles.downloadBannerBar, { backgroundColor: c.surfaceAlt }]}>
+              <LinearGradient
+                colors={['#0d9488', '#14b8a6']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 0 }}
+                style={[styles.downloadBannerFill, { width: `${audioPreloadProgress.percentage}%` }]}
+              />
+            </View>
+          </View>
+        </TouchableOpacity>
+      )}
 
       {/* Features Grid */}
       <ScrollView
@@ -326,6 +355,33 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: 4,
+  },
+  downloadBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    marginHorizontal: 12,
+    marginTop: 8,
+    borderRadius: 12,
+  },
+  downloadBannerContent: {
+    flex: 1,
+  },
+  downloadBannerText: {
+    fontSize: 12,
+    fontWeight: '600',
+    marginBottom: 4,
+  },
+  downloadBannerBar: {
+    height: 5,
+    borderRadius: 3,
+    overflow: 'hidden',
+  },
+  downloadBannerFill: {
+    height: '100%',
+    borderRadius: 3,
   },
 });
 

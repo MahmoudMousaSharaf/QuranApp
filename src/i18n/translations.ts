@@ -233,7 +233,9 @@ export type TranslationKey =
   | 'taskSalawat'
   | 'taskIstighfar'
   | 'dailyTaskReminderTitle'
-  | 'dailyTaskReminderBody';
+  | 'dailyTaskReminderBody'
+  | 'audioDownloadSettings'
+  | 'audioDownloadSettingsSubtitle';
 
 type Translations = Partial<Record<TranslationKey, string>>;
 
@@ -430,6 +432,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     taskIstighfar: 'Istighfar (100 times)',
     dailyTaskReminderTitle: 'Daily Tasks Reminder',
     dailyTaskReminderBody: 'You have incomplete daily tasks. Complete them to earn rewards 🤲',
+    audioDownloadSettings: 'Audio Downloads',
+    audioDownloadSettingsSubtitle: 'Manage offline audio storage',
 
   },
   ar: {
@@ -624,6 +628,8 @@ export const translationData: Record<AppLanguage, Translations> = {
     taskIstighfar: 'الاستغفار (100 مرة)',
     dailyTaskReminderTitle: 'تذكير المهام اليومية',
     dailyTaskReminderBody: 'لديك مهام يومية غير مكتملة. أكملها لتنال الأجر 🤲',
+    audioDownloadSettings: 'تحميل الصوت',
+    audioDownloadSettingsSubtitle: 'إدارة التخزين الصوتي',
 
   },
   zh: {

@@ -21,6 +21,7 @@ import {
   setActiveNotificationId,
 } from './src/services/prayerAlarm';
 import { ensureAudioMode } from './src/services/ruqyahAudio';
+import { preloadAllAudio, isPreloadComplete, PreloadProgress } from './src/services/audioCache';
 
 import HomeScreen from './src/screens/HomeScreen';
 import SurahListScreen from './src/screens/SurahListScreen';
@@ -44,6 +45,7 @@ import ProgressTrackingScreen from './src/screens/ProgressTrackingScreen';
 import DreamInterpretationScreen from './src/screens/DreamInterpretationScreen';
 import RuqyahShariaScreen from './src/screens/RuqyahShariaScreen';
 import DailyTasksScreen from './src/screens/DailyTasksScreen';
+import AudioDownloadSettingsScreen from './src/screens/AudioDownloadSettingsScreen';
 
 type Screen =
   | 'home'
@@ -67,7 +69,8 @@ type Screen =
   | 'progress'
   | 'dream'
   | 'ruqyah'
-  | 'dailyTasks';
+  | 'dailyTasks'
+  | 'audioDownloadSettings';
 
 const AppContent: React.FC = () => {
   const { theme, isDark, toggleTheme } = useTheme();
@@ -80,6 +83,8 @@ const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [showLangPicker, setShowLangPicker] = useState(false);
   const [scrollToAyah, setScrollToAyah] = useState<number | null>(null);
+  const [audioPreloadProgress, setAudioPreloadProgress] = useState<PreloadProgress | null>(null);
+  const [audioPreloadDone, setAudioPreloadDone] = useState(false);
   const notificationListener = useRef<Notifications.Subscription | null>(null);
   const stopResponseListener = useRef<Notifications.Subscription | null>(null);
 
@@ -106,6 +111,20 @@ const AppContent: React.FC = () => {
 
     // Configure audio session globally at app startup for background playback
     ensureAudioMode().catch((e: any) => console.error('Failed to configure audio mode:', e));
+
+    // Start preloading all audio files in background for offline playback
+    isPreloadComplete().then((done) => {
+      if (done) {
+        setAudioPreloadDone(true);
+        return;
+      }
+      preloadAllAudio((progress) => {
+        setAudioPreloadProgress(progress);
+        if (progress.percentage >= 100) {
+          setAudioPreloadDone(true);
+        }
+      }).catch((e) => console.error('Audio preload error:', e));
+    });
 
     return () => {
       notificationListener.current?.remove();
@@ -151,6 +170,7 @@ const AppContent: React.FC = () => {
     else if (target === 'dream') setScreen('dream');
     else if (target === 'ruqyah') setScreen('ruqyah');
     else if (target === 'dailyTasks') setScreen('dailyTasks');
+    else if (target === 'audioDownloadSettings') setScreen('audioDownloadSettings');
   }, []);
 
   const handleSelectSurah = useCallback((number: number, ayahNumber?: number) => {
@@ -204,6 +224,7 @@ const AppContent: React.FC = () => {
           isDark={isDark}
           onToggleTheme={toggleTheme}
           onOpenLanguagePicker={() => setShowLangPicker(true)}
+          audioPreloadProgress={audioPreloadDone ? null : audioPreloadProgress}
         />
       )}
       {screen === 'quran' && (
@@ -291,6 +312,9 @@ const AppContent: React.FC = () => {
       )}
       {screen === 'dailyTasks' && (
         <DailyTasksScreen onBack={handleBackToHome} />
+      )}
+      {screen === 'audioDownloadSettings' && (
+        <AudioDownloadSettingsScreen onBack={handleBackToHome} />
       )}
       <LanguagePickerModal
         visible={showLangPicker}

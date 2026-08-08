@@ -1,6 +1,46 @@
 import * as FileSystem from 'expo-file-system/legacy';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  getSelectedReciters,
+  getDownloadRuqyahSetting,
+  getWifiOnlySetting,
+  getAutoDownloadSetting,
+  getReciterUrls,
+  getRuqyahUrls,
+  isOnWifi,
+} from './audioDownloadSettings';
 
 const CACHE_DIR = `${FileSystem.documentDirectory}audio-cache/`;
+const PRELOAD_PROGRESS_KEY = '@audio_preload_progress';
+const PRELOAD_DONE_KEY = '@audio_preload_done';
+
+const QURAN_RECITERS = [
+  'ar.alafasy',
+  'ar.abdulbasitmurattal',
+  'ar.husary',
+  'ar.minshaimurattal',
+  'ar.abdullahbasfar',
+  'ar.hanirifai',
+  'ar.saoodshuraym',
+];
+
+const RUQYAH_URLS = getRuqyahUrls();
+
+export function getAllAudioUrls(): string[] {
+  return [...getReciterUrls(QURAN_RECITERS), ...RUQYAH_URLS];
+}
+
+async function getUserSelectedUrls(): Promise<string[]> {
+  const [reciters, downloadRuqyah] = await Promise.all([
+    getSelectedReciters(),
+    getDownloadRuqyahSetting(),
+  ]);
+  const urls = getReciterUrls(reciters);
+  if (downloadRuqyah) {
+    urls.push(...RUQYAH_URLS);
+  }
+  return urls;
+}
 
 const cacheMap = new Map<string, string>();
 let cacheDirInitialized = false;
@@ -95,6 +135,188 @@ export async function getPlayableAudioUrl(
     console.log('Audio cache error, falling back to remote URL:', e);
     return url;
   }
+}
+
+export type PreloadProgress = {
+  downloaded: number;
+  total: number;
+  percentage: number;
+  currentFile: string;
+};
+
+type PreloadCallback = (progress: PreloadProgress) => void;
+
+let preloading = false;
+let preloadCancelled = false;
+let priorityUrls = new Set<string>();
+
+export function cancelPreload(): void {
+  preloadCancelled = true;
+}
+
+export function isPreloading(): boolean {
+  return preloading;
+}
+
+export async function getPreloadProgress(): Promise<{ downloaded: number; total: number }> {
+  try {
+    const done = await AsyncStorage.getItem(PRELOAD_DONE_KEY);
+    if (done === 'true') {
+      const all = getAllAudioUrls();
+      return { downloaded: all.length, total: all.length };
+    }
+    const raw = await AsyncStorage.getItem(PRELOAD_PROGRESS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw) as string[];
+      const all = getAllAudioUrls();
+      return { downloaded: parsed.length, total: all.length };
+    }
+  } catch {}
+  const all = getAllAudioUrls();
+  return { downloaded: 0, total: all.length };
+}
+
+export async function isPreloadComplete(): Promise<boolean> {
+  try {
+    const done = await AsyncStorage.getItem(PRELOAD_DONE_KEY);
+    return done === 'true';
+  } catch {
+    return false;
+  }
+}
+
+async function downloadSingle(url: string): Promise<boolean> {
+  try {
+    const cached = await getCachedAudioPath(url);
+    if (cached) return true;
+
+    await ensureCacheDir();
+    const cacheKey = urlToCacheKey(url);
+    const localPath = `${CACHE_DIR}${cacheKey}`;
+
+    const result = await FileSystem.downloadAsync(url, localPath, {});
+    if (result && result.status === 200) {
+      cacheMap.set(url, localPath);
+      return true;
+    }
+    return false;
+  } catch (e) {
+    console.log('Single download error:', url, e);
+    return false;
+  }
+}
+
+export async function preloadAllAudio(onProgress?: PreloadCallback): Promise<void> {
+  if (preloading) return;
+
+  const [autoDownload, wifiOnly, isWifi] = await Promise.all([
+    getAutoDownloadSetting(),
+    getWifiOnlySetting(),
+    isOnWifi(),
+  ]);
+
+  if (!autoDownload) return;
+  if (wifiOnly && !isWifi) return;
+
+  preloading = true;
+  preloadCancelled = false;
+
+  const allUrls = await getUserSelectedUrls();
+  const total = allUrls.length;
+
+  if (total === 0) {
+    preloading = false;
+    return;
+  }
+
+  let downloadedSet: Set<string> = new Set();
+  try {
+    const raw = await AsyncStorage.getItem(PRELOAD_PROGRESS_KEY);
+    if (raw) {
+      downloadedSet = new Set(JSON.parse(raw) as string[]);
+    }
+  } catch {}
+
+  const done = await AsyncStorage.getItem(PRELOAD_DONE_KEY);
+  if (done === 'true') {
+    if (onProgress) {
+      onProgress({ downloaded: total, total, percentage: 100, currentFile: '' });
+    }
+    preloading = false;
+    return;
+  }
+
+  const remaining = allUrls.filter((u) => !downloadedSet.has(u));
+
+  if (remaining.length === 0) {
+    await AsyncStorage.setItem(PRELOAD_DONE_KEY, 'true');
+    if (onProgress) {
+      onProgress({ downloaded: total, total, percentage: 100, currentFile: '' });
+    }
+    preloading = false;
+    return;
+  }
+
+  const CONCURRENCY = 3;
+  let completed = downloadedSet.size;
+  let index = 0;
+
+  async function worker(): Promise<void> {
+    while (index < remaining.length && !preloadCancelled) {
+      const currentIndex = index++;
+      const url = remaining[currentIndex];
+
+      const isPriority = priorityUrls.has(url);
+      const success = await downloadSingle(url);
+
+      if (success) {
+        downloadedSet.add(url);
+        completed++;
+
+        if (completed % 5 === 0 || isPriority) {
+          try {
+            await AsyncStorage.setItem(PRELOAD_PROGRESS_KEY, JSON.stringify([...downloadedSet]));
+          } catch {}
+        }
+
+        if (onProgress) {
+          const pct = Math.round((completed / total) * 100);
+          const fileName = url.split('/').pop() || url;
+          onProgress({ downloaded: completed, total, percentage: pct, currentFile: fileName });
+        }
+      }
+    }
+  }
+
+  const workers: Promise<void>[] = [];
+  for (let i = 0; i < CONCURRENCY; i++) {
+    workers.push(worker());
+  }
+  await Promise.all(workers);
+
+  try {
+    await AsyncStorage.setItem(PRELOAD_PROGRESS_KEY, JSON.stringify([...downloadedSet]));
+    if (completed >= total) {
+      await AsyncStorage.setItem(PRELOAD_DONE_KEY, 'true');
+    }
+  } catch {}
+
+  if (onProgress) {
+    onProgress({ downloaded: completed, total, percentage: Math.round((completed / total) * 100), currentFile: '' });
+  }
+
+  preloading = false;
+}
+
+export async function prioritizeAudioDownload(url: string): Promise<void> {
+  const cached = await getCachedAudioPath(url);
+  if (cached) return;
+
+  if (preloading) {
+    priorityUrls.add(url);
+  }
+
+  await downloadSingle(url);
 }
 
 export async function isAudioCached(url: string): Promise<boolean> {
