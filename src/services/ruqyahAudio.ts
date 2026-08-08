@@ -22,6 +22,7 @@ let currentMetadata: AudioMetadata | null = null;
 let playStateCallback: PlayStateCallback | null = null;
 let statusListener: { remove: () => void } | null = null;
 let wasPlayingBeforeInterruption = false;
+let userPausedFromLockScreen = false;
 
 function enableLockScreen(metadata: AudioMetadata) {
   if (!player) return;
@@ -70,7 +71,7 @@ function setupAppStateListener() {
 async function handleAppStateChange(nextAppState: AppStateStatus) {
   if (nextAppState === 'active') {
     await ensureAudioMode();
-    if (wasPlayingBeforeInterruption && player) {
+    if (wasPlayingBeforeInterruption && !userPausedFromLockScreen && player) {
       try {
         if (!player.playing) {
           player.play();
@@ -94,6 +95,21 @@ function clearStatusListener() {
   }
 }
 
+function setupStatusListener() {
+  clearStatusListener();
+  if (!player) return;
+  statusListener = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
+    if (status.isLoaded && !status.isPlaying && player?.playing === false) {
+      userPausedFromLockScreen = true;
+      wasPlayingBeforeInterruption = false;
+      if (playStateCallback) playStateCallback(false);
+    } else if (status.isLoaded && status.isPlaying) {
+      userPausedFromLockScreen = false;
+      if (playStateCallback) playStateCallback(true);
+    }
+  });
+}
+
 function destroyPlayer() {
   if (player) {
     try {
@@ -106,6 +122,7 @@ function destroyPlayer() {
     player = null;
   }
   clearStatusListener();
+  userPausedFromLockScreen = false;
 }
 
 export function setPlayStateCallback(cb: PlayStateCallback) {
@@ -154,6 +171,7 @@ export async function playAudio(url: string, owner: AudioOwner = 'ruqyah', loop:
   currentUrl = url;
   currentOwner = owner;
   currentMetadata = metadata || null;
+  setupStatusListener();
   player.play();
   if (metadata) enableLockScreen(metadata);
   if (playStateCallback) playStateCallback(true);
@@ -188,7 +206,18 @@ export async function playAudioWithStatus(
   currentUrl = url;
   currentOwner = owner;
   currentMetadata = metadata || null;
-  statusListener = player.addListener('playbackStatusUpdate', onStatus);
+  clearStatusListener();
+  statusListener = player.addListener('playbackStatusUpdate', (status: AudioStatus) => {
+    if (status.isLoaded && !status.isPlaying && player?.playing === false) {
+      userPausedFromLockScreen = true;
+      wasPlayingBeforeInterruption = false;
+      if (playStateCallback) playStateCallback(false);
+    } else if (status.isLoaded && status.isPlaying) {
+      userPausedFromLockScreen = false;
+      if (playStateCallback) playStateCallback(true);
+    }
+    onStatus(status);
+  });
   player.play();
   if (metadata) enableLockScreen(metadata);
   if (playStateCallback) playStateCallback(true);
@@ -213,6 +242,8 @@ export async function stopAudio(): Promise<void> {
 export async function pauseAudio(): Promise<void> {
   if (player) {
     try {
+      userPausedFromLockScreen = true;
+      wasPlayingBeforeInterruption = false;
       player.pause();
     } catch (e) {
       console.log('Pause error:', e);
@@ -223,6 +254,7 @@ export async function pauseAudio(): Promise<void> {
 export async function resumeAudio(): Promise<void> {
   if (player) {
     try {
+      userPausedFromLockScreen = false;
       player.play();
     } catch (e) {
       console.log('Resume error:', e);

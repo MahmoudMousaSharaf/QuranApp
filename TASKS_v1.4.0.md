@@ -98,3 +98,30 @@
 - CDN URLs (cdn.islamic.network) are public/free, no auth needed ✅
 - AdMob app IDs are public identifiers, not secrets ✅
 - No user data exposed ✅
+
+## v1.4.1 — Fix: Lock Screen Pause/Stop Not Working
+
+### Problem
+- User pauses from notification center / lock screen → audio pauses momentarily → app returns to foreground → auto-resume kicks in → audio starts playing again, ignoring user's pause
+- In-app UI doesn't sync with lock screen pause/resume
+
+### Root Cause
+1. `handleAppStateChange` auto-resumes on `wasPlayingBeforeInterruption` without checking if user paused from lock screen
+2. `playAudio` never set up `playbackStatusUpdate` listener, so lock screen pause/resume events were not propagated to UI
+
+### Fix
+- Added `userPausedFromLockScreen` flag
+- Added `setupStatusListener()` that listens to `playbackStatusUpdate` and syncs UI + sets flag
+- `handleAppStateChange` now checks `!userPausedFromLockScreen` before auto-resuming
+- `pauseAudio()` / `resumeAudio()` set/clear the flag for in-app controls
+- `destroyPlayer()` resets the flag
+
+### Verify
+- `ruqyahAudio.ts` line 25: `userPausedFromLockScreen` flag declared ✅
+- `ruqyahAudio.ts` line 98-111: `setupStatusListener()` listens to playbackStatusUpdate ✅
+- `ruqyahAudio.ts` line 74: `handleAppStateChange` checks `!userPausedFromLockScreen` ✅
+- `ruqyahAudio.ts` line 125: `destroyPlayer` resets `userPausedFromLockScreen` ✅
+- `ruqyahAudio.ts` line 174: `playAudio` calls `setupStatusListener()` ✅
+- `ruqyahAudio.ts` line 209-220: `playAudioWithStatus` merges lock screen sync + user callback ✅
+- `ruqyahAudio.ts` line 245-246: `pauseAudio` sets flag ✅
+- `ruqyahAudio.ts` line 257: `resumeAudio` clears flag ✅

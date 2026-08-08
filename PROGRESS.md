@@ -381,3 +381,31 @@
 #### v1.4.0 Builds
 - **iOS IPA**: ✅ SUCCESS — https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/52f0b283-93d2-44fb-9fdf-35ca59676d9f
 - **Android APK**: ✅ SUCCESS — https://github.com/MahmoudMousaSharaf/QuranApp/releases/download/v1.4.0/app-release.apk
+
+### 22. Fix: Lock Screen Pause/Stop Not Working (v1.4.1) ✅
+
+#### Problem
+- When user pressed pause/stop from the notification center or lock screen, the audio would pause momentarily but then auto-resume when the app came back to foreground
+- The in-app UI (play/pause button) didn't sync with lock screen controls — it stayed stuck on "playing" even after user paused from notification
+
+#### Root Cause
+1. **Auto-resume override**: `handleAppStateChange` had `wasPlayingBeforeInterruption = true` set when app went to background. When app returned to foreground, it auto-resumed playback — undoing the user's pause from the lock screen
+2. **No status listener in `playAudio`**: The `playAudio` function (used by both Quran and Ruqyah screens) never set up a `playbackStatusUpdate` listener, so when the OS paused playback via lock screen controls, the `playStateCallback` was never called and the UI stayed out of sync
+
+#### Fix
+1. Added `userPausedFromLockScreen` flag to track when user pauses from lock screen
+2. Added `setupStatusListener()` function that listens to `playbackStatusUpdate` events and:
+   - When playback pauses (and player is not playing): sets `userPausedFromLockScreen = true`, clears `wasPlayingBeforeInterruption`, calls `playStateCallback(false)` to update UI
+   - When playback resumes: clears `userPausedFromLockScreen`, calls `playStateCallback(true)` to update UI
+3. Modified `handleAppStateChange` to check `!userPausedFromLockScreen` before auto-resuming — if user paused from lock screen, don't auto-resume
+4. Set `userPausedFromLockScreen` flag in `pauseAudio()` and `resumeAudio()` for in-app controls too
+5. Reset flag in `destroyPlayer()` and `stopAudio()`
+6. Merged status listener with user callback in `playAudioWithStatus` so both lock screen sync and user's status callback work
+
+#### How It Works Now
+- User pauses from lock screen → OS pauses player → `playbackStatusUpdate` fires with `isPlaying: false` → `userPausedFromLockScreen = true` → UI updates to paused state
+- User resumes from lock screen → OS resumes player → `playbackStatusUpdate` fires with `isPlaying: true` → `userPausedFromLockScreen = false` → UI updates to playing state
+- App returns to foreground → `handleAppStateChange` checks `userPausedFromLockScreen` → if true, does NOT auto-resume → user's pause choice is respected
+
+#### Files Modified
+- `src/services/ruqyahAudio.ts` — Added `userPausedFromLockScreen` flag, `setupStatusListener()`, updated `handleAppStateChange`, `pauseAudio`, `resumeAudio`, `destroyPlayer`
