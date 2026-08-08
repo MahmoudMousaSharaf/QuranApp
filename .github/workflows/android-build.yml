@@ -39,18 +39,38 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Setup EAS CLI
-        run: npm install -g eas-cli
+      - name: Generate native Android project
+        run: npx expo prebuild --platform android --clean
 
-      - name: Build APK with EAS Local
-        run: eas build --platform android --profile preview --local --non-interactive --output=quran-app.apk
+      - name: Configure SDK and clean cache
+        run: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          rm -rf android/build/generated/autolinking
+
+      - name: Build APK
+        working-directory: android
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx4096m"
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
+        run: |
+          ./gradlew assembleRelease --no-daemon -x lint --stacktrace 2>&1 | tee gradle-output.txt
+          if [ ! -f app/build/outputs/apk/release/app-release.apk ]; then
+            echo "=== BUILD FAILED ==="
+            grep -i "error\|FAILURE\|No matching variant\|exception" gradle-output.txt | tail -30
+            exit 1
+          fi
+
+      - name: Upload build logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: gradle-logs
+          path: android/gradle-output.txt
 
       - name: Upload APK artifact
+        if: success()
         uses: actions/upload-artifact@v4
         with:
           name: quran-app-apk
-          path: quran-app.apk
+          path: android/app/build/outputs/apk/release/*.apk
           retention-days: 30
