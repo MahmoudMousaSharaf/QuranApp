@@ -18,8 +18,7 @@
 - [x] iOS build succeeded (interactive mode with Apple credentials)
 
 ### In Progress
-- [ ] Android APK build via GitHub Actions (local Gradle build on Linux runner)
-- [ ] iOS IPA rebuild with latest fixes (Quran audio + AdMob) — previous build succeeded
+- [ ] iOS IPA rebuild with latest fixes (Quran audio + AdMob + reanimated 4.1.7) — previous build succeeded but needs rebuild with new deps
 
 ### Build History
 - Build #1 (22b75342): FAILED — Gradle error (before AdMob plugin)
@@ -28,12 +27,17 @@
 - Build #4 (5c1f38d7): FAILED — Same Gradle error (expo-build-properties didn't help)
 - Build #5 (396d3203): FAILED — Bare workflow didn't fix it either
 - Build #6 (a0ae937e): FAILED — Same error even WITHOUT AdMob (confirmed EAS cloud infrastructure bug)
+- GitHub Actions #1-#5: FAILED — Various Gradle errors (AGP pinning, autolinking cache, debug build attempts)
+- GitHub Actions #6 (31252672597): **SUCCESS** — Android APK built successfully (56.5 MB)
 - iOS Build (f1eb102a): SUCCESS — IPA available at EAS dashboard
 
-### Root Cause Analysis
-- **Why iOS worked but Android didn't**: iOS uses Xcode (xcodebuild), Android uses Gradle. The "No matching variant" error is a Gradle-specific issue in EAS Build cloud infrastructure (GitHub issues #42370, #47354, #42730).
-- **EAS Build cloud bug**: EAS Build cloud environment has an AGP version mismatch that causes all React Native native module subprojects to produce zero variants. This is a server-side issue, not a project code issue.
-- **Fix**: Build Android APK directly on GitHub Actions Linux runner using `expo prebuild` + `./gradlew assembleRelease`, bypassing EAS Build cloud entirely.
+### Root Cause Analysis (Final)
+- **Actual root cause**: Two separate issues caused Android build failures:
+  1. `react-native-google-mobile-ads` v14.7.2 used `currentActivity` property which was **removed in React Native 0.81** (Expo SDK 54). Fix: upgraded to v16.0.0.
+  2. `react-native-reanimated` v3.18.2 had C++ `ShadowNode` type errors with RN 0.81's Fabric headers. Fix: upgraded to v4.1.7 (SDK 54 compatible).
+- **Why iOS worked but Android didn't**: iOS doesn't compile C++/Kotlin native modules the same way Android does. The Kotlin `currentActivity` and C++ `ShadowNode` issues are Android-specific.
+- **EAS Build cloud**: Was also failing due to the same dependency issues, not an EAS infrastructure bug as initially suspected.
+- **Final fix**: Upgraded `react-native-google-mobile-ads` to v16.0.0 and `react-native-reanimated` to v4.1.7. Build now succeeds on GitHub Actions.
 
 ### iOS Build Process (Documented)
 1. Run `eas build --platform ios --profile preview` (interactive mode)
@@ -46,8 +50,7 @@
 - **Note**: iOS build succeeded because it uses Xcode, not Gradle. The "No matching variant" error is Gradle-specific (Android only).
 
 ### Pending
-- [ ] Get EXPO_TOKEN secret set in GitHub repo
-- [ ] Successful Android APK build + download link
+- [x] Successful Android APK build on GitHub Actions (run #31252672597)
 - [ ] Successful iOS IPA rebuild + download link
 - [ ] Test background audio on real devices
 - [ ] Create new app in App Store Connect named "The Truth - Al Haq"
@@ -75,11 +78,11 @@
 - Banner Ad Unit ID (production): `ca-app-pub-7095033876130680/7610704737`
 - Test Banner Android: `ca-app-pub-3940256099942544/6300978111`
 - Test Banner iOS: `ca-app-pub-3940256099942544/2934735716`
-- Plugin: `react-native-google-mobile-ads` ~14.7.2
+- Plugin: `react-native-google-mobile-ads` v16.0.0 (upgraded from v14.7.2 to fix RN 0.81 `currentActivity` removal)
 - Internal builds use test ad IDs; production builds use real ad IDs
 
 ### Quran Audio Configuration
-- Source: Islamic Network CDN (`https://cdn.islamic.network/quran/audio-surah/{reciter}/{surah}.mp3`)
+- Source: Islamic Network CDN (`https://cdn.islamic.network/quran/audio-surah/128/{reciter}/{surah}.mp3`)
 - Playback: Full surah (single URL, `loop=false`) — same as Ruqyah
 - Background: Works because no JS callbacks needed (native audio session handles background)
 - Reciters: Alafasy, Abdul Basit, Hussary, Minshawi, Basfar, Rifai, Shuraim
@@ -102,3 +105,5 @@
 ## Build Links
 - EAS Dashboard: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds
 - Android Build #5: https://expo.dev/accounts/majmod/projects/the-truth-al-haq/builds/396d3203-b659-493e-8b8d-2686050b04ae
+- GitHub Actions Android APK (SUCCESS): https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597
+- APK Artifact download: https://github.com/MahmoudMousaSharaf/QuranApp/actions/runs/31252672597/artifacts/9020718978
