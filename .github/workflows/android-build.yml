@@ -42,6 +42,14 @@ jobs:
       - name: Generate native Android project
         run: npx expo prebuild --platform android --clean
 
+      - name: Configure Android SDK path
+        run: |
+          echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
+          echo "ndk.dir=$ANDROID_SDK_ROOT/ndk/27.1.12297006" >> android/local.properties
+
+      - name: Clean autolinking cache
+        run: rm -rf android/build/generated/autolinking
+
       - name: Build APK
         working-directory: android
         run: ./gradlew assembleRelease --no-daemon -x lint --stacktrace

@@ -47,7 +47,7 @@ const RECITERS = [
 ];
 
 function getSurahAudioUrl(reciterId: string, surahNumber: number): string {
-  return `https://cdn.islamic.network/quran/audio-surah/${reciterId}/${surahNumber}.mp3`;
+  return `https://cdn.islamic.network/quran/audio-surah/128/${reciterId}/${surahNumber}.mp3`;
 }
 
 const QuranAudioScreen: React.FC<QuranAudioScreenProps> = ({ onBack, surahs }) => {

@@ -247,7 +247,7 @@ const SupportUsScreen: React.FC<SupportUsScreenProps> = ({ onBack }) => {
             >
               <BannerAd
                 unitId={getBannerAdUnitId()}
-                size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
+                size={BannerAdSize.LARGE_BANNER}
                 onAdFailedToLoad={(error: any) => {
                   console.warn('AdMob banner failed to load:', error);
                   setAdFailed(true);
@@ -364,14 +364,20 @@ const styles = StyleSheet.create({
   adContainer: {
     borderRadius: 12,
     marginBottom: 20,
-    borderWidth: 1,
+    marginTop: 4,
+    borderWidth: 2,
     borderStyle: 'dashed',
-    padding: 16,
+    padding: 24,
+    marginHorizontal: 4,
+    alignItems: 'center',
+    minHeight: 120,
+    justifyContent: 'center',
   },
   adPlaceholderBox: {
     alignItems: 'center',
-    paddingVertical: 24,
+    paddingVertical: 32,
     borderRadius: 8,
+    width: '100%',
   },
   adPlaceholderTitle: { fontSize: 16, fontWeight: 'bold', marginTop: 8 },
   adPlaceholderText: { fontSize: 12, marginTop: 4, textAlign: 'center' },
