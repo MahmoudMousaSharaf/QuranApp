@@ -68,6 +68,12 @@ jobs:
           grep -n "gradle" android/build.gradle | head -5
           echo "=== gradle-wrapper.properties ==="
           cat android/gradle/wrapper/gradle-wrapper.properties
+          
+          # Print all subproject build.gradle files to find AGP conflicts
+          echo "=== Searching for AGP version declarations in node_modules ==="
+          find node_modules -name "build.gradle" -exec grep -l "com.android.tools.build:gradle" {} \; 2>/dev/null | head -20
+          echo "=== AGP versions found ==="
+          grep -r "com.android.tools.build:gradle" node_modules/*/android/build.gradle 2>/dev/null | head -20
 
       - name: Configure SDK path
         run: |
