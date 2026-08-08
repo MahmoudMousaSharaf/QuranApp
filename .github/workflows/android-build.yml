@@ -42,69 +42,20 @@ jobs:
       - name: Generate native Android project
         run: npx expo prebuild --platform android --clean
 
-      - name: Patch Gradle config (fix No matching variant)
-        run: |
-          # Pin AGP version to 8.9.2 to avoid 8.11.0 bug
-          sed -i "s|classpath('com.android.tools.build:gradle')|classpath('com.android.tools.build:gradle:8.9.2')|" android/build.gradle
-          
-          # Also pin in settings.gradle pluginManagement if exists
-          sed -i "s|classpath('com.android.tools.build:gradle')|classpath('com.android.tools.build:gradle:8.9.2')|" android/settings.gradle 2>/dev/null || true
-          
-          # Add autolinking cache cleanup to settings.gradle
-          cat > /tmp/autolinking_fix.txt << 'EOF'
-          // Force-delete autolinking cache (fix path mismatch)
-          def autolinkingCacheDir = new File(rootDir, "build/generated/autolinking")
-          if (!System.getProperty("os.name").toLowerCase().contains("windows")) {
-            autolinkingCacheDir.deleteDir()
-          }
-          EOF
-          sed -i '1r /tmp/autolinking_fix.txt' android/settings.gradle
-          
-          # Clean any existing cache
-          rm -rf android/build/generated/autolinking
-          
-          # Verify patches
-          echo "=== build.gradle dependencies ==="
-          grep -n "gradle" android/build.gradle | head -5
-          echo "=== gradle-wrapper.properties ==="
-          cat android/gradle/wrapper/gradle-wrapper.properties
-          
-          # Print all subproject build.gradle files to find AGP conflicts
-          echo "=== Searching for AGP version declarations in node_modules ==="
-          find node_modules -name "build.gradle" -exec grep -l "com.android.tools.build:gradle" {} \; 2>/dev/null | head -20
-          echo "=== AGP versions found ==="
-          grep -r "com.android.tools.build:gradle" node_modules/*/android/build.gradle 2>/dev/null | head -20
-
       - name: Configure SDK path
         run: |
           echo "sdk.dir=$ANDROID_SDK_ROOT" > android/local.properties
-          echo "=== settings.gradle ==="
-          cat android/settings.gradle
-          echo "=== app/build.gradle (first 30 lines) ==="
-          head -30 android/app/build.gradle
 
-      - name: Build APK (Debug first to isolate issue)
+      - name: Build APK
         working-directory: android
         env:
           GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.jvmargs=-Xmx4096m"
           ANDROID_SDK_ROOT: ${{ env.ANDROID_SDK_ROOT }}
         run: |
-          echo "=== Trying debug build first ==="
-          set -o pipefail
-          ./gradlew assembleDebug --no-daemon -x lint --stacktrace 2>&1 | tee gradle-output.txt || true
-          echo "=== GRADLE OUTPUT (last 100 lines) ==="
-          tail -100 gradle-output.txt
-          if [ -f app/build/outputs/apk/debug/app-debug.apk ]; then
-            echo "=== Debug build succeeded, now trying release ==="
-            ./gradlew assembleRelease --no-daemon -x lint --stacktrace 2>&1 | tee -a gradle-output.txt || true
-            echo "=== RELEASE OUTPUT (last 100 lines) ==="
+          ./gradlew assembleRelease --no-daemon -x lint --stacktrace 2>&1 | tee gradle-output.txt
+          if [ ! -f app/build/outputs/apk/release/app-release.apk ]; then
+            echo "=== BUILD FAILED ==="
             tail -100 gradle-output.txt
-            if [ ! -f app/build/outputs/apk/release/app-release.apk ]; then
-              echo "=== RELEASE BUILD FAILED ==="
-              exit 1
-            fi
-          else
-            echo "=== DEBUG BUILD FAILED ==="
             exit 1
           fi
 
@@ -120,7 +71,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: quran-app-apk
-          path: |
-            android/app/build/outputs/apk/release/*.apk
-            android/app/build/outputs/apk/debug/*.apk
+          path: android/app/build/outputs/apk/release/*.apk
           retention-days: 30
